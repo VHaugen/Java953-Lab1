@@ -3,11 +3,22 @@ import java.awt.*;
 public abstract class Car {
 
 
-    public int nrDoors; // Number of doors on the car
-    public double enginePower; // Engine power of the car
-    public double currentSpeed; // The current speed of the car
-    public Color color; // Color of the car
+
+    protected int nrDoors; // Number of doors on the car
+    protected double enginePower; // Engine power of the car
+    protected double currentSpeed; // The current speed of the car
+    protected Color color; // Color of the car
     public String modelName; // The car model name
+
+    Car(int _nrDoors,double _enginePower, Color _color, String _modelName)
+    {
+        nrDoors = _nrDoors;
+        enginePower = _enginePower;
+        color = _color;
+        modelName = _modelName;
+        stopEngine();
+    }
+
 
     public int getNrDoors(){
         return nrDoors;
@@ -32,11 +43,11 @@ public abstract class Car {
         currentSpeed = 0.1;
     }
 
-    abstract public void incrementSpeed(double amount);
+    abstract protected void incrementSpeed(double amount);
 
-    abstract public void decrementSpeed(double amount);
+    abstract protected void decrementSpeed(double amount);
 
-    abstract public double speedFactor();
+    abstract protected double speedFactor();
 
     public void stopEngine(){
         currentSpeed = 0;

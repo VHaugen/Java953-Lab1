@@ -105,13 +105,31 @@ public abstract class Car implements Movable {
     }
 
     // TODO fix this method according to lab pm
+
+    /**
+     *
+     * @param amount Accepts values between 0-1 for gassing.
+     */
     public void gas(double amount) {
-        incrementSpeed(amount);
+        if (0 < amount && 1 >= amount) {
+            incrementSpeed(amount);
+        } else {
+            throw new IllegalArgumentException("Only values between 0 and 1!");
+        }
+
     }
 
     // TODO fix this method according to lab pm
+    /**
+     *
+     * @param amount Accepts values between 0-1 for gassing.
+     */
     public void brake(double amount) {
-        decrementSpeed(amount);
+        if (0 < amount && 1 >= amount) {
+            decrementSpeed(amount);
+        } else {
+            throw new IllegalArgumentException("Only values between 0 and 1!");
+        }
     }
 
     /**

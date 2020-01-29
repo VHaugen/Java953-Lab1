@@ -111,12 +111,19 @@ public abstract class Car implements Movable {
      * @param amount Accepts values between 0-1 for gassing.
      */
     public void gas(double amount) {
-        if (0 < amount && 1 >= amount) {
+        if (acceptableValue(amount))
             incrementSpeed(amount);
-        } else {
-            throw new IllegalArgumentException("Only values between 0 and 1!");
-        }
+    }
 
+    /**
+     * Function will check if value is in a acceptable range 0-1(0%-100%)
+     * @param amount Same value you use in gas and break
+     * @return Will return true if value is in a acceptable range or throw an exception!
+     */
+    private Boolean acceptableValue(double amount) {
+        if (0 < amount && 1 >= amount)
+            return true;
+        throw new IllegalArgumentException("Only values between 0 and 1!");
     }
 
     // TODO fix this method according to lab pm
@@ -125,11 +132,8 @@ public abstract class Car implements Movable {
      * @param amount Accepts values between 0-1 for gassing.
      */
     public void brake(double amount) {
-        if (0 < amount && 1 >= amount) {
+        if (acceptableValue(amount))
             decrementSpeed(amount);
-        } else {
-            throw new IllegalArgumentException("Only values between 0 and 1!");
-        }
     }
 
     /**

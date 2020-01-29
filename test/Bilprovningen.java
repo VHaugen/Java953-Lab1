@@ -16,9 +16,13 @@ public class Bilprovningen {
 
     }
 
+    @Before
+    public void init() {
+        volvo = new Volvo240();
+    }
+
     @Test
     public void testIncrementSpeedVolvo(){
-        volvo = new Volvo240();
         volvo.startEngine();
         double initialSpeed = volvo.getCurrentSpeed();
 
@@ -30,7 +34,6 @@ public class Bilprovningen {
 
     @Test
     public void testDecrementSpeedVolvo(){
-        volvo = new Volvo240();
         volvo.startEngine();
         volvo.incrementSpeed(10);
         double initialSpeed = volvo.getCurrentSpeed();
@@ -38,6 +41,32 @@ public class Bilprovningen {
         volvo.decrementSpeed(10);
 
         assertTrue(initialSpeed > volvo.getCurrentSpeed());
+
+    }
+
+    @Test
+    public void testHandBrakeTurnLeft() {
+        volvo.velY = 1;
+        volvo.velX = 1;
+
+        volvo.ternLeft();
+        volvo.ternLeft();
+
+        assertTrue(volvo.velX == -1 && volvo.velY == -1);
+
+
+    }
+
+    @Test
+    public void testSpinLeft() {
+        double initVelX = volvo.velX;
+        double initVelY = volvo.velY;
+
+        for (int i = 0; i < 4; i++) {
+            volvo.ternLeft();
+        }
+
+        assertTrue(initVelX == volvo.velX && initVelY == volvo.velY);
 
     }
 

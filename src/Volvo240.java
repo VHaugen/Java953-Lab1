@@ -3,12 +3,12 @@ import java.awt.*;
 public class Volvo240 extends Car {
 
     /**
-     * Increased amount of horsepowers, if you tune your engine.
+     * The increased/decreased amount of horsepower in a tuned configuration.
      */
     public final static double trimFactor = 1.25;
 
     /**
-     * Creates a standard Volvo 240.
+     * Creates a standard <b>Volvo 240</b>.
      */
     public Volvo240() {
         super(4, 100, Color.BLACK, "Volovo240");

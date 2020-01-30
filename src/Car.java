@@ -28,6 +28,10 @@ public abstract class Car implements Movable {
         enginePower = _enginePower;
         color = _color;
         modelName = _modelName;
+        velX = 0;
+        velY = 1;
+        posX = 0;
+        posY = 0;
         stopEngine();
     }
 
@@ -114,11 +118,11 @@ public abstract class Car implements Movable {
             incrementSpeed(amount);
     }
 
-     // Function will check if value is in a acceptable range 0-1(0%-100%)
-     //
-     // @param gasAmount Determining value for acceptable percentage amount.
-     // @return Will return true if value is in a acceptable range or throw an exception!
-     //
+    // Function will check if value is in a acceptable range 0-1(0%-100%)
+    //
+    // @param gasAmount Determining value for acceptable percentage amount.
+    // @return Will return true if value is in a acceptable range or throw an exception!
+    //
     private Boolean acceptableValue(double gasAmount) {
         if (0 < gasAmount && 1 >= gasAmount)
             return true;

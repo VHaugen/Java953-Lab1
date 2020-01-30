@@ -2,8 +2,7 @@ import org.junit.*;
 
 import java.awt.*;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class Bilprovningen {
@@ -166,4 +165,14 @@ public class Bilprovningen {
         assertTrue(noTurboSpeed < turboSpeed);
     }
 
+    @Test
+    public void testAcceptableValue () {
+        Exception a = null;
+        try {
+            testCar.acceptableValue(1.1);
+        } catch (Exception e) {
+            a = e;
+        }
+        assertEquals("Only values between 0 and 1!", a.getMessage());
+    }
 }

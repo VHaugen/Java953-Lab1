@@ -1,5 +1,8 @@
 import org.junit.*;
 
+import java.awt.*;
+
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 
@@ -29,7 +32,7 @@ public class Bilprovningen {
     }
 
     @Test
-    public void testGasVolvo(){
+    public void testGasVolvo() {
         double initialSpeed = testCar.getCurrentSpeed();
 
         testCar.gas(1);
@@ -37,8 +40,9 @@ public class Bilprovningen {
         assertTrue(initialSpeed < testCar.getCurrentSpeed());
 
     }
+
     @Test
-    public void testFullGasVolvo(){
+    public void testFullGasVolvo() {
         for (int i = 0; i < 200; i++) {
             testCar.gas(1);
         }
@@ -55,7 +59,7 @@ public class Bilprovningen {
     }
 
     @Test
-    public void testBrakeVolvo(){
+    public void testBrakeVolvo() {
         testCar.gas(1);
         double initialSpeed = testCar.getCurrentSpeed();
 
@@ -112,6 +116,32 @@ public class Bilprovningen {
         testCar.move();
 
         assertTrue(initialX < testCar.posX);
+    }
+
+    ///
+    /// TESTING GETTERS AND SETTERS
+    ///
+    @Test
+    public void testGetAndSetColor() {
+        testCar.setColor(Color.CYAN);
+        assertSame(testCar.getColor(), Color.CYAN);
+    }
+
+    @Test
+    public void testGetAndSetnrDoors() {
+        assertSame(testCar.nrDoors, testCar.getNrDoors());
+    }
+
+    @Test
+    public void testGetEnginePower()
+    {
+        assertSame(testCar.enginePower,testCar.getEnginePower());
+    }
+
+    @Test
+    public void testGetCurrentSpeed()
+    {
+        assertSame(testCar.currentSpeed,testCar.getCurrentSpeed());
     }
 
 }

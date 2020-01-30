@@ -14,9 +14,9 @@ public abstract class Car implements Movable {
 
 
     /**
-     * Returns an Image object that can then be painted on the screen.
-     * The url argument must specify an absolute . The name
-     * argument is a specifier that is relative to the url argument.
+     * This constructor is generic and is made to take standard arguments
+     * to specify only the neccasery arguments for creating a car.
+     * OR SO IM TOLD?!?!?!
      *
      * @param _nrDoors     The number of doors of this <code>Car</code>.
      * @param _enginePower The power of the engine in BHP.
@@ -118,11 +118,11 @@ public abstract class Car implements Movable {
             incrementSpeed(amount);
     }
 
-    // Function will check if value is in a acceptable range 0-1(0%-100%)
-    //
-    // @param gasAmount Determining value for acceptable percentage amount.
-    // @return Will return true if value is in a acceptable range or throw an exception!
-    //
+    /** Function will check if value is in a acceptable range 0-1(0%-100%)
+    *
+    * @param gasAmount Determining value for acceptable percentage amount.
+    * @return Will return true if value is in a acceptable range or throw an exception!
+    */
     private Boolean acceptableValue(double gasAmount) {
         if (0 < gasAmount && 1 >= gasAmount)
             return true;

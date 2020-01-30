@@ -13,16 +13,15 @@ public abstract class Car implements Movable {
     public double velY;
 
 
-
     /**
      * Returns an Image object that can then be painted on the screen.
      * The url argument must specify an absolute . The name
      * argument is a specifier that is relative to the url argument.
      *
-     * @param  _nrDoors  The number of doors of this <code>Car</code>.
-     * @param  _enginePower  The power of the engine in BHP.
-     * @param  _color  The <code>Color</code> of this <code>Car</code>.
-     * @param  _modelName  The model name of this <code>Car</code>
+     * @param _nrDoors     The number of doors of this <code>Car</code>.
+     * @param _enginePower The power of the engine in BHP.
+     * @param _color       The <code>Color</code> of this <code>Car</code>.
+     * @param _modelName   The model name of this <code>Car</code>
      */
     Car(int _nrDoors, double _enginePower, Color _color, String _modelName) {
         nrDoors = _nrDoors;
@@ -35,7 +34,7 @@ public abstract class Car implements Movable {
     /**
      * Gets the number of doors
      *
-     * @return  The number of doors
+     * @return The number of doors
      */
     public int getNrDoors() {
         return nrDoors;
@@ -44,7 +43,7 @@ public abstract class Car implements Movable {
     /**
      * Gets the engine power
      *
-     * @return  The engine power
+     * @return The engine power
      */
     public double getEnginePower() {
         return enginePower;
@@ -53,7 +52,7 @@ public abstract class Car implements Movable {
     /**
      * Gets the current speed
      *
-     * @return  The current speed
+     * @return The current speed
      */
     public double getCurrentSpeed() {
         return currentSpeed;
@@ -62,14 +61,13 @@ public abstract class Car implements Movable {
     /**
      * Gets the <code>Color</code>
      *
-     * @return  The <code>Color</code>
+     * @return The <code>Color</code>
      */
     public Color getColor() {
         return color;
     }
 
     /**
-     *
      * @param clr The new <code>Color</code> of this <code>Car</code>
      */
     public void setColor(Color clr) {
@@ -85,12 +83,14 @@ public abstract class Car implements Movable {
 
     /**
      * Increments the speed of this <code>Car</code>.
+     *
      * @param amount How much the speed will be incremented.
      */
     abstract protected void incrementSpeed(double amount);
 
     /**
      * Decrements the speed of this <code>Car</code>.
+     *
      * @param amount How much the speed will be Decremented.
      */
     abstract protected void decrementSpeed(double amount);
@@ -107,7 +107,6 @@ public abstract class Car implements Movable {
     // TODO fix this method according to lab pm
 
     /**
-     *
      * @param amount Accepts values between 0-1 for gassing.
      */
     public void gas(double amount) {
@@ -115,20 +114,20 @@ public abstract class Car implements Movable {
             incrementSpeed(amount);
     }
 
-    /**
-     * Function will check if value is in a acceptable range 0-1(0%-100%)
-     * @param amount Same value you use in gas and break
-     * @return Will return true if value is in a acceptable range or throw an exception!
-     */
-    private Boolean acceptableValue(double amount) {
-        if (0 < amount && 1 >= amount)
+     // Function will check if value is in a acceptable range 0-1(0%-100%)
+     //
+     // @param gasAmount Determining value for acceptable percentage amount.
+     // @return Will return true if value is in a acceptable range or throw an exception!
+     //
+    private Boolean acceptableValue(double gasAmount) {
+        if (0 < gasAmount && 1 >= gasAmount)
             return true;
         throw new IllegalArgumentException("Only values between 0 and 1!");
     }
 
     // TODO fix this method according to lab pm
+
     /**
-     *
      * @param amount Accepts values between 0-1 for gassing.
      */
     public void brake(double amount) {
@@ -142,16 +141,15 @@ public abstract class Car implements Movable {
     public void move() {
         posX += velX * currentSpeed;
         posY += velY * currentSpeed;
-
     }
 
     /**
      * Changes the current direction 90° to the left.
      */
-    public void ternLeft() {
+    public void turnLeft() {
         double tempVel = velX;
-        velX = velY;
-        velY = -tempVel ;
+        velX = -velY;
+        velY = tempVel;
     }
 
     /**
@@ -159,10 +157,7 @@ public abstract class Car implements Movable {
      */
     public void turnRight() {
         double tempVel = velX;
-        velX = -velY;
-        velY = tempVel;
-
+        velX = velY;
+        velY = -tempVel;
     }
-
-
 }

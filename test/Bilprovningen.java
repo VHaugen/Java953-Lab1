@@ -49,8 +49,8 @@ public class Bilprovningen {
         volvo.velY = 1;
         volvo.velX = 1;
 
-        volvo.ternLeft();
-        volvo.ternLeft();
+        volvo.turnLeft();
+        volvo.turnLeft();
 
         assertTrue(volvo.velX == -1 && volvo.velY == -1);
 
@@ -63,11 +63,44 @@ public class Bilprovningen {
         double initVelY = volvo.velY;
 
         for (int i = 0; i < 4; i++) {
-            volvo.ternLeft();
+            volvo.turnLeft();
         }
 
         assertTrue(initVelX == volvo.velX && initVelY == volvo.velY);
 
+    }
+
+    @Test
+    public void testDriveToTheLeft() {
+        int initialX = 0;
+        volvo.posX = initialX;
+        volvo.posY = 0;
+        volvo.velX = 0;
+        volvo.velY = 1;
+
+        volvo.startEngine();
+        volvo.gas(1);
+        volvo.turnLeft();
+        volvo.move();
+
+        assertTrue(initialX > volvo.posX);
+
+    }
+
+    @Test
+    public void testDriveToTheRight() {
+        int initialX = 0;
+        volvo.posX = initialX;
+        volvo.posY = 0;
+        volvo.velX = 0;
+        volvo.velY = 1;
+
+        volvo.startEngine();
+        volvo.gas(1);
+        volvo.turnRight();
+        volvo.move();
+
+        assertTrue(initialX < volvo.posX);
     }
 
 }

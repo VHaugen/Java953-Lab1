@@ -26,7 +26,6 @@ public class Saab95 extends Car {
     }
 
     /**
-     *
      * @return Returns higher speed if turbo is on.
      */
     @Override
@@ -43,7 +42,7 @@ public class Saab95 extends Car {
      */
     @Override
     protected void incrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, 0);
     }
 
     /**
@@ -53,7 +52,7 @@ public class Saab95 extends Car {
      */
     @Override
     protected void decrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, enginePower);
     }
 
 }

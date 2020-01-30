@@ -135,13 +135,35 @@ public class Bilprovningen {
     @Test
     public void testGetEnginePower()
     {
-        assertSame(testCar.enginePower,testCar.getEnginePower());
+        assertTrue(testCar.enginePower ==testCar.getEnginePower());
     }
 
     @Test
     public void testGetCurrentSpeed()
     {
-        assertSame(testCar.currentSpeed,testCar.getCurrentSpeed());
+        assertTrue(testCar.currentSpeed == testCar.getCurrentSpeed());
+    }
+
+    @Test
+    public void testTurboOn()
+    {
+        saab = new Saab95();
+        saab.startEngine();
+        saab.setTurboOff();
+        for (int i = 0; i < 10; i++) {
+            saab.gas(1);
+        }
+        double noTurboSpeed = saab.getCurrentSpeed();
+
+        saab.stopEngine();
+        saab.startEngine();
+        saab.setTurboOn();
+        for (int i = 0; i < 10; i++) {
+            saab.gas(1);
+        }
+        double turboSpeed = saab.getCurrentSpeed();
+
+        assertTrue(noTurboSpeed < turboSpeed);
     }
 
 }

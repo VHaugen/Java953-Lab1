@@ -1,15 +1,10 @@
 import java.awt.*;
 
 public class Saab95 extends Car {
+    private boolean turboOn;
 
-
-    public boolean turboOn;
     /**
-     * is a constructor...
-     * @param _nrDoors The number of doors.
-     * @param _enginePower The power of the engine in BHP.
-     * @param _color The color of the car
-     * @param _modelName The name of the car.
+     * Creates a custom standard <b>Saab 95</b>.
      */
     public Saab95() {
         super(2, 125, Color.red, "Saab95");
@@ -17,22 +12,22 @@ public class Saab95 extends Car {
     }
 
     /**
-     * Turbo OFF!!!!
+     * Turbo turns on.
      */
     public void setTurboOn() {
         turboOn = true;
     }
 
     /**
-     * Turbo OFF!!!
+     * Turbo turns off.
      */
     public void setTurboOff() {
         turboOn = false;
     }
 
     /**
-     *This func will change your speed!
-     * @return Returns turbo speed or decrements speed
+     *
+     * @return Returns higher speed if turbo is on.
      */
     @Override
     protected double speedFactor() {
@@ -42,20 +37,22 @@ public class Saab95 extends Car {
     }
 
     /**
-     *This func will increase speed depending on the value of the parameter!
-     * @param amount Amount to increase speed with.
+     * Increases total speed depending on value entered.
+     *
+     * @param amount Increases current speed.
      */
     @Override
-    public void incrementSpeed(double amount) {
+    protected void incrementSpeed(double amount) {
         currentSpeed = getCurrentSpeed() + speedFactor() * amount;
     }
 
     /**
-     *This func will decrease speed depending on the value of the parameter!
-     * @param amount Amount to decrease speed with.
+     * Decreases total speed depending on value entered.
+     *
+     * @param amount Decreases current speed.
      */
     @Override
-    public void decrementSpeed(double amount) {
+    protected void decrementSpeed(double amount) {
         currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
 

@@ -7,6 +7,11 @@ public class Bilprovningen {
     Volvo240 volvo;
     Saab95 saab;
 
+    @Before
+    public void init() {
+        volvo = new Volvo240();
+    }
+
     @Test
     public void testStartEngineVolvo(){
         volvo = new Volvo240();
@@ -16,29 +21,34 @@ public class Bilprovningen {
 
     }
 
-    @Before
-    public void init() {
-        volvo = new Volvo240();
+    @Test
+    public void testMove() {
+        double initialPosY = volvo.posY;
+        volvo.startEngine();
+        volvo.gas(1);
+        volvo.move();
+
+        assertTrue(volvo.posY > initialPosY);
     }
 
     @Test
-    public void testIncrementSpeedVolvo(){
+    public void testGasVolvo(){
         volvo.startEngine();
         double initialSpeed = volvo.getCurrentSpeed();
 
-        volvo.incrementSpeed(10);
+        volvo.gas(1);
 
         assertTrue(initialSpeed < volvo.getCurrentSpeed());
 
     }
 
     @Test
-    public void testDecrementSpeedVolvo(){
+    public void testBrakeVolvo(){
         volvo.startEngine();
-        volvo.incrementSpeed(10);
+        volvo.gas(1);
         double initialSpeed = volvo.getCurrentSpeed();
 
-        volvo.decrementSpeed(10);
+        volvo.brake(1);
 
         assertTrue(initialSpeed > volvo.getCurrentSpeed());
 
@@ -72,11 +82,7 @@ public class Bilprovningen {
 
     @Test
     public void testDriveToTheLeft() {
-        int initialX = 0;
-        volvo.posX = initialX;
-        volvo.posY = 0;
-        volvo.velX = 0;
-        volvo.velY = 1;
+        double initialX = 0;
 
         volvo.startEngine();
         volvo.gas(1);
@@ -89,11 +95,7 @@ public class Bilprovningen {
 
     @Test
     public void testDriveToTheRight() {
-        int initialX = 0;
-        volvo.posX = initialX;
-        volvo.posY = 0;
-        volvo.velX = 0;
-        volvo.velY = 1;
+        double initialX = 0;
 
         volvo.startEngine();
         volvo.gas(1);

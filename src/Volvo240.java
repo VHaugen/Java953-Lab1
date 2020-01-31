@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Volvo240 extends Car {
+public class Volvo240 extends PersonCar {
 
     /**
      * The increased/decreased amount of horsepower in a tuned configuration.

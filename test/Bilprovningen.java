@@ -69,6 +69,18 @@ public class Bilprovningen {
     }
 
     @Test
+    public void testBrakeSaab() {
+        saab = new Saab95();
+        saab.gas(1);
+        double initialSpeed = saab.getCurrentSpeed();
+
+        saab.brake(1);
+
+        assertTrue(initialSpeed > saab.getCurrentSpeed());
+
+    }
+
+    @Test
     public void testHandBrakeTurnLeft() {
         testCar.velY = 1;
         testCar.velX = 1;

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class Ferry extends Motorized {
+public class Ferry extends Motorized implements ITransporter {
     Bed bed;
     private static final int maxLaneLength = 5;
     private int numOfLanes;
@@ -23,6 +23,16 @@ public class Ferry extends Motorized {
         numOfLanes = _numOfLanes;
     }
 
+
+    @Override
+    public void load() {
+
+    }
+
+    @Override
+    public void unload() {
+
+    }
 
 
 

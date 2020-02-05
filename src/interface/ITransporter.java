@@ -3,7 +3,7 @@ public interface ITransporter {
 
     void unload();
 
-    void raiseRamp();
+/*    void raiseRamp();
 
-    void lowerRamp();
+    void lowerRamp();*/
     }

@@ -10,6 +10,22 @@ abstract public class Motorized implements IMovable {
     public double velX;
     public double velY;
 
+    public double getPosX() {
+        return posX;
+    }
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    public double getPosY() {
+        return posY;
+    }
+
+    public void setPosY(double posY) {
+        this.posY = posY;
+    }
+
     /**
      * This constructor is generic and is made to take standard arguments
      * to specify only the neccasery arguments for creating a car.

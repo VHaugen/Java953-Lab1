@@ -1,2 +1,2 @@
-public interface IFerry {
+public interface IFerry extends IMovable {
 }

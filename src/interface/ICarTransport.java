@@ -1,2 +1,2 @@
-public interface ICarTransport {
+public interface ICarTransport extends IMovable{
 }

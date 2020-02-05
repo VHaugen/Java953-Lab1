@@ -5,4 +5,12 @@ public interface IMovable {
 
     void turnRight();
 
+    double getPosX();
+
+    double getPosY();
+
+    void setPosX(double x);
+
+    void setPosY(double y);
+
 }

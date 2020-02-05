@@ -72,20 +72,25 @@ abstract public class Motorized implements IMovable {
     }
 
     /**
-     * Increments the speed of this <code>Car</code>.
+     * Increments the speed of this <code>Motorized Object</code>.
      *
      * @param amount How much the speed will be incremented.
      */
-    abstract protected void incrementSpeed(double amount);
-
+    protected void incrementSpeed(double amount) {
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
+    }
     /**
-     * Decrements the speed of this <code>Car</code>.
+     * Decrements the speed of this <code>Motorized Object</code>.
      *
      * @param amount How much the speed will be Decremented.
      */
-    abstract protected void decrementSpeed(double amount);
+    protected void decrementSpeed(double amount) {
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
 
-    abstract protected double speedFactor();
+    protected double speedFactor() {
+        return enginePower * 0.01;
+    }
 
     /**
      * Sets the current speed to 0.

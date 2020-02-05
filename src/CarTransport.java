@@ -10,20 +10,36 @@ public class CarTransport extends Truck {
         trailer = new Stack<>();
     }
 
+    /**
+     * Raises the bed to 90°.
+     */
     public void raiseRamp() {
-        bed.raise();
-
+        if (currentSpeed == 0) {
+            bed.raise();
+        }
     }
 
+    /**
+     * Lowers the bed to 0°.
+     */
     protected void lowerRamp() {
         bed.lower();
 
     }
 
+    /**
+     * Load a car to the trailer
+     *
+     * @param car The car that will be loaded to the trailer.
+     */
     public void load(ICarTransport car) {
         trailer.add(car);
     }
 
+    /**
+     *
+     * @return T
+     */
     public ICarTransport unLoad() {
         return trailer.pop();
     }

@@ -19,6 +19,12 @@ abstract public class Truck extends Car {
         bed = new Bed(bedIncrement, maxAngle);
     }
 
+    @Override
+    public void gas(double amount) {
+        if (acceptableValue(amount) && bed.getAngle() == 0)
+            incrementSpeed(amount);
+    }
+
     public int getBedAngle() {
         return bed.getAngle();
     }

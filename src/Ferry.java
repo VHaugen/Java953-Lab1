@@ -39,33 +39,37 @@ public class Ferry extends Motorized implements ITransporter {
      *             If full it tries to add to the other. Else full.
      */
 
-    public void load(IFerry item, int lane) {
+    public boolean load(IFerry item, int lane) {
         if (bed.getAngle() == 0 && currentSpeed == 0) {
             if (lane < numOfLanes) {
                 if (lanes.get(lane).size() < maxLaneLength) {
                     lanes.get(lane).add(item);
                     checkLane(lane);
+                    return true;
                 } else {
                     for (int i = 0; i < isLaneFull.length; i++) {
                         if (!isLaneFull[i]) {
                             lanes.get(i).add(item);
-                            break;
+                            return true;
                         }
                         if (i == isLaneFull.length - 1) {
                             System.out.println("Ferry is fully loaded");
+                            return false;
                         }
                     }
                 }
             }
         } else {
             System.out.println("Bed is not lowered.");
+            return false;
         }
+        return false;
     }
 
     /**
      * @param lane Removes item/vehicle at chosen lane.
      */
-    public void unload(int lane) {
+    public boolean unload(int lane) {
         if (bed.getAngle() == 0 && currentSpeed == 0) {
             if (lane <= numOfLanes) {
                 if (lanes.get(lane).size() > 0) {
@@ -73,13 +77,17 @@ public class Ferry extends Motorized implements ITransporter {
                     checkLane(lane);
                 } else {
                     System.out.println("Lane is empty!");
+                    return false;
                 }
             } else {
                 System.out.println("Lane doesn't exist.");
+                return false;
             }
         } else {
             System.out.println("Bed is not lowered.");
+            return false;
         }
+        return false;
     }
 
     //Use to check if lane is full and set isLaneFull to true or false if lane is full or not.

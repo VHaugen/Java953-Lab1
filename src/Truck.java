@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract public class Truck extends Car implements IFerry {
+abstract public class Truck extends Car {
 
     /**
      * This constructor is generic and is made to take standard arguments

@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class Car extends Motorized {
+public abstract class Car extends Motorized implements IFerry {
     protected int nrDoors; // Number of doors on the car
 
     /**

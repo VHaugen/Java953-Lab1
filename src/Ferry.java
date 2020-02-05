@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Queue;
 
 public class Ferry extends Motorized implements ITransporter {
-    Bed bed;
+    private Bed bed;
     private int maxLaneLength;
     private int numOfLanes;
     private boolean[] isLaneFull;

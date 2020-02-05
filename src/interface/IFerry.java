@@ -1,4 +1,4 @@
-public interface ITransporter {
+public interface IFerry {
     void load();
 
     void unload();

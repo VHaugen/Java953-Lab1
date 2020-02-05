@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract public class PersonCar extends Car implements ITransportable {
+abstract public class PersonCar extends Car implements ICarTransport {
     /**
      * This constructor is generic and is made to take standard arguments
      * to specify only the neccasery arguments for creating a car.

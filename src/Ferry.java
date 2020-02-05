@@ -96,6 +96,18 @@ public class Ferry extends Motorized implements ITransporter {
         isLaneFull[lane] = maxLaneLength <= lanes.get(lane).size();
     }
 
+    public int getMaxLaneLength () {
+        return maxLaneLength;
+    }
+
+    public int getNumOfLanes () {
+        return numOfLanes;
+    }
+
+    public boolean[] getIsLaneFull () {
+        return isLaneFull;
+    }
+
     @Override
     public void gas(double amount) {
         if (acceptableValue(amount) && bed.getAngle() == 0)

@@ -4,10 +4,14 @@ import java.util.Stack;
 public class CarTransport extends Truck {
 
     private Stack<ICarTransport> trailer;
+    private int maxCapacity;
+    private int currentLoad;
 
-    public CarTransport(double _enginePower, Color _color, String _modelName) {
+    public CarTransport(double _enginePower, Color _color, String _modelName, int _maxCapacity) {
         super(2, _enginePower, _color, _modelName, 90, 90);
         trailer = new Stack<>();
+        currentLoad = 0;
+        maxCapacity = _maxCapacity;
     }
 
     /**
@@ -23,8 +27,9 @@ public class CarTransport extends Truck {
      * Lowers the bed to 0°.
      */
     protected void lowerRamp() {
-        bed.lower();
-
+        if (currentSpeed == 0) {
+            bed.lower();
+        }
     }
 
     /**
@@ -32,13 +37,20 @@ public class CarTransport extends Truck {
      *
      * @param car The car that will be loaded to the trailer.
      */
-    public void load(ICarTransport car) {
-        trailer.add(car);
+    public boolean load(ICarTransport car) {
+        if (currentLoad < maxCapacity) {
+            trailer.add(car);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
+     * Unloads the car furthest back in the trailer
      *
-     * @return T
+     * @return The car furthest back
      */
     public ICarTransport unLoad() {
         return trailer.pop();

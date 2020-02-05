@@ -23,8 +23,6 @@ public class Scania extends Truck {
         if (currentSpeed == 0) {
             bed.raise(angle);
         }
-
-
     }
 
     /**
@@ -33,8 +31,9 @@ public class Scania extends Truck {
      * @param angle  The angel in degrees
      */
     protected void lowerRamp(int angle) {
-        bed.lower(angle);
-
+        if (currentSpeed == 0) {
+            bed.lower(angle);
+        }
     }
 
 }

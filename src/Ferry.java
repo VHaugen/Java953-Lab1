@@ -74,6 +74,9 @@ public class Ferry extends Motorized implements ITransporter {
         if (bed.getAngle() == 0 && currentSpeed == 0) {
             if (lane <= numOfLanes) {
                 if (lanes.get(lane).size() > 0) {
+                    IFerry item = lanes.get(lane).peek();
+                    item.setPosX(this.posX);
+                    item.setPosY(this.posY);
                     lanes.get(lane).remove();
                     checkLane(lane);
                 } else {

@@ -79,6 +79,7 @@ public class Ferry extends Motorized implements ITransporter {
                     item.setPosY(this.posY);
                     lanes.get(lane).remove();
                     checkLane(lane);
+                    return true;
                 } else {
                     System.out.println("Lane is empty!");
                     return false;

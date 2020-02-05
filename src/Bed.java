@@ -16,6 +16,10 @@ public class Bed {
         }
     }
 
+    public int getAngle() {
+        return angle;
+    }
+
     public void raise() {
         while (maxAngle < angle + increment) {
             angle += increment;

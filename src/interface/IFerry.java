@@ -1,10 +1,10 @@
 public interface IFerry {
-    void load();
+/*    void load();
 
     void unload();
 
     void raiseRamp();
 
-    void lowerRamp();
+    void lowerRamp();*/
 
 }

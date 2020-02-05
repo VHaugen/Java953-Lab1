@@ -29,6 +29,8 @@ public class Ferry extends Motorized implements ITransporter {
         //Use to check if lane is full.
         isLaneFull = new boolean[_numOfLanes];
         Arrays.fill(isLaneFull,Boolean.FALSE);
+        bed = new Bed(90,90);
+        stopEngine();
     }
 
     /**
@@ -39,23 +41,26 @@ public class Ferry extends Motorized implements ITransporter {
      *
      */
 
-    //TODO add check for bed raised. IF. SAME FOR UNLOAD
-    public void load(IFerry item, int lane) throws Exception {
-        if (lane < numOfLanes) {
-            if (lanes.get(lane).size() < maxLaneLength) {
-                lanes.get(lane).add(item);
-                checkLane(lane);
-            } else {
-                for (int i = 0; i < isLaneFull.length; i++) {
-                    if (!isLaneFull[i]) {
-                        lanes.get(i).add(item);
-                        break;
-                    }
-                    if (i == isLaneFull.length-1) {
-                        System.out.println("Ferry is fully loaded");
+    public void load(IFerry item, int lane) {
+        if (bed.getAngle() == 0) {
+            if (lane < numOfLanes) {
+                if (lanes.get(lane).size() < maxLaneLength) {
+                    lanes.get(lane).add(item);
+                    checkLane(lane);
+                } else {
+                    for (int i = 0; i < isLaneFull.length; i++) {
+                        if (!isLaneFull[i]) {
+                            lanes.get(i).add(item);
+                            break;
+                        }
+                        if (i == isLaneFull.length - 1) {
+                            System.out.println("Ferry is fully loaded");
+                        }
                     }
                 }
             }
+        } else {
+            System.out.println("Bed is not lowered.");
         }
     }
 
@@ -63,15 +68,19 @@ public class Ferry extends Motorized implements ITransporter {
      * @param lane Removes item/vehicle at chosen lane.
      */
     public void unload(int lane) {
-        if (lane <= numOfLanes) {
-            if (lanes.get(lane).size() > 0) {
-                lanes.get(lane).remove();
-                checkLane(lane);
+        if (bed.getAngle() == 0) {
+            if (lane <= numOfLanes) {
+                if (lanes.get(lane).size() > 0) {
+                    lanes.get(lane).remove();
+                    checkLane(lane);
+                } else {
+                    System.out.println("Lane is empty!");
+                }
             } else {
-                System.out.println("Lane is empty!");
+                System.out.println("Lane doesn't exist.");
             }
         } else {
-            System.out.println("Lane doesn't exist.");
+            System.out.println("Bed is not lowered.");
         }
     }
 

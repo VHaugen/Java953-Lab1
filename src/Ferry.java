@@ -50,6 +50,7 @@ public class Ferry extends Motorized implements ITransporter {
                     for (int i = 0; i < isLaneFull.length; i++) {
                         if (!isLaneFull[i]) {
                             lanes.get(i).add(item);
+                            checkLane(i);
                             return true;
                         }
                         if (i == isLaneFull.length - 1) {

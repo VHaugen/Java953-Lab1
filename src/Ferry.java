@@ -96,7 +96,7 @@ public class Ferry extends Motorized implements ITransporter {
 
     @Override
     public void gas(double amount) {
-        if (acceptableValue(amount) && bed.getAngle() == 0)
+        if (acceptableValue(amount) && bed.getAngle() > 0)
             incrementSpeed(amount);
     }
 

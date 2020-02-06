@@ -1,8 +1,6 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Queue;
 
 public class Ferry extends Motorized implements ITransporter {
     private Bed bed;
@@ -19,13 +17,13 @@ public class Ferry extends Motorized implements ITransporter {
      * @param _color         The <code>Color</code> of this <code>Ferry</code>.
      * @param _modelName     The model name of this <code>Ferry</code>
      * @param _maxLaneLength Specify length of lane.
-     * @param _numOfLanes    Specify number of lanes.
      */
-    Ferry(double _enginePower, Color _color, String _modelName, int _maxLaneLength, int _numOfLanes) {
+    Ferry(double _enginePower, Color _color, String _modelName, int _maxLaneLength) {
         super(_enginePower, _color, _modelName);
         maxLaneLength = _maxLaneLength;
         //Use to check if lane is full.
         laneFull = false;
+        lane = new LinkedList<>();
         bed = new Bed(90, 90);
         stopEngine();
     }
@@ -79,6 +77,17 @@ public class Ferry extends Motorized implements ITransporter {
 
     public int getMaxLaneLength() {
         return maxLaneLength;
+    }
+
+    public int[] getLaneCurrentMax() {
+        int[] getLoad = new int[2];
+        getLoad[0] = lane.size();
+        getLoad[1] = maxLaneLength;
+        return getLoad;
+    }
+
+    public int getLaneLoad() {
+        return lane.size();
     }
 
     public boolean getLaneFull() {

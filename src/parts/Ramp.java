@@ -37,7 +37,6 @@ public class Ramp {
     }
 
     /**
-     *
      * @param angle Sets the angle of the ramp to chosen value.
      */
     protected void setAngle(int angle) {

@@ -10,20 +10,17 @@ abstract public class Motorized implements IMovable {
     public double velX;
     public double velY;
 
-    public double getPosX() {
-        return posX;
-    }
 
     public void setPosX(double posX) {
         this.posX = posX;
     }
 
-    public double getPosY() {
-        return posY;
-    }
-
     public void setPosY(double posY) {
         this.posY = posY;
+    }
+
+    public boolean isInRange(IMovable movable) {
+        return true;
     }
 
     /**

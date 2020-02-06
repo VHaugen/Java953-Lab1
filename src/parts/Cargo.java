@@ -69,23 +69,31 @@ public class Cargo<T extends IMovable> {
     }
 
     /**
-     * @return Gives the length/spaces the lane has.
+     * @return Gives the max cargo space.
      */
     public int getMaxCapacity() {
         return maxCapacity;
     }
 
     /**
-     * @return Gives currently occupied space.
+     * @return Gives current cargo load.
      */
     public int getCurrentLoad() {
         return list.size();
     }
 
     /**
-     * @return Returns true if the lane is fully occupied.
+     * @return Returns true if the cargo is fully occupied.
      */
     public boolean getIsFull() {
         return isFull;
+    }
+
+    /**
+     *
+     * @return Returns true if cargo is empty.
+     */
+    public boolean getIsEmpty() {
+        return list.size() <= 0;
     }
 }

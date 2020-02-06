@@ -1,11 +1,12 @@
 public class Ramp {
     private int angle = 0;
-    private int maxAngle = 70;
+    private int maxAngle;
 
     /**
      * Creates a ramp that can be between 0 to 70 degrees.
      */
-    public Ramp() {
+    public Ramp(int maxAngle) {
+        this.maxAngle = maxAngle;
     }
 
     /**

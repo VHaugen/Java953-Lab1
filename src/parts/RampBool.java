@@ -1,5 +1,10 @@
 public class RampBool extends Ramp {
+
+    /**
+     * Creates a ramp that's either raised or lowered. No inbetween.
+     */
     public RampBool() {
+        super(70);
     }
 
     /**

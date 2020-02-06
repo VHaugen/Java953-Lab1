@@ -64,5 +64,20 @@ public class FerryDocking {
         assertFalse(ferry.unload());
     }
 
+    @Test
+    public void testFerryRaiseRamp (){
+        int angle = ferry.bed.getAngle();
+        ferry.raiseRamp();
+        assertTrue(ferry.bed.getAngle() > angle);
+    }
+
+    @Test
+    public void testFerryLowerRamp (){
+        ferry.raiseRamp();
+        int angle = ferry.bed.getAngle();
+        ferry.lowerRamp();
+        assertTrue(ferry.bed.getAngle() == 0 && angle > 0);
+    }
+
 
 }

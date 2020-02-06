@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.List;
 
 public class Ferry extends Motorized implements ITransporter {
-    private Bed bed;
+    protected Bed bed;
     private int maxLaneLength;
     private boolean laneFull;
     private Queue<IFerry> lane;
@@ -96,7 +96,7 @@ public class Ferry extends Motorized implements ITransporter {
 
     @Override
     public void gas(double amount) {
-        if (acceptableValue(amount) && bed.getAngle() == 0)
+        if (acceptableValue(amount) && bed.getAngle() > 0)
             incrementSpeed(amount);
     }
 
@@ -106,7 +106,7 @@ public class Ferry extends Motorized implements ITransporter {
         }
     }
 
-    protected void lowerRamp() {
+    public void lowerRamp() {
         if (currentSpeed == 0) {
             bed.lower();
         }

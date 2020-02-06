@@ -1,7 +1,8 @@
 import java.awt.*;
 
 abstract public class Motorized implements IMovable {
-    protected double enginePower; // Engine power of the car
+    //protected double enginePower; // Engine power of the car
+    protected Engine engine;
     protected double currentSpeed; // The current speed of the car
     protected Color color; // Color of the car
     public final String modelName; // The car model name
@@ -45,12 +46,12 @@ abstract public class Motorized implements IMovable {
      * to specify only the neccasery arguments for creating a car.
      * OR SO IM TOLD?!?!?!
      *
-     * @param _enginePower The power of the engine in BHP.
+     * @param engine The engine you want to add to it.
      * @param _color       The <code>Color</code> of this <code>Car</code>.
      * @param _modelName   The model name of this <code>Car</code>
      */
-    Motorized(double _enginePower, Color _color, String _modelName) {
-        enginePower = _enginePower;
+    Motorized(Engine engine, Color _color, String _modelName) {
+        this.engine = engine;
         color = _color;
         modelName = _modelName;
         velX = 0;
@@ -66,7 +67,7 @@ abstract public class Motorized implements IMovable {
      * @return The engine power
      */
     public double getEnginePower() {
-        return enginePower;
+        return engine.getEnginePower();
     }
 
     /**
@@ -107,7 +108,7 @@ abstract public class Motorized implements IMovable {
      * @param amount How much the speed will be incremented.
      */
     protected void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower());
     }
     /**
      * Decrements the speed of this <code>Motorized Object</code>.
@@ -119,7 +120,7 @@ abstract public class Motorized implements IMovable {
     }
 
     protected double speedFactor() {
-        return enginePower * 0.01;
+        return getEnginePower() * 0.01;
     }
 
     /**

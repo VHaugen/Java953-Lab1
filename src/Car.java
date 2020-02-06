@@ -8,14 +8,14 @@ public abstract class Car extends Motorized implements IFerry {
      * to specify only the neccasery arguments for creating a car.
      * OR SO IM TOLD?!?!?!
      *
-     * @param _nrDoors     The number of doors of this <code>Car</code>.
-     * @param _enginePower The power of the engine in BHP.
-     * @param _color       The <code>Color</code> of this <code>Car</code>.
-     * @param _modelName   The model name of this <code>Car</code>
+     * @param nrDoors     The number of doors of this <code>Car</code>.
+     * @param engine The power of the engine in BHP.
+     * @param color       The <code>Color</code> of this <code>Car</code>.
+     * @param modelName   The model name of this <code>Car</code>
      */
-    Car(int _nrDoors, double _enginePower, Color _color, String _modelName) {
-        super(_enginePower, _color, _modelName);
-        nrDoors = _nrDoors;
+    Car(int nrDoors, Engine engine, Color color, String modelName) {
+        super(engine, color, modelName);
+        this.nrDoors = nrDoors;
     }
 
     /**

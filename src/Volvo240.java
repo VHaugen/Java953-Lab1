@@ -10,8 +10,8 @@ public class Volvo240 extends PersonCar {
     /**
      * Creates a standard <b>Volvo 240</b>.
      */
-    public Volvo240() {
-        super(4, 100, Color.BLACK, "Volvo240");
+    public Volvo240(Engine engine) {
+        super(4, engine, Color.BLACK, "Volvo240");
     }
 
 
@@ -21,7 +21,7 @@ public class Volvo240 extends PersonCar {
      */
     @Override
     protected double speedFactor() {
-        return enginePower * 0.01 * trimFactor;
+        return engine.getEnginePower() * 0.01 * trimFactor;
     }
 
     /**
@@ -31,7 +31,7 @@ public class Volvo240 extends PersonCar {
      */
     @Override
     protected void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower());
     }
 
     /**

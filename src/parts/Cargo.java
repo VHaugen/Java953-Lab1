@@ -1,8 +1,8 @@
 import java.util.Stack;
 
-public class Cargo {
+public class Cargo<IMovable> {
     //TODO <> To generic class? T? All IFerry?
-    private Stack<IFerry> list;
+    private Stack<IMovable> list;
 
     //Specify max number of objects in the list.
     private int maxCapacity;
@@ -20,7 +20,7 @@ public class Cargo {
      * @param item Add item to your list.
      * @return Returns <b>true</b> if it successfully added the item to the list, otherwise <b>false</b>.
      */
-    public boolean load(IFerry item) {
+    public boolean load(IMovable item) {
         if (!checkLane()) {
             list.add(item);
             checkLane();

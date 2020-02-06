@@ -3,30 +3,26 @@ import java.awt.*;
 abstract public class Motorized implements IMovable {
     //protected double enginePower; // Engine power of the car
     protected Engine engine;
-    protected double currentSpeed; // The current speed of the car
     protected Color color; // Color of the car
     public final String modelName; // The car model name
-    public double posX;
-    public double posY;
-    public double velX;
-    public double velY;
+    private Motion motion;
 
     @Override
     public double getPosX() {
-        return posX;
+        return motion.getPosX();
     }
 
     @Override
     public double getPosY() {
-        return posY;
+        return motion.getPosY();
     }
 
     public void setPosX(double posX) {
-        this.posX = posX;
+        motion.setPosX(posX);
     }
 
     public void setPosY(double posY) {
-        this.posY = posY;
+        motion.setPosY(posY);
     }
 
     /**
@@ -38,7 +34,7 @@ abstract public class Motorized implements IMovable {
      */
 
     public boolean isInRange(IMovable movable) {
-        return Math.pow(posX - movable.getPosX(),2) + Math.pow(posY - movable.getPosY(),2) < 4;
+        return Math.pow(motion.getPosX() - movable.getPosX(),2) + Math.pow(motion.getPosY() - movable.getPosY(),2) < 4;
     }
 
     /**
@@ -54,10 +50,7 @@ abstract public class Motorized implements IMovable {
         this.engine = engine;
         color = _color;
         modelName = _modelName;
-        velX = 0;
-        velY = 1;
-        posX = 0;
-        posY = 0;
+        motion = new Motion(0,0,0);
         stopEngine();
     }
 
@@ -76,7 +69,7 @@ abstract public class Motorized implements IMovable {
      * @return The current speed
      */
     public double getCurrentSpeed() {
-        return currentSpeed;
+        return motion.getSpeed();
     }
 
     /**
@@ -99,7 +92,7 @@ abstract public class Motorized implements IMovable {
      * Sets the current speed of this car to a low initial value
      */
     public void startEngine() {
-        currentSpeed = 0.1;
+        motion.setSpeed(0.1);
     }
 
     /**
@@ -108,7 +101,7 @@ abstract public class Motorized implements IMovable {
      * @param amount How much the speed will be incremented.
      */
     protected void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower());
+        motion.setSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
     }
     /**
      * Decrements the speed of this <code>Motorized Object</code>.
@@ -116,7 +109,7 @@ abstract public class Motorized implements IMovable {
      * @param amount How much the speed will be Decremented.
      */
     protected void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+        motion.setSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
     protected double speedFactor() {
@@ -127,7 +120,7 @@ abstract public class Motorized implements IMovable {
      * Sets the current speed to 0.
      */
     public void stopEngine() {
-        currentSpeed = 0;
+        motion.setSpeed(0);
     }
 
     /**
@@ -162,25 +155,20 @@ abstract public class Motorized implements IMovable {
      * Moves this <code>Car</code> in the current direction according to the current speed.
      */
     public void move() {
-        posX += velX * currentSpeed;
-        posY += velY * currentSpeed;
+        motion.move();
     }
 
     /**
      * Changes the current direction 90° to the left.
      */
     public void turnLeft() {
-        double tempVel = velX;
-        velX = -velY;
-        velY = tempVel;
+        motion.turn(90);
     }
 
     /**
      * Changes the current direction 90° to the right.
      */
     public void turnRight() {
-        double tempVel = velX;
-        velX = velY;
-        velY = -tempVel;
+        motion.turn(-90);
     }
 }

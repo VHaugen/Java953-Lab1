@@ -5,7 +5,7 @@ public class Volvo240 extends PersonCar {
     /**
      * The increased/decreased amount of horsepower in a tuned configuration.
      */
-    private final static double trimFactor = 1.25;
+
 
     /**
      * Creates a standard <b>Volvo 240</b>.
@@ -16,22 +16,14 @@ public class Volvo240 extends PersonCar {
 
 
     /**
-     *
-     * @return Returns the difference in total speed if car is tuned.
-     */
-    @Override
-    protected double speedFactor() {
-        return engine.getEnginePower() * 0.01 * trimFactor;
-    }
-
-    /**
      * Increases total speed depending on value entered.
      *
      * @param amount Increases current speed.
      */
     @Override
     protected void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower());
+       currentSpeed  = Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower());
+
     }
 
     /**

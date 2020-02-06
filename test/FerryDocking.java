@@ -7,10 +7,12 @@ import static org.junit.Assert.*;
 
 public class FerryDocking {
     Ferry ferry;
+    Volvo240 sample;
 
     @Before
     public void init() {
         ferry = new Ferry(240, Color.RED, "FerryMcFerryFace", 5);
+        sample = new Volvo240();
     }
 
     @Test
@@ -35,8 +37,7 @@ public class FerryDocking {
             Volvo240 volvo = new Volvo240();
             ferry.load(volvo);
         }
-        Volvo240 volvo = new Volvo240();
-        assertFalse(ferry.load(volvo));
+        assertFalse(ferry.load(sample));
     }
 
     @Test
@@ -100,4 +101,41 @@ public class FerryDocking {
         ferry.lowerRamp();
         assertEquals(angle, ferry.bed.getAngle());
     }
+
+    @Test
+    public void testRaisedrampLoad () {
+        ferry.raiseRamp();
+        int load = ferry.getLaneLoad();
+        ferry.load(sample);
+        assertEquals(load, ferry.getLaneLoad());
+    }
+
+    @Test
+    public void testRaisedrampUnload () {
+        ferry.load(sample);
+        int load = ferry.getLaneLoad();
+        ferry.raiseRamp();
+        ferry.unload();
+        assertEquals(load, ferry.getLaneLoad());
+    }
+
+    @Test
+    public void testSpeedLoad () {
+        int load = ferry.getLaneLoad();
+        ferry.raiseRamp();
+        ferry.gas(1);
+        ferry.load(sample);
+        assertEquals(load, ferry.getLaneLoad());
+    }
+
+    @Test
+    public void testSpeedUnload () {
+        ferry.load(sample);
+        int load = ferry.getLaneLoad();
+        ferry.raiseRamp();
+        ferry.gas(1);
+        ferry.unload();
+        assertEquals(load, ferry.getLaneLoad());
+    }
+
 }

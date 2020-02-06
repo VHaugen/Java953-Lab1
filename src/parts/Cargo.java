@@ -21,9 +21,9 @@ public class Cargo<T extends IMovable> {
      * @return Returns <b>true</b> if it successfully added the item to the list, otherwise <b>false</b>.
      */
     public boolean load(IMovable item) {
-        if (!checkLane()) {
+        if (!checkLoad()) {
             list.add(item);
-            checkLane();
+            checkLoad();
             return true;
         } else {
             return false;
@@ -37,7 +37,7 @@ public class Cargo<T extends IMovable> {
     public IMovable unload() {
         if (list.size() > 0) {
             IMovable item = list.pop();
-            checkLane();
+            checkLoad();
             return item;
         }
         return null;
@@ -50,7 +50,7 @@ public class Cargo<T extends IMovable> {
     public IMovable unloadFirst() {
         if (list.size() > 0) {
             IMovable item = list.remove(0);
-            checkLane();
+            checkLoad();
             return item;
         }
         return null;
@@ -64,7 +64,7 @@ public class Cargo<T extends IMovable> {
     }
 
     //Helper method to load/unload. Returns bool and sets 'isFull' to a bool-value.
-    private boolean checkLane() {
+    private boolean checkLoad() {
         return isFull = list.size() >= maxCapacity;
     }
 

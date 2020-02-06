@@ -3,6 +3,7 @@ import java.awt.*;
 public class Saab95 extends PersonCar {
     private boolean turboOn;
 
+
     /**
      * Creates a custom standard <b>Saab 95</b>.
      */

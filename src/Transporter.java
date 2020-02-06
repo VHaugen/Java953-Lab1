@@ -1,8 +1,8 @@
 import java.awt.*;
 
-abstract public class Truck extends Car {
+abstract public class Transporter extends Car {
 
-    protected Bed bed;
+    protected Ramp ramp;
 
     /**
      * This constructor is generic and is made to take standard arguments
@@ -10,22 +10,24 @@ abstract public class Truck extends Car {
      * OR SO IM TOLD?!?!?!
      *
      * @param _nrDoors     The number of doors of this <code>Car</code>.
-     * @param _enginePower The power of the engine in BHP.
+     * @param engine       The engine object.
      * @param _color       The <code>Color</code> of this <code>Car</code>.
      * @param _modelName   The model name of this <code>Car</code>
+     * @param ramp         The ramp object.
      */
-    Truck(int _nrDoors, double _enginePower, Color _color, String _modelName, int bedIncrement, int maxAngle) {
-        super(_nrDoors, _enginePower, _color, _modelName);
-        bed = new Bed(bedIncrement, maxAngle);
+    Transporter(int _nrDoors, Engine engine, Color _color, String _modelName, Ramp ramp) {
+        super(_nrDoors, engine, _color, _modelName);
+        this.ramp = ramp;
     }
 
     @Override
     public void gas(double amount) {
-        if (acceptableValue(amount) && bed.getAngle() == 0)
-            incrementSpeed(amount);
+        if (ramp.getAngle() == 0) {
+            super.gas(amount);
+        }
     }
 
-    public int getBedAngle() {
-        return bed.getAngle();
+    public int getRampAngle() {
+        return ramp.getAngle();
     }
 }

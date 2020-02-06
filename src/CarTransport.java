@@ -1,17 +1,12 @@
 import java.awt.*;
 import java.util.Stack;
 
-public class CarTransport extends Truck {
+public class CarTransport extends Transporter {
 
-    private Stack<ICarTransport> trailer;
-    private int maxCapacity;
+    private Cargo<IMovable> cargo;
 
     public int getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public void setMaxCapacity(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
+        return cargo.getMaxCapacity();
     }
 
     public int getCurrentLoad() {
@@ -24,37 +19,14 @@ public class CarTransport extends Truck {
 
     public CarTransport(double _enginePower, Color _color, String _modelName, int _maxCapacity) {
         super(2, _enginePower, _color, _modelName, 90, 90);
-        trailer = new Stack<>();
         currentLoad = 0;
         maxCapacity = _maxCapacity;
     }
 
     @Override
     public void move() {
-        posX += velX * currentSpeed;
-        posY += velY * currentSpeed;
-
-        for (IMovable movable : trailer) {
-            movable.setPosX(posX);
-            movable.setPosY(posY);
-        }
-    }
-    /**
-     * Raises the bed to 90°.
-     */
-    public void raiseRamp() {
-        if (currentSpeed == 0) {
-            bed.raise();
-        }
-    }
-
-    /**
-     * Lowers the bed to 0°.
-     */
-    protected void lowerRamp() {
-        if (currentSpeed == 0) {
-            bed.lower();
-        }
+        super.move();
+        cargo.uppdatePositions(getPosX(), getPosY());
     }
 
     /**
@@ -63,12 +35,7 @@ public class CarTransport extends Truck {
      * @param car The car that will be loaded to the trailer.
      */
     public boolean load(ICarTransport car) {
-        if (currentLoad < maxCapacity) {
-            trailer.add(car);
-            return true;
-        } else {
-            return false;
-        }
+       return cargo.load(car);
 
     }
 
@@ -78,7 +45,7 @@ public class CarTransport extends Truck {
      * @return The car furthest back
      */
     public ICarTransport unLoad() {
-        return trailer.pop();
+        return cargo.unload();
     }
 
 }

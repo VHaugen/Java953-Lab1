@@ -7,6 +7,24 @@ abstract public class Motorized implements IMovable {
     public final String modelName; // The car model name
     private Motion motion;
 
+
+    /**
+     * This constructor is generic and is made to take standard arguments
+     * to specify only the neccasery arguments for creating a car.
+     * OR SO IM TOLD?!?!?!
+     *
+     * @param engine The engine you want to add to it.
+     * @param _color       The <code>Color</code> of this <code>Car</code>.
+     * @param _modelName   The model name of this <code>Car</code>
+     */
+    Motorized(Engine engine, Color _color, String _modelName) {
+        this.engine = engine;
+        color = _color;
+        modelName = _modelName;
+        motion = new Motion(0,0,0);
+        stopEngine();
+    }
+
     @Override
     public double getPosX() {
         return motion.getPosX();
@@ -32,26 +50,8 @@ abstract public class Motorized implements IMovable {
      *
      * @return  True if within a range of 2 otherwise False.
      */
-
     public boolean isInRange(IMovable movable) {
         return Math.pow(motion.getPosX() - movable.getPosX(),2) + Math.pow(motion.getPosY() - movable.getPosY(),2) < 4;
-    }
-
-    /**
-     * This constructor is generic and is made to take standard arguments
-     * to specify only the neccasery arguments for creating a car.
-     * OR SO IM TOLD?!?!?!
-     *
-     * @param engine The engine you want to add to it.
-     * @param _color       The <code>Color</code> of this <code>Car</code>.
-     * @param _modelName   The model name of this <code>Car</code>
-     */
-    Motorized(Engine engine, Color _color, String _modelName) {
-        this.engine = engine;
-        color = _color;
-        modelName = _modelName;
-        motion = new Motion(0,0,0);
-        stopEngine();
     }
 
     /**
@@ -103,6 +103,7 @@ abstract public class Motorized implements IMovable {
     protected void incrementSpeed(double amount) {
         motion.setSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
     }
+
     /**
      * Decrements the speed of this <code>Motorized Object</code>.
      *

@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class Cargo<IMovable> {
+public class Cargo<T extends IMovable> {
     //TODO <> To generic class? T? All IFerry?
     private Stack<IMovable> list;
 
@@ -34,26 +34,33 @@ public class Cargo<IMovable> {
      * @return Returns <b>true</b> if it successfully removed the item from the head of the list,
      * otherwise <b>false</b>.
      */
-    public boolean unload() {
+    public IMovable unload() {
         if (list.size() > 0) {
-            list.pop();
+            IMovable item = list.pop();
             checkLane();
-            return true;
+            return item;
         }
-        return false;
+        return null;
     }
 
     /**
      * @return Returns <b>true</b> if it successfully removed the first item of the list,
      * otherwise <b>false</b>.
      */
-    public boolean unloadFirst() {
+    public IMovable unloadFirst() {
         if (list.size() > 0) {
-            list.remove(0);
+            IMovable item = list.remove(0);
             checkLane();
-            return true;
+            return item;
         }
-        return false;
+        return null;
+    }
+
+    public void updatePositions(double x, double y) {
+        for (IMovable item: list) {
+            item.setPosX(x);
+            item.setPosY(y);
+        }
     }
 
     //Helper method to load/unload. Returns bool and sets 'isFull' to a bool-value.

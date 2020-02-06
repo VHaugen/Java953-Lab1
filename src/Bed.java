@@ -31,9 +31,7 @@ public class Bed {
      * raises bed fixed value;
      */
     public void raise() {
-        while (maxAngle < angle + increment) {
-            angle += increment;
-        }
+       angle = maxAngle;
     }
 
     /**

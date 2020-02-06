@@ -5,7 +5,22 @@ public class CarTransport extends Truck {
 
     private Stack<ICarTransport> trailer;
     private int maxCapacity;
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public int getCurrentLoad() {
+        return currentLoad;
+    }
+
+
     private int currentLoad;
+
 
     public CarTransport(double _enginePower, Color _color, String _modelName, int _maxCapacity) {
         super(2, _enginePower, _color, _modelName, 90, 90);

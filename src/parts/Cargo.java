@@ -31,8 +31,8 @@ public class Cargo<T extends IMovable> {
     }
 
     /**
-     * @return Returns <b>true</b> if it successfully removed the item from the head of the list,
-     * otherwise <b>false</b>.
+     * @return Returns the item if it successfully removed the item from the head of the list,
+     * otherwise <b>null</b>.
      */
     public IMovable unload() {
         if (list.size() > 0) {
@@ -44,8 +44,8 @@ public class Cargo<T extends IMovable> {
     }
 
     /**
-     * @return Returns <b>true</b> if it successfully removed the first item of the list,
-     * otherwise <b>false</b>.
+     * @return Returns the item if it successfully removed the first position of the list,
+     * otherwise <b>null</b>.
      */
     public IMovable unloadFirst() {
         if (list.size() > 0) {
@@ -78,7 +78,7 @@ public class Cargo<T extends IMovable> {
     /**
      * @return Gives currently occupied space.
      */
-    public int getLoadedSpace() {
+    public int getCurrentLoad() {
         return list.size();
     }
 

@@ -31,7 +31,6 @@ public class Ferry extends Motorized implements ITransporter {
     /**
      * @param item The vehicle or object you want to load to the ferry.
      */
-
     public boolean load(IFerry item) {
         if (bed.getAngle() == 0 && currentSpeed == 0) {
             return addToLane(item);
@@ -40,7 +39,7 @@ public class Ferry extends Motorized implements ITransporter {
     }
 
     /**
-     * Removes item/vehicle from the lane.
+     * Removes item/vehicle from the first position of the lane.
      */
     public boolean unload() {
         if (bed.getAngle() == 0 && currentSpeed == 0) {
@@ -75,10 +74,19 @@ public class Ferry extends Motorized implements ITransporter {
         return laneFull = lane.size() >= maxLaneLength;
     }
 
+    /**
+     *
+     * @return Gives the length/spaces the lane has.
+     */
     public int getMaxLaneLength() {
         return maxLaneLength;
     }
 
+
+    /**
+     *
+     * @return Gives current lane load and max length/spaces.
+     */
     public int[] getLaneCurrentMax() {
         int[] getLoad = new int[2];
         getLoad[0] = lane.size();
@@ -86,26 +94,44 @@ public class Ferry extends Motorized implements ITransporter {
         return getLoad;
     }
 
+    /**
+     *
+     * @return Gives current occupied spaces on the lane.
+     */
     public int getLaneLoad() {
         return lane.size();
     }
 
+    /**
+     *
+     * @return Returns true if the lane is fully occupied.
+     */
     public boolean getLaneFull() {
         return laneFull;
     }
 
+    /**
+     *
+     * @param amount Accepts values between 0-1 for gassing.
+     */
     @Override
     public void gas(double amount) {
         if (acceptableValue(amount) && bed.getAngle() > 0)
             incrementSpeed(amount);
     }
 
+    /**
+     * Raises ramp
+     */
     public void raiseRamp() {
         if (currentSpeed == 0) {
             bed.raise();
         }
     }
 
+    /**
+     * Lowers ramp
+     */
     public void lowerRamp() {
         if (currentSpeed == 0) {
             bed.lower();

@@ -29,6 +29,16 @@ public class CarTransport extends Truck {
         maxCapacity = _maxCapacity;
     }
 
+    @Override
+    public void move() {
+        posX += velX * currentSpeed;
+        posY += velY * currentSpeed;
+
+        for (IMovable movable : trailer) {
+            movable.setPosX(posX);
+            movable.setPosY(posY);
+        }
+    }
     /**
      * Raises the bed to 90°.
      */

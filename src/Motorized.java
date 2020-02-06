@@ -10,6 +10,15 @@ abstract public class Motorized implements IMovable {
     public double velX;
     public double velY;
 
+    @Override
+    public double getPosX() {
+        return posX;
+    }
+
+    @Override
+    public double getPosY() {
+        return posY;
+    }
 
     public void setPosX(double posX) {
         this.posX = posX;
@@ -19,8 +28,16 @@ abstract public class Motorized implements IMovable {
         this.posY = posY;
     }
 
+    /**
+     *
+     * @param movable The instance of IMovable that will be checked if it is
+     *                within range of this object.
+     *
+     * @return  True if within a range of 2 otherwise False.
+     */
+
     public boolean isInRange(IMovable movable) {
-        return true;
+        return Math.pow(posX - movable.getPosX(),2) + Math.pow(posY - movable.getPosY(),2) < 4;
     }
 
     /**

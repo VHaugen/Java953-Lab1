@@ -10,7 +10,7 @@ public class Position implements IPositionable {
         this.posY = posY;
     }
 
-    public double distanceTo(Position pos) {
+    public double distanceTo(IPositionable pos) {
         return sqrt(pow(pos.getPosX() - pos.getPosX(),2) + pow(pos.getPosY() - pos.getPosY(),2));
     }
 

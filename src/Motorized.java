@@ -2,7 +2,7 @@ import java.awt.*;
 
 abstract public class Motorized implements IMovable {
     //protected double enginePower; // Engine power of the car
-    protected Engine engine;
+    protected Motor engine;
     protected Color color; // Color of the car
     public final String modelName; // The car model name
     private Motion motion;
@@ -17,8 +17,8 @@ abstract public class Motorized implements IMovable {
      * @param _color       The <code>Color</code> of this <code>Car</code>.
      * @param _modelName   The model name of this <code>Car</code>
      */
-    Motorized(Engine engine, Color _color, String _modelName) {
-        this.engine = engine;
+    Motorized(Motor motor, Color _color, String _modelName) {
+        this.motor = motor;
         color = _color;
         modelName = _modelName;
         motion = new Motion(0,0,0);

@@ -8,5 +8,5 @@ public interface IPositionable {
 
     void setPosY(double y);
 
-    double distance
+    double distanceTo(IPositionable positionable);
 }

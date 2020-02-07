@@ -6,28 +6,31 @@ import static org.junit.Assert.*;
 
 
 public class Bilprovningen {
-    Car testCar;
+    Volvo240 testCar;
     Saab95 saab;
+    TurboEngine turbo = new TurboEngine(200);
+    Motor motor = new Motor(200);
 
     @Before
     public void init() {
-        testCar = new Volvo240();
+        testCar = new Volvo240(motor);
         testCar.startEngine();
+
     }
 
     @Test
     public void testStartEngineVolvo() {
-        assertTrue(testCar.currentSpeed > 0);
+        assertTrue(testCar.getMotion().getSpeed() > 0);
 
     }
 
     @Test
     public void testMove() {
-        double initialPosY = testCar.posY;
+        double initialPosY = testCar.getMotion().getPosY();
         testCar.gas(1);
         testCar.move();
 
-        assertTrue(testCar.posY > initialPosY);
+        assertTrue(testCar.getMotion().getPosY() > initialPosY);
     }
 
     @Test
@@ -45,7 +48,7 @@ public class Bilprovningen {
         for (int i = 0; i < 200; i++) {
             testCar.gas(1);
         }
-        assertTrue(testCar.currentSpeed <= testCar.enginePower);
+        assertTrue(testCar.getCurrentSpeed() <= testCar.getEnginePower());
 
     }
 
@@ -54,7 +57,7 @@ public class Bilprovningen {
         for (int i = 0; i < 200; i++) {
             testCar.brake(1);
         }
-        assertTrue(testCar.currentSpeed >= 0);
+        assertTrue(testCar.getCurrentSpeed() >= 0);
     }
 
     @Test
@@ -82,7 +85,7 @@ public class Bilprovningen {
 
     @Test
     public void testHandBrakeTurnLeft() {
-        testCar.velY = 1;
+        testCar.getMotion().getVelX();//TODO TEST TURN
         testCar.velX = 1;
 
         testCar.turnLeft();
@@ -126,7 +129,7 @@ public class Bilprovningen {
         testCar.turnRight();
         testCar.move();
 
-        assertTrue(initialX < testCar.posX);
+        assertTrue(initialX < testCar.getPosX());
     }
 
     ///
@@ -146,13 +149,13 @@ public class Bilprovningen {
     @Test
     public void testGetEnginePower()
     {
-        assertTrue(testCar.enginePower ==testCar.getEnginePower());
+        assertTrue(testCar.getEnginePower() ==testCar.getEnginePower());
     }
 
     @Test
     public void testGetCurrentSpeed()
     {
-        assertTrue(testCar.currentSpeed == testCar.getCurrentSpeed());
+        assertTrue(testCar.getEnginePower() == testCar.getCurrentSpeed());
     }
 
     @Test
@@ -160,7 +163,7 @@ public class Bilprovningen {
     {
         saab = new Saab95();
         saab.startEngine();
-        saab.setTurboOff();
+        saab.motor.
         for (int i = 0; i < 10; i++) {
             saab.gas(1);
         }

@@ -1,3 +1,5 @@
+import com.sun.source.tree.ModifiersTree;
+
 import java.awt.*;
 
 public class Volvo240 extends PersonCar {
@@ -10,7 +12,7 @@ public class Volvo240 extends PersonCar {
     /**
      * Creates a standard <b>Volvo 240</b>.
      */
-    public Volvo240(Engine engine) {
+    public Volvo240(Motor engine) {
         super(4, engine, Color.BLACK, "Volvo240");
     }
 
@@ -22,9 +24,7 @@ public class Volvo240 extends PersonCar {
      */
     @Override
     protected void incrementSpeed(double amount) {
-       currentSpeed  = Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower());
-
-    }
+       getMotion().setSpeed( Math.min(getCurrentSpeed() + speedFactor() * amount, motor.getEnginePower())); }
 
     /**
      * Decreases total speed depending on value entered.
@@ -33,7 +33,7 @@ public class Volvo240 extends PersonCar {
      */
     @Override
     protected void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+        getMotion().setSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
 }

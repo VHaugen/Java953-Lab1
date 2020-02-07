@@ -1,4 +1,4 @@
-public abstract class Motor {
+public class Motor {
     int enginePower;
 
     public Motor(int enginePower) {

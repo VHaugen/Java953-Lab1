@@ -1,4 +1,4 @@
-public class Motor {
+public abstract class Motor<T extends Motor> {
     int enginePower;
 
     public Motor(int enginePower) {

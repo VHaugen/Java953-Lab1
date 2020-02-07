@@ -26,7 +26,7 @@ public class CarTransport extends Transporter {
     @Override
     public void move() {
         super.move();
-        cargo.uppdatePositions(getPosX(), getPosY());
+        cargo.updatePositions(getPosX(), getPosY());
     }
 
     /**
@@ -44,7 +44,7 @@ public class CarTransport extends Transporter {
      *
      * @return The car furthest back
      */
-    public ICarTransport unLoad() {
+    public IMovable unLoad() {
         return cargo.unload();
     }
 

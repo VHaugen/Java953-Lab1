@@ -7,4 +7,6 @@ public interface IPositionable {
     void setPosX(double x);
 
     void setPosY(double y);
+
+    double distance
 }

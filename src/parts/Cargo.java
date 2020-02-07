@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class Cargo<T extends IMovable> {
+public class Cargo<T extends IPositionable> {
     //TODO <> To generic class? T? All IFerry?
     private Stack<T> list;
 

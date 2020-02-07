@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.List;
 
 public class Ferry extends Motorized implements ITransporter {
-    protected Bed bed;
+    protected Ramp ramp;
     private int maxLaneLength;
     private boolean laneFull;
     private Queue<IFerry> lane;
@@ -13,18 +13,18 @@ public class Ferry extends Motorized implements ITransporter {
      * to specify only the neccasery arguments for creating a ferry.
      * OR SO IM TOLD?!?!?!
      *
-     * @param _enginePower   The power of the engine in BHP.
+     * @param engine   The power of the engine in BHP.
      * @param _color         The <code>Color</code> of this <code>Ferry</code>.
      * @param _modelName     The model name of this <code>Ferry</code>
      * @param _maxLaneLength Specify length of lane.
      */
-    Ferry(double _enginePower, Color _color, String _modelName, int _maxLaneLength) {
-        super(_enginePower, _color, _modelName);
+    Ferry(Engine engine, Color _color, String _modelName, int _maxLaneLength) {
+        super(engine, _color, _modelName);
         maxLaneLength = _maxLaneLength;
         //Use to check if lane is full.
         laneFull = false;
         lane = new LinkedList<>();
-        bed = new Bed(90, 90);
+        ramp = new Ramp(90); //TODO Is max angle correct??
         stopEngine();
     }
 
@@ -32,7 +32,7 @@ public class Ferry extends Motorized implements ITransporter {
      * @param item The vehicle or object you want to load to the ferry.
      */
     public boolean load(IFerry item) {
-        if (bed.getAngle() == 0 && currentSpeed == 0) {
+        if (ramp.getAngle() == 0 && getCurrentSpeed() == 0) {
             return addToLane(item);
         }
         return false;
@@ -42,7 +42,7 @@ public class Ferry extends Motorized implements ITransporter {
      * Removes item/vehicle from the first position of the lane.
      */
     public boolean unload() {
-        if (bed.getAngle() == 0 && currentSpeed == 0) {
+        if (ramp.getAngle() == 0 && getCurrentSpeed() == 0) {
             return removeFromLane();
         }
         return false;
@@ -116,7 +116,7 @@ public class Ferry extends Motorized implements ITransporter {
      */
     @Override
     public void gas(double amount) {
-        if (acceptableValue(amount) && bed.getAngle() > 0)
+        if (acceptableValue(amount) && ramp.getAngle() > 0)
             incrementSpeed(amount);
     }
 
@@ -124,8 +124,8 @@ public class Ferry extends Motorized implements ITransporter {
      * Raises ramp
      */
     public void raiseRamp() {
-        if (currentSpeed == 0) {
-            bed.raise();
+        if (getCurrentSpeed() == 0) {
+            ramp.raise();
         }
     }
 
@@ -133,8 +133,8 @@ public class Ferry extends Motorized implements ITransporter {
      * Lowers ramp
      */
     public void lowerRamp() {
-        if (currentSpeed == 0) {
-            bed.lower();
+        if (getCurrentSpeed() == 0) {
+            ramp.lower();
         }
     }
 }

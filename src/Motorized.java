@@ -48,17 +48,6 @@ abstract public class Motorized implements IMovable {
     }
 
     /**
-     *
-     * @param movable The instance of IMovable that will be checked if it is
-     *                within range of this object.
-     *
-     * @return  True if within a range of 2 otherwise False.
-     */
-    public boolean isInRange(IMovable movable) {
-        return Math.pow(motion.getPosX() - movable.getPosX(),2) + Math.pow(motion.getPosY() - movable.getPosY(),2) < 4;
-    }
-
-    /**
      * Gets the engine power
      *
      * @return The engine power

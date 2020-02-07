@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.Stack;
 
 public class CargoTransporter extends Transporter {
 
@@ -16,23 +15,40 @@ public class CargoTransporter extends Transporter {
         cargo.updatePositions(getPosX(), getPosY());
     }
 
+    private boolean isSafeToLoad() {
+        return ramp.getAngle() == 0 && getCurrentSpeed() == 0;
+    }
+
     /**
      * Load a car to the trailer
      *
-     * @param car The car that will be loaded to the trailer.
+     * @param movable The car that will be loaded to the trailer.
      */
-    public boolean load(ITruckCargo car) {
-       return cargo.load(car);
-
+    public boolean load(IMovable movable) {
+        if (isSafeToLoad() && isInRange(movable)) {
+            return cargo.load(movable);
+        }
+        return false;
     }
 
     /**
-     * Unloads the car furthest back in the trailer
-     *
-     * @return The car furthest back
+     * Removes item/vehicle from the first position of the lane.
      */
     public IMovable unLoad() {
-        return cargo.unload();
+        IMovable movable;
+        if (isSafeToLoad()) {
+            movable = cargo.unload();
+
+            if (movable != null ) {
+                movable.setPosY(getPosY() -getMotion().getVelY()); // TODO unLoad behind
+                movable.setPosX(getPosX());
+            }
+        }
+
+        return null;
     }
 
+    private boolean isInRange(IMovable movable) {
+        return distanceTo(movable) <= 5;
+    }
 }

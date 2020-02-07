@@ -5,6 +5,4 @@ public interface IMovable extends IPositionable {
 
     void turnRight();
 
-    boolean isInRange(IMovable movable);
-
 }

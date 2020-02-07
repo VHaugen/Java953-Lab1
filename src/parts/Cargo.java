@@ -2,7 +2,7 @@ import java.util.Stack;
 
 public class Cargo<T extends IMovable> {
     //TODO <> To generic class? T? All IFerry?
-    private Stack<IMovable> list;
+    private Stack<T> list;
 
     //Specify max number of objects in the list.
     private int maxCapacity;
@@ -20,7 +20,7 @@ public class Cargo<T extends IMovable> {
      * @param item Add item to your list.
      * @return Returns <b>true</b> if it successfully added the item to the list, otherwise <b>false</b>.
      */
-    public boolean load(IMovable item) {
+    public boolean load(T item) {
         if (!checkLoad()) {
             list.add(item);
             checkLoad();
@@ -34,9 +34,9 @@ public class Cargo<T extends IMovable> {
      * @return Returns the item if it successfully removed the item from the head of the list,
      * otherwise <b>null</b>.
      */
-    public IMovable unload() {
+    public T unload() {
         if (list.size() > 0) {
-            IMovable item = list.pop();
+            T item = list.pop();
             checkLoad();
             return item;
         }
@@ -47,9 +47,9 @@ public class Cargo<T extends IMovable> {
      * @return Returns the item if it successfully removed the first position of the list,
      * otherwise <b>null</b>.
      */
-    public IMovable unloadFirst() {
+    public T unloadFirst() {
         if (list.size() > 0) {
-            IMovable item = list.remove(0);
+            T item = list.remove(0);
             checkLoad();
             return item;
         }
@@ -57,7 +57,7 @@ public class Cargo<T extends IMovable> {
     }
 
     public void updatePositions(double x, double y) {
-        for (IMovable item: list) {
+        for (T item: list) {
             item.setPosX(x);
             item.setPosY(y);
         }

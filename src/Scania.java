@@ -1,39 +1,13 @@
 import java.awt.*;
 
-public class Scania extends Transporter {
-
-
-    /**
-     * This constructor creates a nice Scania S 500 truck
-     * just select color and you are good to go!
-     *
-     * @param _color The <code>Color</code> of this <code>Car</code>.
-     */
-    Scania(Color _color,Engine engine,Ramp ramp) {
-        super(2, engine, _color, "Scania S 500", ramp);
-    }
-
+public class Scania extends Truck {
 
     /**
-     * Raises the bed the given amount of degrees until 70°.
+     * This constructor is generic and is made to take standard arguments
+     * to specify only the neccasery arguments for creating a Scania truck.
      *
-     * @param angle The angel in degrees
      */
-    public void raiseRamp(int angle) {
-        if (getCurrentSpeed() == 0) {
-            ramp.raise();
-        }
+    public Scania() {
+        super(2, new Motor(200), Color.BLACK, "Scania", new Ramp(70));
     }
-
-    /**
-     * Lowers the bed the given amount of degrees until 0°.
-     *
-     * @param angle The angel in degrees
-     */
-    protected void lowerRamp(int angle) {
-        if (getCurrentSpeed() == 0) {
-            ramp.lower();
-        }
-    }
-
 }

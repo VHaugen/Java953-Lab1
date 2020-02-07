@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class Ferry extends Motorized implements ITransporter {
+public class Ferry extends Motorized implements IFerryCargo {
     protected Ramp ramp;
     private int maxLaneLength;
     private boolean laneFull;
@@ -137,4 +137,5 @@ public class Ferry extends Motorized implements ITransporter {
             ramp.lower();
         }
     }
+
 }

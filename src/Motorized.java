@@ -172,4 +172,9 @@ abstract public class Motorized implements IMovable {
     public void turnRight() {
         motion.turn(-90);
     }
+
+    @Override
+    public double distanceTo(IPositionable positionable) {
+        return motion.distanceTo(positionable);
+    }
 }

@@ -8,13 +8,13 @@ public class LastBilsProvning {
 
     Scania scania;
     Ferry ferry;
-    CarTransport cTransport;
+    CargoTransporter cTransport;
     @Before
     public void start()
     {
         scania = new Scania(Color.RED);
         //ferry = new Ferry(200,Color.PINK,"Nova Star",Integer.MAX_VALUE,3);
-        cTransport = new CarTransport(200,Color.RED,"Scania 500",10);
+        cTransport = new CargoTransporter(200,Color.RED,"Scania 500",10);
     }
 
     @Test

@@ -1,26 +1,13 @@
 import java.awt.*;
 import java.util.Stack;
 
-public class CarTransport extends Transporter {
+public class CargoTransporter extends Transporter {
 
     private Cargo<IMovable> cargo;
 
-    public int getMaxCapacity() {
-        return cargo.getMaxCapacity();
-    }
-
-    public int getCurrentLoad() {
-        return currentLoad;
-    }
-
-
-    private int currentLoad;
-
-
-    public CarTransport(double _enginePower, Color _color, String _modelName, int _maxCapacity) {
-        super(2, _enginePower, _color, _modelName, 90, 90);
-        currentLoad = 0;
-        maxCapacity = _maxCapacity;
+    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo<IMovable> cargo) {
+        super(motor, color, modelName, ramp);
+        this.cargo = cargo;
     }
 
     @Override
@@ -34,7 +21,7 @@ public class CarTransport extends Transporter {
      *
      * @param car The car that will be loaded to the trailer.
      */
-    public boolean load(ICarTransport car) {
+    public boolean load(ITruckCargo car) {
        return cargo.load(car);
 
     }

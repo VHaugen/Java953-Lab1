@@ -1,7 +1,7 @@
-public abstract class Engine {
+public abstract class Motor {
     int enginePower;
 
-    public Engine(int enginePower) {
+    public Motor(int enginePower) {
         this.enginePower = enginePower;
     }
 

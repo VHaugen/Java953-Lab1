@@ -1,7 +1,7 @@
-public class TrimMotor extends Engine {
+public class TrimEngine extends Motor {
     double trimFactor = 1;
 
-    public TrimMotor(int enginePower,double trimFactor) {
+    public TrimEngine(int enginePower, double trimFactor) {
         super(enginePower);
         this.trimFactor = trimFactor;
     }

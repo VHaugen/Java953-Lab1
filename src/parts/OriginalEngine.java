@@ -1,5 +1,5 @@
-public class OriginalMotor extends Engine {
-    public OriginalMotor(int enginePower) {
+public class OriginalEngine extends Motor {
+    public OriginalEngine(int enginePower) {
         super(enginePower);
     }
 

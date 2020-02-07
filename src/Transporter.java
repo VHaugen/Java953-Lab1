@@ -47,4 +47,4 @@ abstract public class Transporter extends Motorized {
         }
     }
 }
-}
+

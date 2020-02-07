@@ -43,6 +43,10 @@ abstract public class Motorized implements IMovable {
         motion.setPosY(posY);
     }
 
+    public Motion getMotion(){
+        return motion;
+    }
+
     /**
      *
      * @param movable The instance of IMovable that will be checked if it is

@@ -1,10 +1,11 @@
 import java.awt.*;
 
-public class CargoTransporter extends Transporter {
+abstract class CargoTransporter extends Transporter {
 
     private Cargo<IMovable> cargo;
 
-    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo<IMovable> cargo) {
+
+    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo cargo) {
         super(motor, color, modelName, ramp);
         this.cargo = cargo;
     }
@@ -12,7 +13,7 @@ public class CargoTransporter extends Transporter {
     @Override
     public void move() {
         super.move();
-        cargo.updatePositions(getPosX(), getPosY());
+        cargo.updatePositions(getPos());
     }
 
     private boolean isSafeToLoad() {
@@ -40,8 +41,8 @@ public class CargoTransporter extends Transporter {
             movable = cargo.unload();
 
             if (movable != null ) {
-                movable.setPosY(getPosY() -getMotion().getVelY()); // TODO unLoad behind
-                movable.setPosX(getPosX());
+                movable.setPos(getPos().add(unLoadPosition())); // TODO unLoad behind of in front
+                return movable;
             }
         }
 
@@ -50,5 +51,10 @@ public class CargoTransporter extends Transporter {
 
     private boolean isInRange(IMovable movable) {
         return distanceTo(movable) <= 5;
+    }
+
+    private Position unLoadPosition(){
+        return new Position(-getMotion().getVelX() * 2, -getMotion().getVelY() *2);
+
     }
 }

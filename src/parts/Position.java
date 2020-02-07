@@ -26,7 +26,23 @@ public class Position implements IPositionable {
         return posY;
     }
 
+    @Override
+    public Position getPos() {
+        return this;
+    }
+
     public void setPosY(double posY) {
         this.posY = posY;
+    }
+
+    @Override
+    public void setPos(Position pos) {
+        posX = pos.getPosX();
+        posY = pos.getPosY();
+
+    }
+
+    public Position add(Position pos) {
+        return new Position(posX + pos.getPosX(), posY + pos.getPosY());
     }
 }

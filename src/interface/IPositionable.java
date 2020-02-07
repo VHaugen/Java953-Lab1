@@ -4,9 +4,13 @@ public interface IPositionable {
 
     double getPosY();
 
+    Position getPos();
+
     void setPosX(double x);
 
     void setPosY(double y);
+
+    void setPos(Position pos);
 
     double distanceTo(IPositionable positionable);
 }

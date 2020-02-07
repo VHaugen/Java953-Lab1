@@ -56,10 +56,9 @@ public class Cargo<T extends IPositionable> {
         return null;
     }
 
-    public void updatePositions(double x, double y) {
+    public void updatePositions(Position pos) {
         for (T item: list) {
-            item.setPosX(x);
-            item.setPosY(y);
+            item.setPos(pos);
         }
     }
 

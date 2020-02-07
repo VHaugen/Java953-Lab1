@@ -1,21 +1,31 @@
-import java.util.Stack;
-
 public class RepairCenter<T extends IMovable> {
-
 
     private Cargo<T> carQue;
 
+    /**
+     * Creates a repaircenter for vehicles.
+     * @param maxCars Specifies max number of vehicles that can be in the repair center.
+     */
     public RepairCenter(int maxCars) {
-        this.carQue = new Cargo<T>(maxCars);
+        this.carQue = new Cargo<>(maxCars);
     }
 
-    public void addCarToQue(T moterized)
+    /**
+     *
+     * @param motorized Adds vehicle to repair queue.
+     */
+    public void addCarToQue(T motorized)
     {
-        carQue.load(moterized);
+        carQue.load(motorized);
     }
+
+    /**
+     *
+     * @return Repaired vehicle is removed from the queue and returned.
+     */
     public T RemoveCarFromQue()
     {
-        return (T)carQue.unload();
+        return carQue.unload();
     }
 
 

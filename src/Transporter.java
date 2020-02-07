@@ -25,8 +25,8 @@ abstract public class Transporter extends Motorized {
         }
     }
 
-    public int getRampAngle() {
-        return ramp.getAngle();
+    public Ramp getRamp() {
+        return ramp;
     }
 
     /**

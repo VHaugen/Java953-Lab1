@@ -1,7 +1,6 @@
 import java.awt.*;
 
-abstract public class Transporter extends Car {
-
+abstract public class Transporter extends Motorized {
     protected Ramp ramp;
 
     /**
@@ -9,14 +8,13 @@ abstract public class Transporter extends Car {
      * to specify only the neccasery arguments for creating a car.
      * OR SO IM TOLD?!?!?!
      *
-     * @param _nrDoors     The number of doors of this <code>Car</code>.
-     * @param engine       The engine object.
-     * @param _color       The <code>Color</code> of this <code>Car</code>.
-     * @param _modelName   The model name of this <code>Car</code>
+     * @param motor       The motor object.
+     * @param color       The <code>Color</code> of this <code>Car</code>.
+     * @param modelName   The model name of this <code>Car</code>
      * @param ramp         The ramp object.
      */
-    Transporter(int _nrDoors, Engine engine, Color _color, String _modelName, Ramp ramp) {
-        super(_nrDoors, engine, _color, _modelName);
+    public Transporter(Motor motor, Color color, String modelName, Ramp ramp) {
+        super(motor, color, modelName);
         this.ramp = ramp;
     }
 
@@ -30,4 +28,23 @@ abstract public class Transporter extends Car {
     public int getRampAngle() {
         return ramp.getAngle();
     }
+
+    /**
+     * Raises ramp
+     */
+    public void raiseRamp() {
+        if (getCurrentSpeed() == 0) {
+            ramp.raise();
+        }
+    }
+
+    /**
+     * Lowers ramp
+     */
+    public void lowerRamp() {
+        if (getCurrentSpeed() == 0) {
+            ramp.lower();
+        }
+    }
+}
 }

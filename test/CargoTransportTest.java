@@ -10,11 +10,13 @@ public class CargoTransportTest {
     Volvo240 vsample;
     Saab95 ssample;
     CarTransporter carTrans;
+    Scania scania;
 
     @Before
     public void init() {
         ferry = new Ferry(new TrimEngine(150,1), Color.ORANGE, "FerryFace");
         carTrans = new CarTransporter(Color.WHITE, "CarTransformer");
+        scania = new Truck(new TrimEngine(150,1),Color.BLUE, "Scandia",)
         vsample = new Volvo240(new TrimEngine(150,1.35));
         ssample = new Saab95();
     }
@@ -24,13 +26,15 @@ public class CargoTransportTest {
         ferry.startEngine();
         assertTrue(ferry.getCurrentSpeed() > 0);
     }
-/*
 
     @Test
     public void testLoad() {
         for (int i = 0; i < ferry.getMaxLaneLength(); i++) {
-            Volvo240 volvo = new Volvo240();
+            Volvo240 volvo = new Volvo240(new TrimEngine(150,1.35));
             ferry.load(volvo);
+            ferry.load(carTrans);
+            ferry.load(scania);
+            carTrans.load(ferry);
         }
         assertTrue(ferry.getLaneFull());
     }
@@ -142,6 +146,5 @@ public class CargoTransportTest {
         ferry.unload();
         assertEquals(load, ferry.getLaneLoad());
     }
-*/
 
 }

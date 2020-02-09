@@ -25,6 +25,11 @@ abstract public class Motorized implements IMovable {
         stopEngine();
     }
 
+
+    public Motor getMotor() {
+        return motor;
+    }
+
     @Override
     public double getPosX() {
         return motion.getPosX();

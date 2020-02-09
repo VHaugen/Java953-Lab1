@@ -20,6 +20,14 @@ public class Saab95 extends PersonCar {
                 Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
     }
 
+    public void setTurboOn() {
+        ((TurboEngine)getMotor()).setTurboOn();
+    }
+
+    public void setTurboOff() {
+        ((TurboEngine) getMotor()).setTurboOff();
+    }
+
     /**
      * Decreases total speed depending on value entered.
      *

@@ -14,7 +14,7 @@ public class Ferry<T extends IPositionable> extends CargoTransporter {
      * @param modelName     The model name of this <code>Ferry</code>
      */
     public Ferry(Motor motor, Color color, String modelName) {
-        super(motor, color, modelName, new RampBool(), new Cargo<IFerryCargo>(5));
+        super(motor, color, modelName, new RampBool(), new Cargo<IPositionable>(5));
     }
 
     /**

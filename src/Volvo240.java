@@ -16,6 +16,11 @@ public class Volvo240 extends PersonCar {
         super(4, engine, Color.BLACK, "Volvo240");
     }
 
+    public Volvo240() {
+        super(4, new TrimEngine(135,1.35), Color.BLACK, "Volvo240");
+    }
+
+
 
     /**
      * Increases total speed depending on value entered.

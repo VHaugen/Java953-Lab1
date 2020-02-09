@@ -11,16 +11,45 @@ public class CargoTransportTest {
     Saab95 ssample;
     CarTransporter carTrans;
     Scania scania;
+    Cargo<Volvo240> cargoV;
+    Cargo<IPositionable> cargoI;
 
     @Before
     public void init() {
         ferry = new Ferry(new TrimEngine(150,1), Color.ORANGE, "FerryFace");
         carTrans = new CarTransporter(Color.WHITE, "CarTransformer");
-        scania = new Truck(new TrimEngine(150,1),Color.BLUE, "Scandia",)
+        scania = new Scania();
         vsample = new Volvo240(new TrimEngine(150,1.35));
         ssample = new Saab95();
+        cargoV = new Cargo<>(2);
+        cargoI = new Cargo<>(2);
     }
 
+    //Cargo testing
+
+    //Compile error since static type is wrong
+/*    @Test
+    public void testSaabInVolvoCargo() {
+        cargoV.load(ssample);
+        cargoV.load(scania);
+        cargoV.load(vsample);
+    }*/
+
+    @Test
+    public void testCargoFIFO () {
+        cargoI.load(scania);
+        cargoI.load(ssample);
+        assertEquals(scania, cargoI.unloadFirst());
+    }
+
+    @Test
+    public void testCargoFILO () {
+        cargoI.load(scania);
+        cargoI.load(ssample);
+        assertEquals(ssample, cargoI.unload());
+    }
+
+    //Ferry testing
     @Test
     public void testFerryStartEngine() {
         ferry.startEngine();
@@ -28,75 +57,82 @@ public class CargoTransportTest {
     }
 
     @Test
+    public void testFerryStartThenStop() {
+        ferry.startEngine();
+        ferry.stopEngine();
+        assertTrue(ferry.getCurrentSpeed() <= 0);
+    }
+
+    @Test
     public void testLoad() {
-        for (int i = 0; i < ferry.getMaxLaneLength(); i++) {
+        for (int i = 0; i < ferry.getCargo().getMaxCapacity(); i++) {
             Volvo240 volvo = new Volvo240(new TrimEngine(150,1.35));
             ferry.load(volvo);
-            ferry.load(carTrans);
-            ferry.load(scania);
-            carTrans.load(ferry);
         }
-        assertTrue(ferry.getLaneFull());
+        assertTrue(ferry.getCargo().getIsFull());
+        assertTrue(ferry.getCargo().getIsFull() != ferry.getCargo().getIsEmpty());
     }
 
     @Test
     //Tries to add an item too much.
     public void testOverLoad() {
-        for (int i = 0; i < ferry.getMaxLaneLength(); i++) {
-            Volvo240 volvo = new Volvo240();
+        for (int i = 0; i < ferry.getCargo().getMaxCapacity(); i++) {
+            Volvo240 volvo = new Volvo240(new TrimEngine(150,1.35));
             ferry.load(volvo);
         }
-        assertFalse(ferry.load(sample));
+        assertFalse(ferry.load(vsample));
     }
 
     @Test
     public void testUnload() {
-        for (int i = 0; i < ferry.getMaxLaneLength(); i++) {
+        for (int i = 0; i < ferry.getCargo().getMaxCapacity(); i++) {
             Volvo240 volvo = new Volvo240();
             ferry.load(volvo);
         }
-        for (int i = 0; i < ferry.getMaxLaneLength(); i++) {
-            ferry.unload();
+        for (int i = 0; i < ferry.getCargo().getMaxCapacity(); i++) {
+            ferry.unLoad();
         }
-        assertEquals(0, ferry.getLaneLoad());
+        assertTrue(ferry.getCargo().getCurrentLoad() == 0);
     }
 
     @Test
     //Tries to add an item too much.
     public void testUnderUnload() {
-        for (int i = 0; i < ferry.getMaxLaneLength(); i++) {
+        for (int i = 0; i < ferry.getCargo().getMaxCapacity(); i++) {
             Volvo240 volvo = new Volvo240();
             ferry.load(volvo);
         }
-        for (int i = 0; i < ferry.getMaxLaneLength(); i++) {
-            ferry.unload();
+        for (int i = 0; i < ferry.getCargo().getMaxCapacity(); i++) {
+            ferry.unLoad();
         }
-        assertFalse(ferry.unload());
+        assertNull(ferry.unLoad());
     }
 
     @Test
     public void testFerryRaiseRamp (){
-        int angle = ferry.bed.getAngle();
-        ferry.raiseRamp();
-        assertTrue(ferry.bed.getAngle() > angle);
+        int angle = ferry.getRamp().getAngle();
+        ferry.lowerRamp();
+        assertTrue(ferry.getRamp().getAngle() > angle);
     }
 
     @Test
     public void testFerryLowerRamp (){
-        ferry.raiseRamp();
-        int angle = ferry.bed.getAngle();
         ferry.lowerRamp();
-        assertTrue(ferry.bed.getAngle() == 0 && angle > 0);
+        int angle = ferry.getRamp().getAngle();
+        ferry.raiseRamp();
+        assertTrue(ferry.getRamp().getAngle() == 0 && angle > 0);
     }
 
     @Test
     public void testGasRampLowered () {
+        ferry.lowerRamp();
         ferry.gas(1);
         assertEquals(0, ferry.getCurrentSpeed(), 0.0);
     }
 
     @Test
     public void testGasRampRaised () {
+        ferry.lowerRamp();
         ferry.raiseRamp();
         ferry.gas(1);
         assertTrue(0 < ferry.getCurrentSpeed());
@@ -105,46 +141,52 @@ public class CargoTransportTest {
     @Test
     public void testRamplowerWithSpeed () {
         ferry.raiseRamp();
-        int angle = ferry.bed.getAngle();
+        int angle = ferry.getRamp().getAngle();
         ferry.gas(1);
         ferry.lowerRamp();
-        assertEquals(angle, ferry.bed.getAngle());
+        assertEquals(angle, ferry.getRamp().getAngle());
     }
 
     @Test
-    public void testRaisedrampLoad () {
-        ferry.raiseRamp();
-        int load = ferry.getLaneLoad();
-        ferry.load(sample);
-        assertEquals(load, ferry.getLaneLoad());
+    public void testLoweredRampLoad () {
+        ferry.lowerRamp();
+        int load = ferry.getCargo().getCurrentLoad();
+        ferry.load(ssample);
+        assertEquals(load, ferry.getCargo().getCurrentLoad());
     }
 
     @Test
-    public void testRaisedrampUnload () {
-        ferry.load(sample);
-        int load = ferry.getLaneLoad();
-        ferry.raiseRamp();
-        ferry.unload();
-        assertEquals(load, ferry.getLaneLoad());
+    public void testLoweredRampUnload () {
+        ferry.load(ssample);
+        int load = ferry.getCargo().getCurrentLoad();
+        ferry.lowerRamp();
+        ferry.unLoad();
+        assertEquals(load, ferry.getCargo().getCurrentLoad());
     }
 
     @Test
     public void testSpeedLoad () {
-        int load = ferry.getLaneLoad();
-        ferry.raiseRamp();
+        int load = ferry.getCargo().getCurrentLoad();
+        ferry.lowerRamp();
         ferry.gas(1);
-        ferry.load(sample);
-        assertEquals(load, ferry.getLaneLoad());
+        ferry.load(ssample);
+        assertEquals(load, ferry.getCargo().getCurrentLoad());
     }
 
     @Test
     public void testSpeedUnload () {
-        ferry.load(sample);
-        int load = ferry.getLaneLoad();
+        ferry.load(ssample);
+        int load = ferry.getCargo().getCurrentLoad();
         ferry.raiseRamp();
         ferry.gas(1);
-        ferry.unload();
-        assertEquals(load, ferry.getLaneLoad());
+        ferry.unLoad();
+        assertEquals(load, ferry.getCargo().getCurrentLoad());
     }
 
+    @Test
+    public void testFIFO() {
+        ferry.load(ssample);
+        ferry.load(scania);
+        assertEquals(ssample, ferry.unLoad());
+    }
 }

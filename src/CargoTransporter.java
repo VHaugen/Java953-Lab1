@@ -1,11 +1,11 @@
 import java.awt.*;
 
-abstract class CargoTransporter extends Transporter {
+abstract class CargoTransporter<T extends IPositionable> extends Transporter {
 
-    private Cargo<IPositionable> cargo;
+    private Cargo<T> cargo;
 
 
-    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo<IPositionable> cargo) {
+    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo<T> cargo) {
         super(motor, color, modelName, ramp);
         this.cargo = cargo;
     }
@@ -27,7 +27,7 @@ abstract class CargoTransporter extends Transporter {
      * @param movable The car that will be loaded to the trailer.
      * @return <code>True</code> if the given <code>IPositionable</code> was within range otherwise <code>False</code>
      */
-    public boolean load(IPositionable movable) {
+    public boolean load(T movable) {
         if (isSafeToLoad() && isInRange(movable)) {
             return cargo.load(movable);
         } else {
@@ -52,7 +52,7 @@ abstract class CargoTransporter extends Transporter {
         return null;
     }
 
-    public Cargo<IPositionable> getCargo(){
+    public Cargo<T> getCargo(){
         return cargo;
     }
 

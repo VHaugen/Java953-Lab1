@@ -34,7 +34,7 @@ public class Cargo<T extends IPositionable> {
      * @return Returns the item if it successfully removed the item from the head of the list,
      * otherwise <b>null</b>.
      */
-    public T unload() {
+    protected T unload() {
         if (list.size() > 0) {
             T item = list.pop();
             checkLoad();
@@ -47,7 +47,7 @@ public class Cargo<T extends IPositionable> {
      * @return Returns the item if it successfully removed the first position of the list,
      * otherwise <b>null</b>.
      */
-    public T unloadFirst() {
+    protected T unloadFirst() {
         if (list.size() > 0) {
             T item = list.remove(0);
             checkLoad();
@@ -56,8 +56,8 @@ public class Cargo<T extends IPositionable> {
         return null;
     }
 
-    public void updatePositions(Position pos) {
-        for (T item: list) {
+    protected void updatePositions(Position pos) {
+        for (T item : list) {
             item.setPos(pos);
         }
     }
@@ -89,7 +89,6 @@ public class Cargo<T extends IPositionable> {
     }
 
     /**
-     *
      * @return Returns true if cargo is empty.
      */
     public boolean getIsEmpty() {

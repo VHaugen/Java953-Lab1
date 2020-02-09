@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class Ferry<T extends IPositionable> extends CargoTransporter {
+public class Ferry extends CargoTransporter<IFerryCargo> {
 
     /**
      * This constructor is generic and is made to take standard arguments
@@ -14,7 +14,7 @@ public class Ferry<T extends IPositionable> extends CargoTransporter {
      * @param modelName     The model name of this <code>Ferry</code>
      */
     public Ferry(Motor motor, Color color, String modelName) {
-        super(motor, color, modelName, new RampBool(), new Cargo<IPositionable>(5));
+        super(motor, color, modelName, new RampBool(), new Cargo<>(5));
     }
 
     /**

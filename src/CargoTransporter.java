@@ -28,8 +28,9 @@ abstract class CargoTransporter extends Transporter {
     public boolean load(IMovable movable) {
         if (isSafeToLoad() && isInRange(movable)) {
             return cargo.load(movable);
+        } else {
+            return false;
         }
-        return false;
     }
 
     /**
@@ -50,8 +51,9 @@ abstract class CargoTransporter extends Transporter {
     }
 
     private boolean isInRange(IMovable movable) {
-        return distanceTo(movable) <= 5;
+        return getPos().distanceTo(movable.getPos()) <= 5;
     }
+
 
     private Position unLoadPosition(){
         return new Position(-getMotion().getVelX() * 2, -getMotion().getVelY() *2);

@@ -1,14 +1,15 @@
 import static java.lang.Math.*;
 
-public class Motion extends Position {
+public class Motion {
 
+    private Position pos;
     private double velX;
     private double velY;
     private double speed;
     private int theta;
 
     public Motion(double posX, double posY, double speed) {
-        super(posX, posY);
+        pos = new Position(posX, posY);
         velX = 0;
         velY = 1;
         theta = 0;
@@ -25,6 +26,30 @@ public class Motion extends Position {
 
     public double getSpeed() {
         return speed;
+    }
+
+    public Position getPos() {
+        return pos;
+    }
+
+    public void setPos(Position pos) {
+        pos.setPos(pos);
+    }
+
+    public double getPosX() {
+        return pos.getX();
+    }
+
+    public void setPosX(double posX) {
+        pos.setX(posX);
+    }
+
+    public double getPosY() {
+        return pos.getY();
+    }
+
+    public void setPosY(double posY) {
+        pos.setY(posY);
     }
 
     public void setSpeed(double speed) {

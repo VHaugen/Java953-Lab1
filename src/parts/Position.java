@@ -1,48 +1,45 @@
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-public class Position implements IPositionable {
-    private double posX;
-    private double posY;
+public class Position {
+    private double x;
+    private double y;
 
-    public Position(double posX, double posY) {
-        this.posX = posX;
-        this.posY = posY;
+    public Position(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public double distanceTo(IPositionable pos) {
-        return sqrt(pow(pos.getPosX() - pos.getPosX(),2) + pow(pos.getPosY() - pos.getPosY(),2));
+    public double distanceTo(Position pos) {
+        return sqrt(pow(x - pos.getX(),2) + pow(y - pos.getY(),2));
     }
 
-    public double getPosX() {
-        return posX;
+    public double getX() {
+        return x;
     }
 
-    public void setPosX(double posX) {
-        this.posX = posX;
+    public void setX(double x) {
+        this.x = x;
     }
 
-    public double getPosY() {
-        return posY;
+    public double getY() {
+        return y;
     }
 
-    @Override
     public Position getPos() {
         return this;
     }
 
-    public void setPosY(double posY) {
-        this.posY = posY;
+    public void setY(double y) {
+        this.y = y;
     }
 
-    @Override
     public void setPos(Position pos) {
-        posX = pos.getPosX();
-        posY = pos.getPosY();
-
+        x = pos.getX();
+        y = pos.getY();
     }
 
     public Position add(Position pos) {
-        return new Position(posX + pos.getPosX(), posY + pos.getPosY());
+        return new Position(x + pos.getX(), y + pos.getY());
     }
 }

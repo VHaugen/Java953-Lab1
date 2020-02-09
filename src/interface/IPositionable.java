@@ -11,6 +11,4 @@ public interface IPositionable {
     void setPosY(double y);
 
     void setPos(Position pos);
-
-    double distanceTo(IPositionable positionable);
 }

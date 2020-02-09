@@ -35,6 +35,16 @@ abstract public class Motorized implements IMovable {
         return motion.getPosY();
     }
 
+    @Override
+    public Position getPos() {
+        return motion.getPos();
+    }
+
+    @Override
+    public void setPos(Position pos) {
+        motion.setPosY(pos.getY());
+    }
+
     public void setPosX(double posX) {
         motion.setPosX(posX);
     }
@@ -166,8 +176,4 @@ abstract public class Motorized implements IMovable {
         motion.turn(-90);
     }
 
-    @Override
-    public double distanceTo(IPositionable positionable) {
-        return motion.distanceTo(positionable);
-    }
 }

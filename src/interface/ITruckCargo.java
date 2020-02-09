@@ -1,2 +1,2 @@
-public interface ITruckCargo extends IMovable{
+public interface ITruckCargo extends IFerryCargo{
 }

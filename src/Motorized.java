@@ -161,7 +161,7 @@ abstract public class Motorized implements IMovable {
     }
 
     /**
-     * Moves this <code>Car</code> in the current direction according to the current speed.
+     * Moves this <code>Motorized</code> in the current direction according to the current speed.
      */
     public void move() {
         motion.move();

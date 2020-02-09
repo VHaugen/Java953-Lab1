@@ -2,7 +2,8 @@ import java.awt.*;
 
 abstract class CargoTransporter extends Transporter {
 
-    private Cargo<IMovable> cargo;
+    private Cargo<IPositionable> cargo;
+
 
 
     public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo cargo) {
@@ -10,20 +11,22 @@ abstract class CargoTransporter extends Transporter {
         this.cargo = cargo;
     }
 
+    /**
+     * Moves this <code>CargoTransporter</code> in the current direction according to the current speed.
+     * And also uppdates the <code>Position</code> of the <code>Cargo</code>
+     */
     @Override
     public void move() {
         super.move();
         cargo.updatePositions(getPos());
     }
 
-    private boolean isSafeToLoad() {
-        return ramp.getAngle() == 0 && getCurrentSpeed() == 0;
-    }
-
     /**
-     * Load a car to the trailer
+     * Loads an <code>IPositionable</code> who is within a distance of 5 from this <code>CargoTransporter</code>
+     * to the <code>Cargo</code>.
      *
      * @param movable The car that will be loaded to the trailer.
+     * @return <code>True</code> if the given <code>IPositionable</code> was within range otherwise <code>False</code>
      */
     public boolean load(IMovable movable) {
         if (isSafeToLoad() && isInRange(movable)) {
@@ -34,10 +37,12 @@ abstract class CargoTransporter extends Transporter {
     }
 
     /**
-     * Removes item/vehicle from the first position of the lane.
+     * Removes one <code>IPositionable</code> from the <code>Cargo</code> and places it a distance 2 away.
+     *
+     * @return The removed <code>IPositionable</code> if any. Otherwise <code>null</code>.
      */
-    public IMovable unLoad() {
-        IMovable movable;
+    public IPositionable unLoad() {
+        IPositionable movable;
         if (isSafeToLoad()) {
             movable = cargo.unload();
 
@@ -50,10 +55,13 @@ abstract class CargoTransporter extends Transporter {
         return null;
     }
 
-    private boolean isInRange(IMovable movable) {
-        return getPos().distanceTo(movable.getPos()) <= 5;
+    private boolean isSafeToLoad() {
+        return ramp.getAngle() == 0 && getCurrentSpeed() == 0;
     }
 
+    private boolean isInRange(IPositionable movable) {
+        return getPos().distanceTo(movable.getPos()) <= 5;
+    }
 
     private Position unLoadPosition(){
         return new Position(-getMotion().getVelX() * 2, -getMotion().getVelY() *2);

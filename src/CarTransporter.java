@@ -1,7 +1,11 @@
 import java.awt.*;
 
 public class CarTransporter extends CargoTransporter {
-    public CarTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo cargo) {
-        super(motor, color, modelName, ramp, cargo);
+
+    int nrDoors;
+
+    public CarTransporter(Color color, String modelName) {
+        super(new Engine(600), color, modelName, new RampBool(), new Cargo<ITruckCargo>(10));
+        nrDoors = 2;
     }
 }

@@ -8,6 +8,6 @@ public class Scania extends Truck {
      *
      */
     public Scania() {
-        super(2, new Motor(200), Color.BLACK, "Scania", new Ramp(70));
+        super(2, new Engine(200), Color.BLACK, "Scania", new Ramp(70));
     }
 }

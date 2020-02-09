@@ -5,8 +5,7 @@ abstract class CargoTransporter extends Transporter {
     private Cargo<IPositionable> cargo;
 
 
-
-    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo cargo) {
+    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo<IPositionable> cargo) {
         super(motor, color, modelName, ramp);
         this.cargo = cargo;
     }
@@ -28,7 +27,7 @@ abstract class CargoTransporter extends Transporter {
      * @param movable The car that will be loaded to the trailer.
      * @return <code>True</code> if the given <code>IPositionable</code> was within range otherwise <code>False</code>
      */
-    public boolean load(IMovable movable) {
+    public boolean load(IPositionable movable) {
         if (isSafeToLoad() && isInRange(movable)) {
             return cargo.load(movable);
         } else {
@@ -45,17 +44,19 @@ abstract class CargoTransporter extends Transporter {
         IPositionable movable;
         if (isSafeToLoad()) {
             movable = cargo.unload();
-
-            if (movable != null ) {
+            if (movable != null) {
                 movable.setPos(getPos().add(unLoadPosition())); // TODO unLoad behind of in front
                 return movable;
             }
         }
-
         return null;
     }
 
-    private boolean isSafeToLoad() {
+    public Cargo<IPositionable> getCargo(){
+        return cargo;
+    }
+
+    protected boolean isSafeToLoad() {
         return ramp.getAngle() == 0 && getCurrentSpeed() == 0;
     }
 
@@ -63,8 +64,8 @@ abstract class CargoTransporter extends Transporter {
         return getPos().distanceTo(movable.getPos()) <= 5;
     }
 
-    private Position unLoadPosition(){
-        return new Position(-getMotion().getVelX() * 2, -getMotion().getVelY() *2);
+    protected Position unLoadPosition() {
+        return new Position(-getMotion().getVelX() * 2, -getMotion().getVelY() * 2);
 
     }
 }

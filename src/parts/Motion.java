@@ -3,6 +3,15 @@ import static java.lang.Math.*;
 public class Motion {
 
     private Position pos;
+
+    public void setVelX(double velX) {
+        this.velX = velX;
+    }
+
+    public void setVelY(double velY) {
+        this.velY = velY;
+    }
+
     private double velX;
     private double velY;
     private double speed;

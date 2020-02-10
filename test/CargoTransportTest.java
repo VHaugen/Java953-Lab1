@@ -44,7 +44,7 @@ public class CargoTransportTest {
         ssample.setPos(pos1);
         assertTrue(pos1.getX() == ssample.getPosX() && ssample.getPosY() == pos1.getY());
         ssample.setPos(pos2);
-        assertTrue(pos2.getX() == ssample.getPosX() && ssample.getPosY() == pos1.getY());
+        assertTrue(pos2.getX() == ssample.getPosX() && ssample.getPosY() == pos2.getY());
     }
 
     @Test

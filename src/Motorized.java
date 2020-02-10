@@ -45,14 +45,6 @@ abstract public class Motorized<E extends Engine> implements IMovable {
         motion.setPos(pos);
     }
 
-    public void setPosX(double posX) {
-        motion.setPosX(posX);
-    }
-
-    public void setPosY(double posY) {
-        motion.setPosY(posY);
-    }
-
     public Motion getMotion(){
         return motion;
     }

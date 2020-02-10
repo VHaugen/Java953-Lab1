@@ -13,6 +13,8 @@ public class CargoTransportTest {
     Scania scania;
     Cargo<Volvo240> cargoV;
     Cargo<IPositionable> cargoI;
+    Position pos1;
+    Position pos2;
 
     @Before
     public void init() {
@@ -23,6 +25,8 @@ public class CargoTransportTest {
         ssample = new Saab95();
         cargoV = new Cargo<>(2);
         cargoI = new Cargo<>(2);
+        pos1 = new Position(2,2);
+        pos2 = new Position(0,0);
     }
 
     //Cargo testing
@@ -34,6 +38,14 @@ public class CargoTransportTest {
         cargoV.load(scania);
         cargoV.load(vsample);
     }*/
+
+    @Test
+    public void testNewPosition() {
+        ssample.setPos(pos1);
+        assertTrue(pos1.getX() == ssample.getPosX() && ssample.getPosY() == pos1.getY());
+        ssample.setPos(pos2);
+        assertTrue(pos2.getX() == ssample.getPosX() && ssample.getPosY() == pos1.getY());
+    }
 
     @Test
     public void testCargoFIFO () {

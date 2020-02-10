@@ -1,8 +1,8 @@
 import java.util.Stack;
 
-public class Cargo<T extends IPositionable> {
+public class Cargo<C extends IPositionable> {
     //TODO <> To generic class? T? All IFerry?
-    private Stack<T> list;
+    private Stack<C> list;
 
     //Specify max number of objects in the list.
     private int maxCapacity;
@@ -20,7 +20,7 @@ public class Cargo<T extends IPositionable> {
      * @param item Add item to your list.
      * @return Returns <b>true</b> if it successfully added the item to the list, otherwise <b>false</b>.
      */
-    public boolean load(T item) {
+    public boolean load(C item) {
         if (!checkLoad()) {
             list.add(item);
             checkLoad();
@@ -34,9 +34,9 @@ public class Cargo<T extends IPositionable> {
      * @return Returns the item if it successfully removed the item from the head of the list,
      * otherwise <b>null</b>.
      */
-    protected T unload() {
+    protected C unload() {
         if (list.size() > 0) {
-            T item = list.pop();
+            C item = list.pop();
             checkLoad();
             return item;
         }
@@ -47,9 +47,9 @@ public class Cargo<T extends IPositionable> {
      * @return Returns the item if it successfully removed the first position of the list,
      * otherwise <b>null</b>.
      */
-    protected T unloadFirst() {
+    protected C unloadFirst() {
         if (list.size() > 0) {
-            T item = list.remove(0);
+            C item = list.remove(0);
             checkLoad();
             return item;
         }
@@ -57,7 +57,7 @@ public class Cargo<T extends IPositionable> {
     }
 
     protected void updatePositions(Position pos) {
-        for (T item : list) {
+        for (C item : list) {
             item.setPos(pos);
         }
     }

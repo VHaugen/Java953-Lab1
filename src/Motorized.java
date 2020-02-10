@@ -42,7 +42,7 @@ abstract public class Motorized<E extends Engine> implements IMovable {
 
     @Override
     public void setPos(Position pos) {
-        motion.setPosY(pos.getY());
+        motion.setPos(pos);
     }
 
     public void setPosX(double posX) {

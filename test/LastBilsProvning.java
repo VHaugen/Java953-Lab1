@@ -21,13 +21,13 @@ public class LastBilsProvning {
     public void testScaniaBedRaise()
     {
         scania.gas(1);
-        scania.raiseRamp();
+        scania.lowerRamp();
         assertEquals(0, scania.ramp.getAngle());
     }
     @Test
     public void testScaniaGasBedRaised()
     {
-        scania.raiseRamp();
+        scania.lowerRamp();
         scania.gas(1);
         assertTrue( 0 == scania.getCurrentSpeed());
     }

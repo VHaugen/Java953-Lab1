@@ -20,7 +20,7 @@ public class Motion {
         pos = new Position(posX, posY);
         velX = 0;
         velY = 1;
-        theta = 0;
+        theta = 90;
         this.speed = speed;
     }
 
@@ -126,8 +126,8 @@ public class Motion {
         theta += degrees;
         theta %= 360;
 
-        velX = -velY * sin(toRadians(theta));
-        velY = velY * cos(toRadians(theta));
+        velX = -sin(toRadians(theta));
+        velY = cos(toRadians(theta));
     }
 
 }

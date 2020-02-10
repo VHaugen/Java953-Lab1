@@ -3,7 +3,7 @@ public class Engine {
 
     /**
      *
-     * @param enginePower The power of the
+     * @param enginePower The power of the <code>En</code>
      */
     public Engine(int enginePower) {
         this.enginePower = enginePower;

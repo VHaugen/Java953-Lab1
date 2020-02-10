@@ -85,27 +85,28 @@ public class Bilprovningen {
 
     @Test
     public void testHandBrakeTurnLeft() {
-        testCar.getMotion().getVelX();//TODO TEST TURN
-        testCar.velX = 1;
+        testCar.getMotion().setVelY(1);//TODO TEST TURN
+        testCar.getMotion().setVelX(1);
 
         testCar.turnLeft();
         testCar.turnLeft();
-
-        assertTrue(testCar.velX == -1 && testCar.velY == -1);
+        System.out.println(testCar.getMotion().getVelX() + " " + testCar.getMotion().getVelY());
+        assertTrue(testCar.getMotion().getVelX() == -1 && testCar.getMotion().getVelY() == -1);
 
 
     }
 
     @Test
     public void testSpinLeft() {
-        double initVelX = testCar.velX;
-        double initVelY = testCar.velY;
+        double initVelX = testCar.getMotion().getVelX();
+        double initVelY = testCar.getMotion().getVelY();
 
         for (int i = 0; i < 4; i++) {
             testCar.turnLeft();
         }
 
-        assertTrue(initVelX == testCar.velX && initVelY == testCar.velY);
+
+        assertTrue(initVelX == testCar.getMotion().getVelX() && initVelY == testCar.getMotion().getVelY());
 
     }
 
@@ -117,7 +118,7 @@ public class Bilprovningen {
         testCar.turnLeft();
         testCar.move();
 
-        assertTrue(initialX > testCar.posX);
+        assertTrue(initialX > testCar.getMotion().getPosX());
 
     }
 
@@ -163,7 +164,7 @@ public class Bilprovningen {
     {
         saab = new Saab95();
         saab.startEngine();
-        saab.engine.
+        saab.setTurboOff();
         for (int i = 0; i < 10; i++) {
             saab.gas(1);
         }

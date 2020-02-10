@@ -7,47 +7,50 @@ import static org.junit.Assert.*;
 public class LastBilsProvning {
 
     Scania scania;
-    Ferry ferry;
     CargoTransporter cTransport;
+    RepairCenter<Scania> repCenter = new RepairCenter<>(2 );
     @Before
     public void start()
     {
-        scania = new Scania(Color.RED);
+        scania = new Scania();
         //ferry = new Ferry(200,Color.PINK,"Nova Star",Integer.MAX_VALUE,3);
-        cTransport = new CargoTransporter(200,Color.RED,"Scania 500",10);
+        cTransport = new CarTransporter(Color.BLACK,"LastBIl");
     }
 
     @Test
     public void testScaniaBedRaise()
     {
         scania.gas(1);
-        scania.raiseRamp(70);
-        assertEquals(0, scania.bed.getAngle());
+        scania.raiseRamp();
+        assertEquals(0, scania.ramp.getAngle());
     }
     @Test
     public void testScaniaGasBedRaised()
     {
-        scania.raiseRamp(2);
+        scania.raiseRamp();
         scania.gas(1);
         assertTrue( 0 == scania.getCurrentSpeed());
     }
     @Test
-    public void loadCarTransportAboveMaxCap() // not working
+    public void testRampLower()
     {
-        Volvo240 volovo = new Volvo240();
-        cTransport.setMaxCapacity(0);
-        cTransport.load(volovo);
-        assertTrue(cTransport.getCurrentLoad() < 1);
-    }
-    @Test
-    public void unloadtoMuchCarTransport()
-    {
-
 
     }
     @Test
-    public void testing()
-    {}
+    public void testRepairCenterAdd()
+    {
+        repCenter.addCarToQue(scania);
+        assertTrue(repCenter.getCarQue().getCurrentLoad() > 0);
+    }
+    @Test
+    public void testRepairCenterUnload()
+    {
+        repCenter.addCarToQue(scania);
+        repCenter.RemoveCarFromQue();
+        assertTrue(repCenter.getCarQue().getCurrentLoad() == 0);
+    }
+    //TODO Ramp not BOOL raise
+    //TODO gas rampUpp and down
 
 
 

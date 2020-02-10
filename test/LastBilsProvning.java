@@ -32,8 +32,14 @@ public class LastBilsProvning {
         assertTrue( 0 == scania.getCurrentSpeed());
     }
     @Test
-    public void testRampLower()
+    public void testTrimEngineAndTurboEngine()
     {
+        TrimEngine trim = new TrimEngine(200,1.25);
+        TurboEngine turb = new TurboEngine(200);
+        Engine eng = new Engine(200);
+        turb.setTurboOn();
+
+        assertTrue(trim.speedFactor() > eng.speedFactor() && turb.speedFactor()>eng.speedFactor());
 
     }
     @Test

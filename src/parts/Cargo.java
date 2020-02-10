@@ -1,7 +1,6 @@
 import java.util.Stack;
 
 public class Cargo<C extends IPositionable> {
-    //TODO <> To generic class? T? All IFerry?
     private Stack<C> list;
 
     //Specify max number of objects in the list.
@@ -10,6 +9,10 @@ public class Cargo<C extends IPositionable> {
     //Just an helper instance variable to check if it's full.
     private boolean isFull;
 
+    /**
+     *
+     * @param maxCapacity Specify maximum number of objects in the cargo.
+     */
     public Cargo(int maxCapacity) {
         this.list = new Stack<>();
         this.maxCapacity = maxCapacity;
@@ -56,6 +59,11 @@ public class Cargo<C extends IPositionable> {
         return null;
     }
 
+    /**
+     *
+     * @param pos Enter a positional object.
+     *            It will give every object in the cargo the positional objects coordinates.
+     */
     protected void updatePositions(Position pos) {
         for (C item : list) {
             item.setPos(pos);

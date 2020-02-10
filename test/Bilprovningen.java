@@ -184,4 +184,16 @@ public class Bilprovningen {
         }
         assertEquals("Only values between 0 and 1!", a.getMessage());
     }
+    @Test
+    public void testDecrementSpeed()
+    {
+
+        Scania testCar = new Scania();
+        testCar.gas(1);
+        testCar.gas(1);
+        testCar.gas(1);
+        double initSpeed = testCar.getCurrentSpeed();
+         testCar.decrementSpeed(1);
+         assertTrue(testCar.getCurrentSpeed() < initSpeed);
+    }
 }

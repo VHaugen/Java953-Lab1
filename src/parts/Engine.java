@@ -1,6 +1,10 @@
 public class Engine {
-    int enginePower;
+    private int enginePower;
 
+    /**
+     *
+     * @param enginePower The power of the
+     */
     public Engine(int enginePower) {
         this.enginePower = enginePower;
     }

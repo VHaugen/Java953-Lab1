@@ -10,6 +10,7 @@ public class Cargo<C extends IPositionable> {
     private boolean isFull;
 
     /**
+     *  Creates a container with IPositionable objects.
      *
      * @param maxCapacity Specify maximum number of objects in the cargo.
      */
@@ -20,6 +21,8 @@ public class Cargo<C extends IPositionable> {
     }
 
     /**
+     *  Loads an IPositionable to the <code>Cargo</code>.
+     *
      * @param item Add item to your list.
      * @return Returns <b>true</b> if it successfully added the item to the list, otherwise <b>false</b>.
      */
@@ -34,6 +37,8 @@ public class Cargo<C extends IPositionable> {
     }
 
     /**
+     *  Unloads an IPositionable from the <code>Cargo</code>.
+     *
      * @return Returns the item if it successfully removed the item from the head of the list,
      * otherwise <b>null</b>.
      */

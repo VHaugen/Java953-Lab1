@@ -1,3 +1,6 @@
+/**
+ * An <code>Interface</code> for objects that have av position.
+ */
 public interface IPositionable {
 
     double getPosX();
@@ -5,10 +8,6 @@ public interface IPositionable {
     double getPosY();
 
     Position getPos();
-
-    void setPosX(double x);
-
-    void setPosY(double y);
 
     void setPos(Position pos);
 }

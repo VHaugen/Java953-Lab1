@@ -21,8 +21,8 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
      * @return The removed <code>IPositionable</code> if any. Otherwise <code>null</code>.
      */
     @Override
-    public IPositionable unLoad() {
-        IPositionable movable;
+    public IFerryCargo unLoad() {
+        IFerryCargo movable;
         if (isSafeToLoad()) {
             movable = getCargo().unloadFirst();
             if (movable != null) {

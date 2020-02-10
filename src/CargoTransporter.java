@@ -40,8 +40,8 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
      *
      * @return The removed <code>IPositionable</code> if any. Otherwise <code>null</code>.
      */
-    public IPositionable unLoad() {
-        IPositionable movable;
+    public T unLoad() {
+        T movable;
         if (isSafeToLoad()) {
             movable = cargo.unload();
             if (movable != null) {
@@ -60,7 +60,7 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
         return ramp.getAngle() == 0 && getCurrentSpeed() == 0;
     }
 
-    private boolean isInRange(IPositionable movable) {
+    private boolean isInRange(T movable) {
         return getPos().distanceTo(movable.getPos()) <= 5;
     }
 

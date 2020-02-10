@@ -15,6 +15,7 @@ public class CargoTransportTest {
     Cargo<IPositionable> cargoI;
     Position pos1;
     Position pos2;
+    Position emptyPos;
 
     @Before
     public void init() {
@@ -68,6 +69,13 @@ public class CargoTransportTest {
     }
 
     @Test
+    public void cargoOverloadTest() {
+        cargoV.load(vsample);
+        cargoV.load(vsample);
+        assertFalse(cargoV.load(vsample));
+    }
+
+    @Test
     public void testCargoFIFO () {
         cargoI.load(scania);
         cargoI.load(ssample);
@@ -88,6 +96,15 @@ public class CargoTransportTest {
     }
 
     //CarTransport testing
+
+    @Test
+    public void testMoveRampdown() {
+        carTrans.setPos(pos2);
+        carTrans.lowerRamp();
+        carTrans.gas(1);
+        carTrans.move();
+        assertTrue(pos2.getX() == carTrans.getPosX() && carTrans.getPosY() == pos2.getY());
+    }
 
     @Test
     public void testCarTransportUnload() {

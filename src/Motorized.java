@@ -117,7 +117,7 @@ abstract public class Motorized<E extends Engine> implements IMovable {
     }
 
     protected double speedFactor() {
-        return getEnginePower() * 0.01;
+       return engine.speedFactor();
     }
 
     /**

@@ -7,14 +7,6 @@ public class Motion {
 
     private Position pos;
 
-    public void setVelX(double velX) {
-        this.velX = velX;
-    }
-
-    public void setVelY(double velY) {
-        this.velY = velY;
-    }
-
     private double velX;
     private double velY;
     private double speed;
@@ -32,7 +24,7 @@ public class Motion {
         pos = new Position(posX, posY);
         velX = 0;
         velY = 1;
-        theta = 90;
+        theta = 0;
         this.speed = speed;
     }
 

@@ -85,13 +85,11 @@ public class Bilprovningen {
 
     @Test
     public void testHandBrakeTurnLeft() {
-        testCar.getMotion().setVelY(1);//TODO TEST TURN
-        testCar.getMotion().setVelX(1);
 
         testCar.turnLeft();
         testCar.turnLeft();
         System.out.println(testCar.getMotion().getVelX() + " " + testCar.getMotion().getVelY());
-        assertTrue(testCar.getMotion().getVelX() == -1 && testCar.getMotion().getVelY() == -1);
+        assertTrue(testCar.getMotion().getVelX() == 0 && testCar.getMotion().getVelY() == -1);
 
 
     }
@@ -153,11 +151,6 @@ public class Bilprovningen {
         assertTrue(testCar.getEnginePower() ==testCar.getEnginePower());
     }
 
-    @Test
-    public void testGetCurrentSpeed()
-    {
-        assertTrue(testCar.getEnginePower() == testCar.getCurrentSpeed());
-    }
 
     @Test
     public void testTurboOn()

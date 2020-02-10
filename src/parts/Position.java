@@ -53,10 +53,6 @@ public class Position {
         return y;
     }
 
-    public Position getPos() {
-        return this;
-    }
-
     /**
      *  Sets the y-coordinate of this <code>Position</code> to a given value.
      *

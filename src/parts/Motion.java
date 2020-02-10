@@ -62,8 +62,8 @@ public class Motion {
      *
      * @param pos The new <code>Position</code>.
      */
-    public void setPos(Position pos) {
-        pos.setPos(pos);
+    public void setPos(Position newPos) {
+        pos.setPos(newPos);
     }
 
     /**
@@ -129,5 +129,4 @@ public class Motion {
         velX = -sin(toRadians(theta));
         velY = cos(toRadians(theta));
     }
-
 }

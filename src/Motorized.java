@@ -1,16 +1,11 @@
 import java.awt.*;
 
-public abstract class Car implements Movable {
-
-    protected int nrDoors; // Number of doors on the car
-    protected double enginePower; // Engine power of the car
-    protected double currentSpeed; // The current speed of the car
+abstract public class Motorized<E extends Engine> implements IMovable {
+    //protected double enginePower; // Engine power of the car
+    protected E engine;
     protected Color color; // Color of the car
     public final String modelName; // The car model name
-    public double posX;
-    public double posY;
-    public double velX;
-    public double velY;
+    private Motion motion;
 
 
     /**
@@ -18,30 +13,40 @@ public abstract class Car implements Movable {
      * to specify only the neccasery arguments for creating a car.
      * OR SO IM TOLD?!?!?!
      *
-     * @param _nrDoors     The number of doors of this <code>Car</code>.
-     * @param _enginePower The power of the engine in BHP.
+     * @param engine The engine you want to add to it.
      * @param _color       The <code>Color</code> of this <code>Car</code>.
      * @param _modelName   The model name of this <code>Car</code>
      */
-    Car(int _nrDoors, double _enginePower, Color _color, String _modelName) {
-        nrDoors = _nrDoors;
-        enginePower = _enginePower;
+    Motorized(E engine, Color _color, String _modelName) {
+        this.engine = engine;
         color = _color;
         modelName = _modelName;
-        velX = 0;
-        velY = 1;
-        posX = 0;
-        posY = 0;
+        motion = new Motion(0,0,0);
         stopEngine();
     }
 
-    /**
-     * Gets the number of doors
-     *
-     * @return The number of doors
-     */
-    public int getNrDoors() {
-        return nrDoors;
+    @Override
+    public double getPosX() {
+        return motion.getPosX();
+    }
+
+    @Override
+    public double getPosY() {
+        return motion.getPosY();
+    }
+
+    @Override
+    public Position getPos() {
+        return motion.getPos();
+    }
+
+    @Override
+    public void setPos(Position pos) {
+        motion.setPos(pos);
+    }
+
+    public Motion getMotion(){
+        return motion;
     }
 
     /**
@@ -50,7 +55,7 @@ public abstract class Car implements Movable {
      * @return The engine power
      */
     public double getEnginePower() {
-        return enginePower;
+        return engine.getEnginePower();
     }
 
     /**
@@ -59,7 +64,7 @@ public abstract class Car implements Movable {
      * @return The current speed
      */
     public double getCurrentSpeed() {
-        return currentSpeed;
+        return motion.getSpeed();
     }
 
     /**
@@ -82,33 +87,37 @@ public abstract class Car implements Movable {
      * Sets the current speed of this car to a low initial value
      */
     public void startEngine() {
-        currentSpeed = 0.1;
+        motion.setSpeed(0.1);
     }
 
     /**
-     * Increments the speed of this <code>Car</code>.
+     * Increments the speed of this <code>Motorized Object</code>.
      *
      * @param amount How much the speed will be incremented.
      */
-    abstract protected void incrementSpeed(double amount);
+    protected void incrementSpeed(double amount) {
+        motion.setSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
+    }
 
     /**
-     * Decrements the speed of this <code>Car</code>.
+     * Decrements the speed of this <code>Motorized Object</code>.
      *
      * @param amount How much the speed will be Decremented.
      */
-    abstract protected void decrementSpeed(double amount);
+    protected void decrementSpeed(double amount) {
+        motion.setSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
+    }
 
-    abstract protected double speedFactor();
+    protected double speedFactor() {
+       return engine.speedFactor();
+    }
 
     /**
      * Sets the current speed to 0.
      */
     public void stopEngine() {
-        currentSpeed = 0;
+        motion.setSpeed(0);
     }
-
-    // TODO fix this method according to lab pm
 
     /**
      * @param amount Accepts values between 0-1 for gassing.
@@ -118,18 +127,17 @@ public abstract class Car implements Movable {
             incrementSpeed(amount);
     }
 
-    /** Function will check if value is in a acceptable range 0-1(0%-100%)
-    *
-    * @param gasAmount Determining value for acceptable percentage amount.
-    * @return Will return true if value is in a acceptable range or throw an exception!
-    */
+    /**
+     * Function will check if value is in a acceptable range 0-1(0%-100%)
+     *
+     * @param gasAmount Determining value for acceptable percentage amount.
+     * @return Will return true if value is in a acceptable range or throw an exception!
+     */
     protected Boolean acceptableValue(double gasAmount) {
         if (0 < gasAmount && 1 >= gasAmount)
             return true;
         throw new IllegalArgumentException("Only values between 0 and 1!");
     }
-
-    // TODO fix this method according to lab pm
 
     /**
      * @param amount Accepts values between 0-1 for gassing.
@@ -140,28 +148,24 @@ public abstract class Car implements Movable {
     }
 
     /**
-     * Moves this <code>Car</code> in the current direction according to the current speed.
+     * Moves this <code>Motorized</code> in the current direction according to the current speed.
      */
     public void move() {
-        posX += velX * currentSpeed;
-        posY += velY * currentSpeed;
+        motion.move();
     }
 
     /**
      * Changes the current direction 90° to the left.
      */
     public void turnLeft() {
-        double tempVel = velX;
-        velX = -velY;
-        velY = tempVel;
+        motion.turn(90);
     }
 
     /**
      * Changes the current direction 90° to the right.
      */
     public void turnRight() {
-        double tempVel = velX;
-        velX = velY;
-        velY = -tempVel;
+        motion.turn(-90);
     }
+
 }

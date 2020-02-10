@@ -6,28 +6,31 @@ import static org.junit.Assert.*;
 
 
 public class Bilprovningen {
-    Car testCar;
+    Volvo240 testCar;
     Saab95 saab;
+    TurboEngine turbo = new TurboEngine(200);
+    TrimEngine engine = new TrimEngine(200, 1.3);
 
     @Before
     public void init() {
-        testCar = new Volvo240();
+        testCar = new Volvo240(engine);
         testCar.startEngine();
+
     }
 
     @Test
     public void testStartEngineVolvo() {
-        assertTrue(testCar.currentSpeed > 0);
+        assertTrue(testCar.getMotion().getSpeed() > 0);
 
     }
 
     @Test
     public void testMove() {
-        double initialPosY = testCar.posY;
+        double initialPosY = testCar.getMotion().getPosY();
         testCar.gas(1);
         testCar.move();
 
-        assertTrue(testCar.posY > initialPosY);
+        assertTrue(testCar.getMotion().getPosY() > initialPosY);
     }
 
     @Test
@@ -45,7 +48,7 @@ public class Bilprovningen {
         for (int i = 0; i < 200; i++) {
             testCar.gas(1);
         }
-        assertTrue(testCar.currentSpeed <= testCar.enginePower);
+        assertTrue(testCar.getCurrentSpeed() <= testCar.getEnginePower());
 
     }
 
@@ -54,7 +57,7 @@ public class Bilprovningen {
         for (int i = 0; i < 200; i++) {
             testCar.brake(1);
         }
-        assertTrue(testCar.currentSpeed >= 0);
+        assertTrue(testCar.getCurrentSpeed() >= 0);
     }
 
     @Test
@@ -82,27 +85,26 @@ public class Bilprovningen {
 
     @Test
     public void testHandBrakeTurnLeft() {
-        testCar.velY = 1;
-        testCar.velX = 1;
 
         testCar.turnLeft();
         testCar.turnLeft();
-
-        assertTrue(testCar.velX == -1 && testCar.velY == -1);
+        System.out.println(testCar.getMotion().getVelX() + " " + testCar.getMotion().getVelY());
+        assertTrue(testCar.getMotion().getVelX() == 0 && testCar.getMotion().getVelY() == -1);
 
 
     }
 
     @Test
     public void testSpinLeft() {
-        double initVelX = testCar.velX;
-        double initVelY = testCar.velY;
+        double initVelX = testCar.getMotion().getVelX();
+        double initVelY = testCar.getMotion().getVelY();
 
         for (int i = 0; i < 4; i++) {
             testCar.turnLeft();
         }
 
-        assertTrue(initVelX == testCar.velX && initVelY == testCar.velY);
+
+        assertTrue(initVelX == testCar.getMotion().getVelX() && initVelY == testCar.getMotion().getVelY());
 
     }
 
@@ -114,7 +116,7 @@ public class Bilprovningen {
         testCar.turnLeft();
         testCar.move();
 
-        assertTrue(initialX > testCar.posX);
+        assertTrue(initialX > testCar.getMotion().getPosX());
 
     }
 
@@ -126,7 +128,7 @@ public class Bilprovningen {
         testCar.turnRight();
         testCar.move();
 
-        assertTrue(initialX < testCar.posX);
+        assertTrue(initialX < testCar.getPosX());
     }
 
     ///
@@ -146,14 +148,9 @@ public class Bilprovningen {
     @Test
     public void testGetEnginePower()
     {
-        assertTrue(testCar.enginePower ==testCar.getEnginePower());
+        assertTrue(testCar.getEnginePower() ==testCar.getEnginePower());
     }
 
-    @Test
-    public void testGetCurrentSpeed()
-    {
-        assertTrue(testCar.currentSpeed == testCar.getCurrentSpeed());
-    }
 
     @Test
     public void testTurboOn()
@@ -186,5 +183,17 @@ public class Bilprovningen {
             a = e;
         }
         assertEquals("Only values between 0 and 1!", a.getMessage());
+    }
+    @Test
+    public void testDecrementSpeed()
+    {
+
+        Scania testCar = new Scania();
+        testCar.gas(1);
+        testCar.gas(1);
+        testCar.gas(1);
+        double initSpeed = testCar.getCurrentSpeed();
+         testCar.decrementSpeed(1);
+         assertTrue(testCar.getCurrentSpeed() < initSpeed);
     }
 }

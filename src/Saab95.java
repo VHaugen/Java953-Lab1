@@ -1,38 +1,12 @@
 import java.awt.*;
 
-public class Saab95 extends Car {
-    private boolean turboOn;
+public class Saab95 extends PersonCar<TurboEngine> {
 
     /**
      * Creates a custom standard <b>Saab 95</b>.
      */
     public Saab95() {
-        super(2, 125, Color.red, "Saab95");
-        turboOn = false;
-    }
-
-    /**
-     * Turbo turns on.
-     */
-    public void setTurboOn() {
-        turboOn = true;
-    }
-
-    /**
-     * Turbo turns off.
-     */
-    public void setTurboOff() {
-        turboOn = false;
-    }
-
-    /**
-     * @return Returns higher speed if turbo is on.
-     */
-    @Override
-    protected double speedFactor() {
-        double turbo = 1;
-        if (turboOn) turbo = 1.3;
-        return enginePower * 0.01 * turbo;
+        super(2, new TurboEngine(200), Color.red, "Saab95");
     }
 
     /**
@@ -42,7 +16,15 @@ public class Saab95 extends Car {
      */
     @Override
     protected void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
+        getMotion().setSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
+    }
+
+    public void setTurboOn() {
+        engine.setTurboOn();
+    }
+
+    public void setTurboOff() {
+        engine.setTurboOff();
     }
 
     /**
@@ -52,7 +34,7 @@ public class Saab95 extends Car {
      */
     @Override
     protected void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+        getMotion().setSpeed(
+                Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
-
 }

@@ -1,28 +1,24 @@
 import java.awt.*;
 
-public class Volvo240 extends Car {
+public class Volvo240 extends PersonCar<TrimEngine> {
 
     /**
      * The increased/decreased amount of horsepower in a tuned configuration.
      */
-    private final static double trimFactor = 1.25;
+
 
     /**
      * Creates a standard <b>Volvo 240</b>.
      */
+    public Volvo240(TrimEngine engine) {
+        super(4, engine, Color.BLACK, "Volvo240");
+    }
+
     public Volvo240() {
-        super(4, 100, Color.BLACK, "Volvo240");
+        super(4, new TrimEngine(135,1.35), Color.BLACK, "Volvo240");
     }
 
 
-    /**
-     *
-     * @return Returns the difference in total speed if car is tuned.
-     */
-    @Override
-    protected double speedFactor() {
-        return enginePower * 0.01 * trimFactor;
-    }
 
     /**
      * Increases total speed depending on value entered.
@@ -31,8 +27,7 @@ public class Volvo240 extends Car {
      */
     @Override
     protected void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
-    }
+       getMotion().setSpeed( Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower())); }
 
     /**
      * Decreases total speed depending on value entered.
@@ -41,7 +36,7 @@ public class Volvo240 extends Car {
      */
     @Override
     protected void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+        getMotion().setSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
 }

@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import static java.lang.Math.*;
 
 public class Motion {
@@ -135,7 +138,15 @@ public class Motion {
         theta += degrees;
         theta %= 360;
 
-        velX = -sin(toRadians(theta));
-        velY = cos(toRadians(theta));
+
+
+        velX = round(-sin(toRadians(theta)));
+        velY = round(cos(toRadians(theta)));
+    }
+
+    private double round(double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(3, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

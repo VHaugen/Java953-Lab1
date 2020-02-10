@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract public class Transporter extends Motorized {
+abstract public class Transporter extends Motorized<Engine> {
     protected Ramp ramp;
 
     /**
@@ -8,13 +8,13 @@ abstract public class Transporter extends Motorized {
      * to specify only the neccasery arguments for creating a car.
      * OR SO IM TOLD?!?!?!
      *
-     * @param motor       The motor object.
+     * @param engine       The motor object.
      * @param color       The <code>Color</code> of this <code>Car</code>.
      * @param modelName   The model name of this <code>Car</code>
      * @param ramp         The ramp object.
      */
-    public Transporter(Motor motor, Color color, String modelName, Ramp ramp) {
-        super(motor, color, modelName);
+    public Transporter(Engine engine, Color color, String modelName, Ramp ramp) {
+        super(engine, color, modelName);
         this.ramp = ramp;
     }
 

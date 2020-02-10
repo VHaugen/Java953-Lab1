@@ -5,8 +5,8 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
     private Cargo<T> cargo;
 
 
-    public CargoTransporter(Motor motor, Color color, String modelName, Ramp ramp, Cargo<T> cargo) {
-        super(motor, color, modelName, ramp);
+    public CargoTransporter(Engine engine, Color color, String modelName, Ramp ramp, Cargo<T> cargo) {
+        super(engine, color, modelName, ramp);
         this.cargo = cargo;
     }
 

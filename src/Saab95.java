@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Saab95 extends PersonCar {
+public class Saab95 extends PersonCar<TurboEngine> {
 
     /**
      * Creates a custom standard <b>Saab 95</b>.
@@ -16,16 +16,15 @@ public class Saab95 extends PersonCar {
      */
     @Override
     protected void incrementSpeed(double amount) {
-        getMotion().setSpeed(
-                Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
+        getMotion().setSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
     }
 
     public void setTurboOn() {
-        ((TurboEngine)getMotor()).setTurboOn();
+        engine.setTurboOn();
     }
 
     public void setTurboOff() {
-        ((TurboEngine) getMotor()).setTurboOff();
+        engine.setTurboOff();
     }
 
     /**

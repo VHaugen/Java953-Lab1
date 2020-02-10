@@ -1,8 +1,8 @@
 import java.awt.*;
 
-abstract public class Motorized implements IMovable {
+abstract public class Motorized<E extends Engine> implements IMovable {
     //protected double enginePower; // Engine power of the car
-    protected Motor motor;
+    protected E engine;
     protected Color color; // Color of the car
     public final String modelName; // The car model name
     private Motion motion;
@@ -13,21 +13,16 @@ abstract public class Motorized implements IMovable {
      * to specify only the neccasery arguments for creating a car.
      * OR SO IM TOLD?!?!?!
      *
-     * @param motor The engine you want to add to it.
+     * @param engine The engine you want to add to it.
      * @param _color       The <code>Color</code> of this <code>Car</code>.
      * @param _modelName   The model name of this <code>Car</code>
      */
-    Motorized(Motor motor, Color _color, String _modelName) {
-        this.motor = motor;
+    Motorized(E engine, Color _color, String _modelName) {
+        this.engine = engine;
         color = _color;
         modelName = _modelName;
         motion = new Motion(0,0,0);
         stopEngine();
-    }
-
-
-    public Motor getMotor() {
-        return motor;
     }
 
     @Override
@@ -68,7 +63,7 @@ abstract public class Motorized implements IMovable {
      * @return The engine power
      */
     public double getEnginePower() {
-        return motor.getEnginePower();
+        return engine.getEnginePower();
     }
 
     /**

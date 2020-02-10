@@ -9,11 +9,11 @@ public class Bilprovningen {
     Volvo240 testCar;
     Saab95 saab;
     TurboEngine turbo = new TurboEngine(200);
-    Motor motor = new Motor(200);
+    TrimEngine engine = new TrimEngine(200, 1.3);
 
     @Before
     public void init() {
-        testCar = new Volvo240(motor);
+        testCar = new Volvo240(engine);
         testCar.startEngine();
 
     }
@@ -163,7 +163,7 @@ public class Bilprovningen {
     {
         saab = new Saab95();
         saab.startEngine();
-        saab.motor.
+        saab.engine.
         for (int i = 0; i < 10; i++) {
             saab.gas(1);
         }

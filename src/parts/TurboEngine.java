@@ -1,4 +1,4 @@
-public class TurboEngine extends Motor {
+public class TurboEngine extends Engine {
     public boolean turboOn;
 
     public TurboEngine(int enginePower) {

@@ -1,6 +1,20 @@
-public class Engine extends Motor {
+public class Engine {
+    int enginePower;
+
     public Engine(int enginePower) {
-        super(enginePower);
+        this.enginePower = enginePower;
     }
 
+    public int getEnginePower() {
+        return enginePower;
+    }
+
+    public void setEnginePower(int enginePower) {
+        this.enginePower = enginePower;
+    }
+
+    protected double speedFactor() {
+        return enginePower * 0.01f;
+    }
 }
+

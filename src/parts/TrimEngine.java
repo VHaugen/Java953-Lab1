@@ -1,4 +1,4 @@
-public class TrimEngine extends Motor {
+public class TrimEngine extends Engine {
     double trimFactor = 1;
 
     public TrimEngine(int enginePower, double trimFactor) {

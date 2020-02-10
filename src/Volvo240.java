@@ -1,8 +1,6 @@
-import com.sun.source.tree.ModifiersTree;
-
 import java.awt.*;
 
-public class Volvo240 extends PersonCar {
+public class Volvo240 extends PersonCar<TrimEngine> {
 
     /**
      * The increased/decreased amount of horsepower in a tuned configuration.
@@ -12,7 +10,7 @@ public class Volvo240 extends PersonCar {
     /**
      * Creates a standard <b>Volvo 240</b>.
      */
-    public Volvo240(Motor engine) {
+    public Volvo240(TrimEngine engine) {
         super(4, engine, Color.BLACK, "Volvo240");
     }
 
@@ -29,7 +27,7 @@ public class Volvo240 extends PersonCar {
      */
     @Override
     protected void incrementSpeed(double amount) {
-       getMotion().setSpeed( Math.min(getCurrentSpeed() + speedFactor() * amount, motor.getEnginePower())); }
+       getMotion().setSpeed( Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower())); }
 
     /**
      * Decreases total speed depending on value entered.

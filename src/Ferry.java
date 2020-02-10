@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.util.*;
-import java.util.List;
 
 public class Ferry extends CargoTransporter<IFerryCargo> {
 
@@ -9,12 +7,12 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
      * to specify only the neccasery arguments for creating a ferry.
      * OR SO IM TOLD?!?!?!
      *
-     * @param motor   The power of the motor in BHP.
+     * @param engine   The power of the motor in BHP.
      * @param color         The <code>Color</code> of this <code>Ferry</code>.
      * @param modelName     The model name of this <code>Ferry</code>
      */
-    public Ferry(Motor motor, Color color, String modelName) {
-        super(motor, color, modelName, new RampBool(), new Cargo<>(5));
+    public Ferry(Engine engine, Color color, String modelName) {
+        super(engine, color, modelName, new RampBool(), new Cargo<>(5));
     }
 
     /**

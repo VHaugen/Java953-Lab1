@@ -5,7 +5,6 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
     /**
      * This constructor is generic and is made to take standard arguments
      * to specify only the neccasery arguments for creating a ferry.
-     * OR SO IM TOLD?!?!?!
      *
      * @param engine   The power of the motor in BHP.
      * @param color         The <code>Color</code> of this <code>Ferry</code>.
@@ -16,16 +15,16 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
     }
 
     /**
-     * Removes one <code>IPositionable</code> from the <code>Cargo</code> and places it a distance 2 away.
+     * Removes one <code>IFerryCargo</code> from the <code>Cargo</code> and places it a distance 2 away.
      *
-     * @return The removed <code>IPositionable</code> if any. Otherwise <code>null</code>.
+     * @return The removed <code>IFerryCargo</code> if any. Otherwise <code>null</code>.
      */
     @Override
     public IFerryCargo unLoad() {
         if (isSafeToLoad()) {
             IFerryCargo movable = getCargo().unloadFirst();
             if (movable != null) {
-                movable.setPos(getPos().add(unLoadPosition())); // TODO unLoad behind of in front
+                movable.setPos(getPos().add(unLoadPosition()));
                 return movable;
             }
         }

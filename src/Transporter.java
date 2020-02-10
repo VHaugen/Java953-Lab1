@@ -1,7 +1,7 @@
 import java.awt.*;
 
 abstract public class Transporter extends Motorized<Engine> {
-    protected Ramp ramp;
+    private Ramp ramp;
 
     /**
      * This constructor is generic and is made to take standard arguments
@@ -18,6 +18,10 @@ abstract public class Transporter extends Motorized<Engine> {
         this.ramp = ramp;
     }
 
+    /**
+     *
+     * @param amount Accepts values between 0-1 for gassing.
+     */
     @Override
     public void gas(double amount) {
         if (ramp.getAngle() == 0) {
@@ -25,9 +29,23 @@ abstract public class Transporter extends Motorized<Engine> {
         }
     }
 
-    public Ramp getRamp() {
+    /**
+     *
+     * @return Returns the ramp object.
+     */
+    protected Ramp getRamp() {
         return ramp;
     }
+
+    /**
+     * Moves this <code>CargoTransporter</code> in the current direction according to the current speed.
+     * If ramp is down, it won't move.
+     */
+    @Override
+    public void move() {
+        if (ramp.getAngle() == 0) super.move();
+    }
+
 
     /**
      * Raises ramp

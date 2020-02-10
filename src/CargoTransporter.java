@@ -4,7 +4,14 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
 
     private Cargo<T> cargo;
 
-
+    /**
+     *
+     * @param engine The chosen engine type.
+     * @param color Which color the CarTransporter should have.
+     * @param modelName Its modelname.
+     * @param ramp What kind of ramp it should have.
+     * @param cargo Cargo and which type it should be able to load.
+     */
     public CargoTransporter(Engine engine, Color color, String modelName, Ramp ramp, Cargo<T> cargo) {
         super(engine, color, modelName, ramp);
         this.cargo = cargo;
@@ -51,18 +58,36 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
         return null;
     }
 
+    /**
+     *
+     * @return Returns the entire cargo.
+     */
     public Cargo<T> getCargo(){
         return cargo;
     }
 
+    /**
+     * Checks if the CargoTransporter is safe to load/unload. Ramp has to be at 0 angle and 0 speed.
+     * @return True if angle is 0 and speed is 0.
+     */
     protected boolean isSafeToLoad() {
-        return ramp.getAngle() == ramp.getMaxAngle() && getCurrentSpeed() == 0;
+        return getRamp().getAngle() == getRamp().getMaxAngle() && getCurrentSpeed() == 0;
     }
 
+    /**
+     *
+     * @param movable Tests if object is in range to check it it's allowed to be loaded.
+     * @return If it's in range, it returns true.
+     */
     private boolean isInRange(T movable) {
         return getPos().distanceTo(movable.getPos()) <= 5;
     }
 
+
+    /**
+     *
+     * @return Return new position object to replace the old.
+     */
     protected Position unLoadPosition() {
         return new Position(-getMotion().getVelX() * 2, -getMotion().getVelY() * 2);
 

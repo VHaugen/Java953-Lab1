@@ -22,7 +22,7 @@ public class LastBilsProvning {
     {
         scania.gas(1);
         scania.lowerRamp();
-        assertEquals(0, scania.ramp.getAngle());
+        assertEquals(0, scania.getRamp().getAngle());
     }
     @Test
     public void testScaniaGasBedRaised()

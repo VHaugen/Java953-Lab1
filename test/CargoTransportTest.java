@@ -24,7 +24,7 @@ public class CargoTransportTest {
         vsample = new Volvo240(new TrimEngine(150,1.35));
         ssample = new Saab95();
         cargoV = new Cargo<>(2);
-        cargoI = new Cargo<>(2);
+        cargoI = new Cargo<>(5);
         pos1 = new Position(2,2);
         pos2 = new Position(0,0);
     }
@@ -48,6 +48,26 @@ public class CargoTransportTest {
     }
 
     @Test
+    public void testUpdateCargoPositions() {
+        cargoI.load(ssample);
+        cargoI.load(vsample);
+        cargoI.load(scania);
+        cargoI.load(carTrans);
+        cargoI.load(ferry);
+        cargoI.updatePositions(pos1);
+        for (int i = 0; i < cargoI.getMaxCapacity(); i++) {
+            IPositionable item = cargoI.unloadFirst();
+            assertTrue(pos1.getX() == item.getPosX() && item.getPosY() == pos1.getY());
+            cargoI.load(item);
+        }
+        cargoI.updatePositions(pos2);
+        for (int i = 0; i < cargoI.getMaxCapacity(); i++) {
+            IPositionable item = cargoI.unloadFirst();
+            assertTrue(pos2.getX() == item.getPosX() && item.getPosY() == pos2.getY());
+        }
+    }
+
+    @Test
     public void testCargoFIFO () {
         cargoI.load(scania);
         cargoI.load(ssample);
@@ -60,6 +80,38 @@ public class CargoTransportTest {
         cargoI.load(ssample);
         assertEquals(ssample, cargoI.unload());
     }
+
+    @Test
+    public void testCargoUnload() {
+        assertNull(cargoV.unload());
+        assertNull(cargoV.unloadFirst());
+    }
+
+    //CarTransport testing
+
+    @Test
+    public void testCarTransportUnload() {
+        carTrans.stopEngine();
+        carTrans.lowerRamp();
+        carTrans.load(ssample);
+        carTrans.startEngine();
+        assertNull(carTrans.unLoad());
+        carTrans.stopEngine();
+        assertSame(ssample, carTrans.unLoad());
+    }
+
+    @Test
+    public void testMove() {
+        carTrans.lowerRamp();
+        ssample.setPos(pos1);
+        carTrans.setPos(pos1);
+        carTrans.load(ssample);
+        carTrans.raiseRamp();
+        carTrans.gas(1);
+        carTrans.move();
+        assertTrue(ssample.getPosX() == carTrans.getPosX() && ssample.getPosY() == carTrans.getPosY());
+    }
+
 
     //Ferry testing
     @Test
@@ -77,6 +129,7 @@ public class CargoTransportTest {
 
     @Test
     public void testLoad() {
+        ferry.lowerRamp();
         for (int i = 0; i < ferry.getCargo().getMaxCapacity(); i++) {
             Volvo240 volvo = new Volvo240(new TrimEngine(150,1.35));
             ferry.load(volvo);
@@ -161,7 +214,7 @@ public class CargoTransportTest {
 
     @Test
     public void testLoweredRampLoad () {
-        ferry.lowerRamp();
+        ferry.raiseRamp();
         int load = ferry.getCargo().getCurrentLoad();
         ferry.load(ssample);
         assertEquals(load, ferry.getCargo().getCurrentLoad());
@@ -179,7 +232,7 @@ public class CargoTransportTest {
     @Test
     public void testSpeedLoad () {
         int load = ferry.getCargo().getCurrentLoad();
-        ferry.lowerRamp();
+        ferry.raiseRamp();
         ferry.gas(1);
         ferry.load(ssample);
         assertEquals(load, ferry.getCargo().getCurrentLoad());
@@ -197,6 +250,7 @@ public class CargoTransportTest {
 
     @Test
     public void testFIFO() {
+        ferry.lowerRamp();
         ferry.load(ssample);
         ferry.load(scania);
         assertEquals(ssample, ferry.unLoad());

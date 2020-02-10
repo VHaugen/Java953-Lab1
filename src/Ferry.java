@@ -22,9 +22,8 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
      */
     @Override
     public IFerryCargo unLoad() {
-        IFerryCargo movable;
         if (isSafeToLoad()) {
-            movable = getCargo().unloadFirst();
+            IFerryCargo movable = getCargo().unloadFirst();
             if (movable != null) {
                 movable.setPos(getPos().add(unLoadPosition())); // TODO unLoad behind of in front
                 return movable;

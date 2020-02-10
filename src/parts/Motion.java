@@ -60,7 +60,7 @@ public class Motion {
     /**
      *  Sets <code>Position</code>.
      *
-     * @param pos The new <code>Position</code>.
+     * @param newPos The new <code>Position</code>.
      */
     public void setPos(Position newPos) {
         pos.setPos(newPos);

@@ -1,5 +1,9 @@
 public class RepairCenter<T extends IMovable> {
 
+    public Cargo<T> getCarQue() {
+        return carQue;
+    }
+
     private Cargo<T> carQue;
 
     /**

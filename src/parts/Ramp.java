@@ -13,7 +13,7 @@ public class Ramp {
      * Raises the ramp one degree.
      */
     public void raise() {
-        if (0 < angle) angle--;
+        if (0 > angle) angle--;
     }
 
     /**

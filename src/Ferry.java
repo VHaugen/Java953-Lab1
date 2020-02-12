@@ -11,24 +11,6 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
      * @param modelName     The model name of this <code>Ferry</code>
      */
     public Ferry(Engine engine, Color color, String modelName) {
-        super(engine, color, modelName, new RampBool(), new Cargo<>(5));
+        super(engine, color, modelName, new RampBool(), new CargoFirstOut<>(5));
     }
-
-    /**
-     * Removes one <code>IFerryCargo</code> from the <code>Cargo</code> and places it a distance 2 away.
-     *
-     * @return The removed <code>IFerryCargo</code> if any. Otherwise <code>null</code>.
-     */
-    @Override
-    public IFerryCargo unLoad() {
-        if (isSafeToLoad()) {
-            IFerryCargo movable = getCargo().unloadFirst();
-            if (movable != null) {
-                movable.setPos(getPos().add(unLoadPosition()));
-                return movable;
-            }
-        }
-        return null;
-    }
-
 }

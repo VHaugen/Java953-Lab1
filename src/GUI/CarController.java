@@ -22,15 +22,15 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     private CarView frame;
     // A list of cars, modify if needed
-    private List<IDriveable> cars = new ArrayList<>();
+    private List<BoundPictureToCar> cars = new ArrayList<>();
 
     //methods:
 
     public static void main(String[] args) {
         CarController carController = new CarController();
 
-        carController.cars.add(new Volvo240());
-
+        carController.cars.add(new BoundPictureToCar(new Volvo240(),"src/pics/Volvo240.jpg"));
+        carController.cars.add(new BoundPictureToCar(new Saab95(),"src/pics/Saab95.jpg"));
         // Start a new view and send a reference of self
         carController.frame = new CarView("CarSim 1.0");
         carController.frame.setGasAction(e -> carController.gas(carController.frame.getGasAmount()));
@@ -38,23 +38,25 @@ public class CarController {
 
         // Start the timer
         carController.timer.start();
+        carController.frame.drawPanel.syncCars(carController.cars);
+
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
+     * view to update its images. Change this method to your needs.
+     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (IDriveable car : cars) {
-                car.move();
-                int x = (int) Math.round(car.getPos().getX());
-                int y = (int) Math.round(car.getPos().getY());
+            for (BoundPictureToCar car : cars) {
+                car.getCar().move();
+                int x = (int) Math.round(car.getCar().getPos().getX());
+                int y = (int) Math.round(car.getCar().getPos().getY());
 
-                if (checkCollision(car)) { // TODO fix hardcoded values
-                    stopTurnStartVehicle(car);
+                if (checkCollision(car.getCar())) { // TODO fix hardcoded values
+                    stopTurnStartVehicle(car.getCar());
                 }
 
-                frame.drawPanel.moveit(x, y);
+                //frame.drawPanel.moveit;
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -67,7 +69,6 @@ public class CarController {
         vehicle.turnLeft();
         vehicle.startEngine();
     }
-
     private boolean checkCollision(IDriveable vehicle) {
         boolean minX = vehicle.getPosX() < 0;
         boolean maxX = vehicle.getPosX()+200 > frame.getWidth();
@@ -79,17 +80,18 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (IDriveable car : cars
-                ) {
-            car.gas(gas);
+        for (BoundPictureToCar car : cars
+        ) {
+            car.getCar().gas(gas);
         }
     }
 
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (IDriveable car : cars
+        for (BoundPictureToCar car : cars
         ) {
-            car.brake(brake);
+            car.getCar().brake(brake);
         }
     }
 }
+

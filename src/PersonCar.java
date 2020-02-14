@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class PersonCar<E extends Engine> extends Motorized<E> implements ITruckCargo, IDriveable {
+public abstract class PersonCar<E extends Engine> extends Motorized<E> implements ITruckCargo {
     protected int nrDoors; // Number of doors on the car
 
     /**

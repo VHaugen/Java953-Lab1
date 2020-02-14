@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract public class Motorized<E extends Engine> implements IMovable {
+abstract public class Motorized<E extends Engine> implements IDriveable {
     //protected double enginePower; // Engine power of the car
     protected E engine;
     protected Color color; // Color of the car

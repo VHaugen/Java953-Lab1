@@ -20,25 +20,23 @@ public class CarController {
     private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
+    private CarView frame;
     // A list of cars, modify if needed
-    List<IDriveable> cars = new ArrayList<>();
+    private List<IDriveable> cars = new ArrayList<>();
 
     //methods:
 
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController cc = new CarController();
+    public void main(String[] args) {
 
-        cc.cars.add(new Volvo240());
+        cars.add(new Volvo240());
 
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        cc.frame.setAction(e -> cc.gas(cc.frame.getGasAmount()));
+        frame = new CarView("CarSim 1.0");
+        frame.setGasAction(e -> gas(frame.getGasAmount()));
+        frame.setBrakeAction(e -> brake(frame.getGasAmount()));
 
         // Start the timer
-        cc.timer.start();
+        timer.start();
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the

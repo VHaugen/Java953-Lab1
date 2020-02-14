@@ -26,17 +26,18 @@ public class CarController {
 
     //methods:
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
+        CarController carController = new CarController();
 
-        cars.add(new Volvo240());
+        carController.cars.add(new Volvo240());
 
         // Start a new view and send a reference of self
-        frame = new CarView("CarSim 1.0");
-        frame.setGasAction(e -> gas(frame.getGasAmount()));
-        frame.setBrakeAction(e -> brake(frame.getGasAmount()));
+        carController.frame = new CarView("CarSim 1.0");
+        carController.frame.setGasAction(e -> carController.gas(carController.frame.getGasAmount()));
+        carController.frame.setBrakeAction(e -> carController.brake(carController.frame.getGasAmount()));
 
         // Start the timer
-        timer.start();
+        carController.timer.start();
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the

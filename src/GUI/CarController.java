@@ -35,6 +35,8 @@ public class CarController {
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
+        cc.frame.setAction(e -> cc.gas(cc.frame.getGasAmount()));
+
         // Start the timer
         cc.timer.start();
     }
@@ -49,11 +51,10 @@ public class CarController {
                 int x = (int) Math.round(car.getPos().getX());
                 int y = (int) Math.round(car.getPos().getY());
 
-                if (y > 500 || y < 0) {
+                if (y > 500 || y < 0) { // TODO fix hardcoded values
                     car.turnLeft();
                     car.turnLeft();
                 }
-
 
                 frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel

@@ -18,7 +18,7 @@ public class CarView extends JFrame{
     private static final int Y = 800;
 
     // The controller member
-    CarController carC;
+    //CarController carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -41,8 +41,16 @@ public class CarView extends JFrame{
 
     // Constructor
     public CarView(String framename, CarController cc){
-        this.carC = cc;
+        //this.carC = cc;
         initComponents(framename);
+    }
+
+    public int getGasAmount() {
+        return gasAmount;
+    }
+
+    public void setAction(ActionListener e) {
+        gasButton.addActionListener(e);
     }
 
     // Sets everything in place and fits everything
@@ -101,8 +109,8 @@ public class CarView extends JFrame{
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
-        gasButton.addActionListener(e -> carC.gas(gasAmount));
-        brakeButton.addActionListener(e -> carC.brake(gasAmount));
+        // gasButton.addActionListener(e -> carC.gas(gasAmount));
+        // brakeButton.addActionListener(e -> carC.brake(gasAmount));
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
@@ -116,4 +124,5 @@ public class CarView extends JFrame{
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 }

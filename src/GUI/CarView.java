@@ -16,11 +16,12 @@ import java.awt.event.ActionListener;
 public class CarView extends JFrame{
     private static final int X = 800;
     private static final int Y = 800;
+    private static final int buttonOffset = 240;
 
     // The controller member
     //CarController carC;
 
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    DrawPanel drawPanel = new DrawPanel(X, Y-buttonOffset);
 
     JPanel controlPanel = new JPanel();
 
@@ -126,6 +127,18 @@ public class CarView extends JFrame{
         this.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public int getWidth() {
+        return X;
+    }
+
+    public int getHeight() {
+        return Y;
+    }
+
+    public int getButtonOffset() {
+        return buttonOffset;
     }
 
 }

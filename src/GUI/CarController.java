@@ -49,7 +49,7 @@ public class CarController {
                 int x = (int) Math.round(car.getPos().getX());
                 int y = (int) Math.round(car.getPos().getY());
 
-                if (y > 500 || y < 0) { // TODO fix hardcoded values
+                if (checkCollision(car)) { // TODO fix hardcoded values
                     car.turnLeft();
                     car.turnLeft();
                 }
@@ -59,6 +59,14 @@ public class CarController {
                 frame.drawPanel.repaint();
             }
         }
+    }
+
+    private boolean checkCollision(IDriveable vehicle) {
+        boolean minX = vehicle.getPosX() <= 0;
+        boolean maxX = vehicle.getPosX() >= frame.getWidth();
+        boolean minY = vehicle.getPosY() <= 0;
+        boolean maxY = vehicle.getPosX() >= frame.getHeight() - frame.getButtonOffset();
+        return minX || maxX || minY || maxY;
     }
 
     // Calls the gas method for each car once

@@ -7,4 +7,6 @@ public interface IDriveable extends IMovable {
     void stopEngine();
 
     void startEngine();
+
+    double getCurrentSpeed();
 }

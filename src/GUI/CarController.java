@@ -48,13 +48,15 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (BoundPictureToCar car : cars) {
-                car.getCar().move();
-                int x = (int) Math.round(car.getCar().getPos().getX());
-                int y = (int) Math.round(car.getCar().getPos().getY());
 
-                if (checkCollision(car.getCar())) { // TODO fix hardcoded values
+                if (checkAllowedMove(car.getCar())) { // TODO fix hardcoded values
+                    car.getCar().move();
+                } else {
                     stopTurnStartVehicle(car.getCar());
                 }
+
+                int x = (int) Math.round(car.getCar().getPos().getX());
+                int y = (int) Math.round(car.getCar().getPos().getY());
 
                 //frame.drawPanel.moveit;
                 // repaint() calls the paintComponent method of the panel
@@ -63,17 +65,26 @@ public class CarController {
         }
     }
 
+    private boolean checkAllowedMove(IDriveable vehicle) {
+        Motion m = new Motion(vehicle.getPosX(), vehicle.getPosY(), vehicle.getCurrentSpeed());
+        m.move();
+        if(checkCollision(m)) {
+            return false;
+        };
+        return true;
+    }
+
     private void stopTurnStartVehicle(IDriveable vehicle) {
         vehicle.stopEngine();
         vehicle.turnLeft();
         vehicle.turnLeft();
         vehicle.startEngine();
     }
-    private boolean checkCollision(IDriveable vehicle) {
+    private boolean checkCollision(Motion vehicle) {
         boolean minX = vehicle.getPosX() < 0;
-        boolean maxX = vehicle.getPosX()+200 > frame.getWidth();
+        boolean maxX = vehicle.getPosX() > frame.getWidth();
         boolean minY = vehicle.getPosY() < 0;
-        boolean maxY = vehicle.getPosY()+200 > frame.getHeight() - frame.getButtonOffset();
+        boolean maxY = vehicle.getPosY() > frame.getHeight() - frame.getButtonOffset();
         return minX || maxX || minY || maxY;
     }
 

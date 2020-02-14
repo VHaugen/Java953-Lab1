@@ -50,8 +50,7 @@ public class CarController {
                 int y = (int) Math.round(car.getPos().getY());
 
                 if (checkCollision(car)) { // TODO fix hardcoded values
-                    car.turnLeft();
-                    car.turnLeft();
+                    stopTurnStartVehicle(car);
                 }
 
                 frame.drawPanel.moveit(x, y);
@@ -61,11 +60,18 @@ public class CarController {
         }
     }
 
+    private void stopTurnStartVehicle(IDriveable vehicle) {
+        vehicle.stopEngine();
+        vehicle.turnLeft();
+        vehicle.turnLeft();
+        vehicle.startEngine();
+    }
+
     private boolean checkCollision(IDriveable vehicle) {
-        boolean minX = vehicle.getPosX() <= 0;
-        boolean maxX = vehicle.getPosX() >= frame.getWidth();
-        boolean minY = vehicle.getPosY() <= 0;
-        boolean maxY = vehicle.getPosX() >= frame.getHeight() - frame.getButtonOffset();
+        boolean minX = vehicle.getPosX() < 0;
+        boolean maxX = vehicle.getPosX() > frame.getWidth();
+        boolean minY = vehicle.getPosY() < 0;
+        boolean maxY = vehicle.getPosX() > frame.getHeight() - frame.getButtonOffset();
         return minX || maxX || minY || maxY;
     }
 

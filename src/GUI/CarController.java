@@ -70,9 +70,9 @@ public class CarController {
 
     private boolean checkCollision(IDriveable vehicle) {
         boolean minX = vehicle.getPosX() < 0;
-        boolean maxX = vehicle.getPosX() > frame.getWidth();
+        boolean maxX = vehicle.getPosX()+200 > frame.getWidth();
         boolean minY = vehicle.getPosY() < 0;
-        boolean maxY = vehicle.getPosX() > frame.getHeight() - frame.getButtonOffset();
+        boolean maxY = vehicle.getPosY()+200 > frame.getHeight() - frame.getButtonOffset();
         return minX || maxX || minY || maxY;
     }
 

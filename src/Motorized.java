@@ -133,8 +133,8 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
      * @param gasAmount Determining value for acceptable percentage amount.
      * @return Will return true if value is in a acceptable range or throw an exception!
      */
-    protected Boolean acceptableValue(double gasAmount) {
-        if (0 < gasAmount && 1 >= gasAmount)
+    protected boolean acceptableValue(double gasAmount) {
+        if (0 <= gasAmount && 1 >= gasAmount)
             return true;
         throw new IllegalArgumentException("Only values between 0 and 1!");
     }

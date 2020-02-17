@@ -24,9 +24,9 @@ public class CarController {
     // A list of cars, modify if needed
     private List<BoundPictureToCar> cars = new ArrayList<>();
 
-    Scania scania = new Scania();
+    static Scania scania = new Scania();
 
-    Saab95 saab = new Saab95();
+    static Saab95 saab = new Saab95();
     //methods:
 
     public static void main(String[] args) {
@@ -42,6 +42,12 @@ public class CarController {
         carController.frame = new CarView("CarSim 1.0");
         carController.frame.setGasAction(e -> carController.gas(carController.frame.getGasAmount()));
         carController.frame.setBrakeAction(e -> carController.brake(carController.frame.getGasAmount()));
+        carController.frame.setTurboOnAction(e -> carController.setTurboOn());
+        carController.frame.setTurboOffAction(e -> carController.setTurboOff());
+        carController.frame.raiseRampAction(e -> carController.raiseRamp());
+        carController.frame.lowerRampAction(e -> carController.lowerRamp());
+        carController.frame.stopEngineAction(e -> carController.stopEngines());
+        carController.frame.startEngineAction(e -> carController.startEngines());
 
         // Start the timer
         carController.timer.start();

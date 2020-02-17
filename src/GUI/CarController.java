@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-* This class represents the Controller part in the MVC pattern.
-* It's responsibilities is to listen to the View and responds in a appropriate manner by
-* modifying the model state and the updating the view.
+ * This class represents the Controller part in the MVC pattern.
+ * It's responsibilities is to listen to the View and responds in a appropriate manner by
+ * modifying the model state and the updating the view.
  */
 
 public class CarController {
@@ -29,8 +29,8 @@ public class CarController {
     public static void main(String[] args) {
         CarController carController = new CarController();
 
-        carController.cars.add(new BoundPictureToCar(new Volvo240(),"src/pics/Volvo240.jpg"));
-        carController.cars.add(new BoundPictureToCar(new Saab95(),"src/pics/Saab95.jpg"));
+        carController.cars.add(new BoundPictureToCar(new Volvo240(), "src/pics/Volvo240.jpg"));
+        carController.cars.add(new BoundPictureToCar(new Saab95(), "src/pics/Saab95.jpg"));
         // Start a new view and send a reference of self
         carController.frame = new CarView("CarSim 1.0");
         carController.frame.setGasAction(e -> carController.gas(carController.frame.getGasAmount()));
@@ -49,10 +49,10 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (BoundPictureToCar car : cars) {
 
-                if (checkAllowedMove(car.getCar())) { // TODO fix hardcoded values
-                    car.getCar().move();
+                if (checkCollision(car.getCar())) { // TODO fix hardcoded values
+                    startStopSetNewPos(car.getCar());
                 } else {
-                    stopTurnStartVehicle(car.getCar());
+                    car.getCar().move();
                 }
 
                 int x = (int) Math.round(car.getCar().getPos().getX());
@@ -65,13 +65,26 @@ public class CarController {
         }
     }
 
-    private boolean checkAllowedMove(IDriveable vehicle) {
-        Motion m = new Motion(vehicle.getPosX(), vehicle.getPosY(), vehicle.getCurrentSpeed());
-        m.move();
-        if(checkCollision(m)) {
-            return false;
-        };
-        return true;
+    private void startStopSetNewPos(IDriveable vehicle) {
+        stopTurnStartVehicle(vehicle);
+        setCarInBounds(vehicle);
+    }
+
+    private void setCarInBounds(IDriveable vehicle) {
+        double scrnHeight = frame.getHeight() - frame.getButtonOffset();
+        double scrnWidth = frame.getWidth();
+        double carPosX = vehicle.getPosX();
+        double carPosY = vehicle.getPosY();
+        double x,y;
+        if (carPosX > scrnWidth || carPosY > scrnHeight) {
+            x = Math.min(scrnWidth, carPosX);
+            y = Math.min(scrnHeight, carPosY);
+        } else {
+            x = Math.max(0, carPosX);
+            y = Math.max(0, carPosY);
+        }
+        Position pos = new Position(x, y);
+        vehicle.setPos(pos);
     }
 
     private void stopTurnStartVehicle(IDriveable vehicle) {
@@ -80,27 +93,26 @@ public class CarController {
         vehicle.turnLeft();
         vehicle.startEngine();
     }
-    private boolean checkCollision(Motion vehicle) {
+
+    private boolean checkCollision(IDriveable vehicle) {
         boolean minX = vehicle.getPosX() < 0;
         boolean maxX = vehicle.getPosX() > frame.getWidth();
         boolean minY = vehicle.getPosY() < 0;
         boolean maxY = vehicle.getPosY() > frame.getHeight() - frame.getButtonOffset();
-        return minX || maxX || minY || maxY;
+        return (minX || maxX || minY || maxY);
     }
 
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (BoundPictureToCar car : cars
-        ) {
+        for (BoundPictureToCar car : cars) {
             car.getCar().gas(gas);
         }
     }
 
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (BoundPictureToCar car : cars
-        ) {
+        for (BoundPictureToCar car : cars) {
             car.getCar().brake(brake);
         }
     }

@@ -24,12 +24,13 @@ public class CarController {
     // A list of cars, modify if needed
     private List<BoundPictureToCar> cars = new ArrayList<>();
 
+    Scania scania = new Scania();
+
+    Saab95 saab = new Saab95();
     //methods:
 
     public static void main(String[] args) {
         CarController carController = new CarController();
-        Scania scania = new Scania();
-        Saab95 saab = new Saab95();
         scania.setPos(new Position(200,100));
         saab.setPos(new Position(400,100));
         saab.setTurboOn();
@@ -122,5 +123,35 @@ public class CarController {
             car.getCar().brake(brake);
         }
     }
+
+    void stopEngines() {
+        for (BoundPictureToCar car : cars
+        ) {
+            car.getCar().stopEngine();
+        }
+    }
+
+    void startEngines() {
+        for (BoundPictureToCar car : cars) {
+            car.getCar().startEngine();
+        }
+    }
+
+    void setTurboOn() {
+        saab.setTurboOn();
+    }
+
+    void setTurboOff() {
+        saab.setTurboOff();
+    }
+
+    void raiseRamp() {
+        scania.raiseRamp();
+    }
+
+    void lowerRamp() {
+        scania.lowerRamp();
+    }
+
 }
 

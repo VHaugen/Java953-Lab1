@@ -73,7 +73,13 @@ public class CarView extends JFrame{
         liftBedButton.addActionListener(e);
     }
 
+    public void startEngineAction(ActionListener e) {
+        startButton.addActionListener(e);
+    }
 
+    public void stopEngineAction(ActionListener e) {
+        stopButton.addActionListener(e);
+    }
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {

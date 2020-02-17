@@ -28,9 +28,15 @@ public class CarController {
 
     public static void main(String[] args) {
         CarController carController = new CarController();
-
+        Scania scania = new Scania();
+        Saab95 saab = new Saab95();
+        scania.setPos(new Position(200,100));
+        saab.setPos(new Position(400,100));
+        saab.setTurboOn();
         carController.cars.add(new BoundPictureToCar(new Volvo240(), "src/pics/Volvo240.jpg"));
-        carController.cars.add(new BoundPictureToCar(new Saab95(), "src/pics/Saab95.jpg"));
+        carController.cars.add(new BoundPictureToCar(saab, "src/pics/Saab95.jpg"));
+        carController.cars.add(new BoundPictureToCar(scania, "src/pics/Scania.jpg"));
+
         // Start a new view and send a reference of self
         carController.frame = new CarView("CarSim 1.0");
         carController.frame.setGasAction(e -> carController.gas(carController.frame.getGasAmount()));

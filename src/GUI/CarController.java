@@ -62,8 +62,11 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (BoundPictureToCar car : cars) {
 
-                if (checkMinMaxCollision(car.getCar())) { // TODO fix hardcoded values
-                    startStopSetNewPos(car.getCar());
+                //Screen width and height with offset included. 100x60 px vehicles.
+                double scrnWidthOffs = frame.getWidth() - 100;
+                double scrnHeightOffs = frame.getHeight() - frame.getButtonOffset() - 60;
+                if (checkMinMaxCollision(scrnWidthOffs, scrnHeightOffs, car.getCar())) { // TODO fix hardcoded values
+                    startStopSetNewPos(scrnWidthOffs, scrnHeightOffs, car.getCar());
                 } else {
                     car.getCar().move();
                 }
@@ -78,20 +81,18 @@ public class CarController {
         }
     }
 
-    private void startStopSetNewPos(IDriveable vehicle) {
+    private void startStopSetNewPos(double scrnWidth, double scrnHeight, IDriveable vehicle) {
         stopTurnStartVehicle(vehicle);
-        setCarInBounds(vehicle);
+        setCarInBounds(scrnWidth, scrnHeight, vehicle);
     }
 
-    private void setCarInBounds(IDriveable vehicle) {
-        double scrnHeight = frame.getHeight() - frame.getButtonOffset();
-        double scrnWidth = frame.getWidth();
+    private void setCarInBounds(double scrnWidth, double scrnHeight, IDriveable vehicle) {
         double carPosX = vehicle.getPosX();
         double carPosY = vehicle.getPosY();
         double x, y;
-        if (checkMaxCollision(vehicle)) {
-            x = Math.min(scrnWidth - 60, carPosX);
-            y = Math.min(scrnHeight - 60, carPosY);
+        if (checkMaxCollision(scrnWidth, scrnHeight, vehicle)) {
+            x = Math.min(scrnWidth, carPosX);
+            y = Math.min(scrnHeight, carPosY);
         } else { //checkMinCollision(vehicle);
             x = Math.max(0, carPosX);
             y = Math.max(0, carPosY);
@@ -111,8 +112,8 @@ public class CarController {
     Check if Vehicle goes out of bounds.
     Less than 0 or more than screen size will return TRUE.
      */
-    private boolean checkMinMaxCollision(IDriveable vehicle) {
-        return checkMinCollision(vehicle) || checkMaxCollision(vehicle);
+    private boolean checkMinMaxCollision(double scrnWidth, double scrnHeight, IDriveable vehicle) {
+        return checkMinCollision(vehicle) || checkMaxCollision(scrnWidth, scrnHeight, vehicle);
     }
 
     private boolean checkMinCollision(IDriveable vehicle) {
@@ -121,9 +122,9 @@ public class CarController {
         return minX || minY;
     }
 
-    private boolean checkMaxCollision(IDriveable vehicle) {
-        boolean maxX = vehicle.getPosX() + 60 > frame.getWidth();
-        boolean maxY = vehicle.getPosY() + 60 > (frame.getHeight() - frame.getButtonOffset());
+    private boolean checkMaxCollision(double scrnWidth, double scrnHeight, IDriveable vehicle) {
+        boolean maxX = scrnWidth < vehicle.getPosX();
+        boolean maxY = scrnHeight < vehicle.getPosY();
         return maxX || maxY;
     }
 

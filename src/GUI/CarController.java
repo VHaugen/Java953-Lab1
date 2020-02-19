@@ -90,8 +90,8 @@ public class CarController {
         double carPosY = vehicle.getPosY();
         double x, y;
         if (checkMaxCollision(vehicle)) {
-            x = Math.min(scrnWidth - 75, carPosX);
-            y = Math.min(scrnHeight - 75, carPosY);
+            x = Math.min(scrnWidth - 60, carPosX);
+            y = Math.min(scrnHeight - 60, carPosY);
         } else { //checkMinCollision(vehicle);
             x = Math.max(0, carPosX);
             y = Math.max(0, carPosY);
@@ -122,8 +122,8 @@ public class CarController {
     }
 
     private boolean checkMaxCollision(IDriveable vehicle) {
-        boolean maxX = vehicle.getPosX() + 75 > frame.getWidth();
-        boolean maxY = vehicle.getPosY() + 75 > (frame.getHeight() - frame.getButtonOffset());
+        boolean maxX = vehicle.getPosX() + 60 > frame.getWidth();
+        boolean maxY = vehicle.getPosY() + 60 > (frame.getHeight() - frame.getButtonOffset());
         return maxX || maxY;
     }
 

@@ -63,8 +63,10 @@ public class CarController {
             for (BoundPictureToCar car : cars) {
 
                 //Screen width and height with offset included. 100x60 px vehicles.
-                double scrnWidthOffs = frame.getWidth() - 100;
-                double scrnHeightOffs = frame.getHeight() - frame.getButtonOffset() - 60;
+                double picWidth = 100;
+                double picHeight = 60;
+                double scrnWidthOffs = frame.getWidth() - picWidth;
+                double scrnHeightOffs = frame.getHeight() - frame.getButtonOffset() - picHeight;
                 if (checkMinMaxCollision(scrnWidthOffs, scrnHeightOffs, car.getCar())) { // TODO fix hardcoded values
                     startStopSetNewPos(scrnWidthOffs, scrnHeightOffs, car.getCar());
                 } else {

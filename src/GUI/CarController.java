@@ -31,8 +31,8 @@ public class CarController {
 
     public static void main(String[] args) {
         CarController carController = new CarController();
-        scania.setPos(new Position(200,100));
-        saab.setPos(new Position(400,100));
+        scania.setPos(new Position(200, 100));
+        saab.setPos(new Position(400, 100));
         saab.setTurboOn();
         carController.cars.add(new BoundPictureToCar(new Volvo240(), "src/pics/Volvo240.jpg"));
         carController.cars.add(new BoundPictureToCar(saab, "src/pics/Saab95.jpg"));
@@ -62,14 +62,14 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (BoundPictureToCar car : cars) {
 
-                if (checkCollision(car.getCar())) { // TODO fix hardcoded values
+                if (checkMinMaxCollision(car.getCar())) { // TODO fix hardcoded values
                     startStopSetNewPos(car.getCar());
                 } else {
                     car.getCar().move();
                 }
 
-                int x = (int) Math.round(car.getCar().getPos().getX());
-                int y = (int) Math.round(car.getCar().getPos().getY());
+                //int x = (int) Math.round(car.getCar().getPos().getX());
+                //int y = (int) Math.round(car.getCar().getPos().getY());
 
                 //frame.drawPanel.moveit;
                 // repaint() calls the paintComponent method of the panel
@@ -88,11 +88,11 @@ public class CarController {
         double scrnWidth = frame.getWidth();
         double carPosX = vehicle.getPosX();
         double carPosY = vehicle.getPosY();
-        double x,y;
-        if (carPosX > scrnWidth || carPosY > scrnHeight) {
+        double x, y;
+        if (checkMaxCollision(vehicle)) {
             x = Math.min(scrnWidth, carPosX);
             y = Math.min(scrnHeight, carPosY);
-        } else {
+        } else { //checkMinCollision(vehicle);
             x = Math.max(0, carPosX);
             y = Math.max(0, carPosY);
         }
@@ -107,12 +107,24 @@ public class CarController {
         vehicle.startEngine();
     }
 
-    private boolean checkCollision(IDriveable vehicle) {
+    /*
+    Check if Vehicle goes out of bounds.
+    Less than 0 and more than screen size will return TRUE.
+     */
+    private boolean checkMinMaxCollision(IDriveable vehicle) {
+        return checkMinCollision(vehicle) || checkMaxCollision(vehicle);
+    }
+
+    private boolean checkMinCollision(IDriveable vehicle) {
         boolean minX = vehicle.getPosX() < 0;
-        boolean maxX = vehicle.getPosX() > frame.getWidth();
         boolean minY = vehicle.getPosY() < 0;
-        boolean maxY = vehicle.getPosY() > frame.getHeight() - frame.getButtonOffset();
-        return (minX || maxX || minY || maxY);
+        return minX || minY;
+    }
+
+    private boolean checkMaxCollision(IDriveable vehicle) {
+        boolean maxX = vehicle.getPosX() > frame.getWidth();
+        boolean maxY = vehicle.getPosY() > (frame.getHeight() - frame.getButtonOffset());
+        return maxX || maxY;
     }
 
     // Calls the gas method for each car once

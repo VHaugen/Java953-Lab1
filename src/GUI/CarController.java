@@ -109,7 +109,7 @@ public class CarController {
 
     /*
     Check if Vehicle goes out of bounds.
-    Less than 0 and more than screen size will return TRUE.
+    Less than 0 or more than screen size will return TRUE.
      */
     private boolean checkMinMaxCollision(IDriveable vehicle) {
         return checkMinCollision(vehicle) || checkMaxCollision(vehicle);

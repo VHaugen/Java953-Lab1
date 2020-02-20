@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 public class Cargo<C extends IPositionable> {
-    private Stack<C> list;
+    protected Stack<C> list;
 
     //Specify max number of objects in the list.
     private int maxCapacity;
@@ -52,19 +52,6 @@ public class Cargo<C extends IPositionable> {
     }
 
     /**
-     * @return Returns the item if it successfully removed the first position of the list,
-     * otherwise <b>null</b>.
-     */
-    protected C unloadFirst() {
-        if (list.size() > 0) {
-            C item = list.remove(0);
-            checkLoad();
-            return item;
-        }
-        return null;
-    }
-
-    /**
      *
      * @param pos Enter a positional object.
      *            It will give every object in the cargo the positional objects coordinates.
@@ -76,7 +63,7 @@ public class Cargo<C extends IPositionable> {
     }
 
     //Helper method to load/unload. Returns bool and sets 'isFull' to a bool-value.
-    private boolean checkLoad() {
+    protected boolean checkLoad() {
         return isFull = list.size() >= maxCapacity;
     }
 

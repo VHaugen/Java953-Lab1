@@ -13,6 +13,7 @@ public class CargoTransportTest {
     Scania scania;
     Cargo<Volvo240> cargoV;
     Cargo<IPositionable> cargoI;
+    CargoFirstOut<IPositionable> cargoF;
     Position pos1;
     Position pos2;
     Position emptyPos;
@@ -26,6 +27,7 @@ public class CargoTransportTest {
         ssample = new Saab95();
         cargoV = new Cargo<>(2);
         cargoI = new Cargo<>(5);
+        cargoF = new CargoFirstOut<>(2);
         pos1 = new Position(2,2);
         pos2 = new Position(0,0);
     }
@@ -50,20 +52,20 @@ public class CargoTransportTest {
 
     @Test
     public void testUpdateCargoPositions() {
-        cargoI.load(ssample);
-        cargoI.load(vsample);
-        cargoI.load(scania);
-        cargoI.load(carTrans);
-        cargoI.load(ferry);
-        cargoI.updatePositions(pos1);
-        for (int i = 0; i < cargoI.getMaxCapacity(); i++) {
-            IPositionable item = cargoI.unloadFirst();
+        cargoF.load(ssample);
+        cargoF.load(vsample);
+        cargoF.load(scania);
+        cargoF.load(carTrans);
+        cargoF.load(ferry);
+        cargoF.updatePositions(pos1);
+        for (int i = 0; i < cargoF.getMaxCapacity(); i++) {
+            IPositionable item = cargoF.unload();
             assertTrue(pos1.getX() == item.getPosX() && item.getPosY() == pos1.getY());
-            cargoI.load(item);
+            cargoF.load(item);
         }
-        cargoI.updatePositions(pos2);
-        for (int i = 0; i < cargoI.getMaxCapacity(); i++) {
-            IPositionable item = cargoI.unloadFirst();
+        cargoF.updatePositions(pos2);
+        for (int i = 0; i < cargoF.getMaxCapacity(); i++) {
+            IPositionable item = cargoF.unload();
             assertTrue(pos2.getX() == item.getPosX() && item.getPosY() == pos2.getY());
         }
     }
@@ -77,9 +79,9 @@ public class CargoTransportTest {
 
     @Test
     public void testCargoFIFO () {
-        cargoI.load(scania);
-        cargoI.load(ssample);
-        assertEquals(scania, cargoI.unloadFirst());
+        cargoF.load(scania);
+        cargoF.load(ssample);
+        assertEquals(scania, cargoF.unload());
     }
 
     @Test
@@ -92,7 +94,7 @@ public class CargoTransportTest {
     @Test
     public void testCargoUnload() {
         assertNull(cargoV.unload());
-        assertNull(cargoV.unloadFirst());
+        assertNull(cargoF.unload());
     }
 
     //CarTransport testing

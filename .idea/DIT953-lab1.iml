@@ -11,6 +11,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/interface" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/parts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/parts/cargo" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/parts/engine" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/parts/ramp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/GUI" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Vehicles" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

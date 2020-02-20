@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract class CargoTransporter<T extends IPositionable> extends Transporter {
+abstract class CargoTransporter<T extends IPositionable> extends Transporter  implements ITransporter{
 
     private Cargo<T> cargo;
 

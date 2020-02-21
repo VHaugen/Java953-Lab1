@@ -1,20 +1,22 @@
+import java.awt.event.ActionListener;
+
 interface IView {
 
-    void getGasAmount();
+    int getGasAmount();
 
-    void setGasAction();
+    void setGasAction(ActionListener e);
 
-    void setBrakeAction();
+    void setBrakeAction(ActionListener e);
 
-    void setTurboOnAction();
+    void setTurboOnAction(ActionListener e);
 
-    void setTurboOffAction();
+    void setTurboOffAction(ActionListener e);
 
-    void raiseRampAction();
+    void raiseRampAction(ActionListener e);
 
-    void lowerRampAction();
+    void lowerRampAction(ActionListener e);
 
-    void startEngineAction();
+    void startEngineAction(ActionListener e);
 
-    void stopEngineAction();
+    void stopEngineAction(ActionListener e);
 }

@@ -30,6 +30,8 @@ public class Main {
         IView view = new CarView(name, drawPanel, screenWidth, screenHeight);
 
         IController carController = new CarController(view, carModel);
+
+        carController.init();
     }
 }
 /*

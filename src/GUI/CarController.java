@@ -34,6 +34,8 @@ public class CarController {
         scania.setPos(new Position(200, 100));
         saab.setPos(new Position(400, 100));
         saab.setTurboOn();
+
+
         carController.cars.add(new BoundPictureToCar(new Volvo240(), "src/pics/Volvo240.jpg"));
         carController.cars.add(new BoundPictureToCar(saab, "src/pics/Saab95.jpg"));
         carController.cars.add(new BoundPictureToCar(scania, "src/pics/Scania.jpg"));

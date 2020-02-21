@@ -62,18 +62,6 @@ public class CarController {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (BoundPictureToCar car : cars) {
-
-                //Screen width and height with offset included. 100x60 px vehicles.
-                double picWidth = 100;
-                double picHeight = 60;
-                double scrnWidthOffs = frame.getWidth() - picWidth;
-                double scrnHeightOffs = frame.getHeight() - frame.getButtonOffset() - picHeight;
-                if (checkMinMaxCollision(scrnWidthOffs, scrnHeightOffs, car.getCar())) { // TODO fix hardcoded values
-                    startStopSetNewPos(scrnWidthOffs, scrnHeightOffs, car.getCar());
-                } else {
-                    car.getCar().move();
-                }
 
                 //int x = (int) Math.round(car.getCar().getPos().getX());
                 //int y = (int) Math.round(car.getCar().getPos().getY());
@@ -85,96 +73,6 @@ public class CarController {
         }
     }
 
-    private void startStopSetNewPos(double scrnWidth, double scrnHeight, IDriveable vehicle) {
-        stopTurnStartVehicle(vehicle);
-        setCarInBounds(scrnWidth, scrnHeight, vehicle);
-    }
-
-    private void setCarInBounds(double scrnWidth, double scrnHeight, IDriveable vehicle) {
-        double carPosX = vehicle.getPosX();
-        double carPosY = vehicle.getPosY();
-        double x, y;
-        if (checkMaxCollision(scrnWidth, scrnHeight, vehicle)) {
-            x = Math.min(scrnWidth, carPosX);
-            y = Math.min(scrnHeight, carPosY);
-        } else { //checkMinCollision(vehicle);
-            x = Math.max(0, carPosX);
-            y = Math.max(0, carPosY);
-        }
-        Position pos = new Position(x, y);
-        vehicle.setPos(pos);
-    }
-
-    private void stopTurnStartVehicle(IDriveable vehicle) {
-        vehicle.stopEngine();
-        vehicle.turnLeft();
-        vehicle.turnLeft();
-        vehicle.startEngine();
-    }
-
-    /*
-    Check if Vehicle goes out of bounds.
-    Less than 0 or more than screen size will return TRUE.
-     */
-    private boolean checkMinMaxCollision(double scrnWidth, double scrnHeight, IDriveable vehicle) {
-        return checkMinCollision(vehicle) || checkMaxCollision(scrnWidth, scrnHeight, vehicle);
-    }
-
-    private boolean checkMinCollision(IDriveable vehicle) {
-        boolean minX = vehicle.getPosX() < 0;
-        boolean minY = vehicle.getPosY() < 0;
-        return minX || minY;
-    }
-
-    private boolean checkMaxCollision(double scrnWidth, double scrnHeight, IDriveable vehicle) {
-        boolean maxX = scrnWidth < vehicle.getPosX();
-        boolean maxY = scrnHeight < vehicle.getPosY();
-        return maxX || maxY;
-    }
-
-    // Calls the gas method for each car once
-    void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (BoundPictureToCar car : cars) {
-            car.getCar().gas(gas);
-        }
-    }
-
-    void brake(int amount) {
-        double brake = ((double) amount) / 100;
-        for (BoundPictureToCar car : cars) {
-            car.getCar().brake(brake);
-        }
-    }
-
-    void stopEngines() {
-        for (BoundPictureToCar car : cars
-        ) {
-            car.getCar().stopEngine();
-        }
-    }
-
-    void startEngines() {
-        for (BoundPictureToCar car : cars) {
-            car.getCar().startEngine();
-        }
-    }
-
-    void setTurboOn() {
-        saab.setTurboOn();
-    }
-
-    void setTurboOff() {
-        saab.setTurboOff();
-    }
-
-    void raiseRamp() {
-        scania.raiseRamp();
-    }
-
-    void lowerRamp() {
-        scania.lowerRamp();
-    }
 
 }
 

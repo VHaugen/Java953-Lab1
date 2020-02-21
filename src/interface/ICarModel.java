@@ -2,9 +2,9 @@ public interface ICarModel {
 
     void update();
 
-    void gas();
+    void gas(int amount);
 
-    void brake();
+    void brake(int amount);
 
     void stopEngines();
 

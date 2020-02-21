@@ -24,7 +24,8 @@ public class Main {
         trucks.add(scania);
         turboCars.add(saab);
 
-        ICarModel carModel = new CarModel(cars, trucks, turboCars, screenWidth, screenHeight);
+        ICarModel carModel = new CarModel(cars, trucks, turboCars,
+                (screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
         DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset);
         IView view = new CarView(name, drawPanel, screenWidth, screenHeight);
 

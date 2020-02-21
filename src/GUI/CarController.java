@@ -11,49 +11,37 @@ import java.util.List;
  */
 
 public class CarController {
-    // member fields:
+
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with an listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+    private Timer timer;
 
     // The frame that represents this instance View of the MVC pattern
-    private CarView frame;
-    // A list of cars, modify if needed
-    private List<BoundPictureToCar> cars = new ArrayList<>();
+    private IView view;
+    private ICarModel model;
 
-    static Scania scania = new Scania();
+    public CarController(IView view, ICarModel model) {
+        timer = new Timer(delay, new TimerListener());
+        this.view = view;
+        this.model = model;
+    }
 
-    static Saab95 saab = new Saab95();
-    //methods:
+    public void init() {
 
-    public static void main(String[] args) {
-        CarController carController = new CarController();
-        scania.setPos(new Position(200, 100));
-        saab.setPos(new Position(400, 100));
-        saab.setTurboOn();
-
-
-        carController.cars.add(new BoundPictureToCar(new Volvo240(), "src/pics/Volvo240.jpg"));
-        carController.cars.add(new BoundPictureToCar(saab, "src/pics/Saab95.jpg"));
-        carController.cars.add(new BoundPictureToCar(scania, "src/pics/Scania.jpg"));
-
-        // Start a new view and send a reference of self
-        carController.frame = new CarView("CarSim 1.0");
-        carController.frame.setGasAction(e -> carController.gas(carController.frame.getGasAmount()));
-        carController.frame.setBrakeAction(e -> carController.brake(carController.frame.getGasAmount()));
-        carController.frame.setTurboOnAction(e -> carController.setTurboOn());
-        carController.frame.setTurboOffAction(e -> carController.setTurboOff());
-        carController.frame.raiseRampAction(e -> carController.raiseRamp());
-        carController.frame.lowerRampAction(e -> carController.lowerRamp());
-        carController.frame.stopEngineAction(e -> carController.stopEngines());
-        carController.frame.startEngineAction(e -> carController.startEngines());
+        view.setGasAction(e -> model.gas(view.getGasAmount()));
+        view.setBrakeAction(e -> model.brake(view.getGasAmount()));
+        view.setTurboOnAction(e -> model.setTurboOn());
+        view.setTurboOffAction(e -> model.setTurboOff());
+        view.raiseRampAction(e -> model.raiseRamp());
+        view.lowerRampAction(e -> model.lowerRamp());
+        view.stopEngineAction(e -> model.stopEngines());
+        view.startEngineAction(e -> model.startEngines());
 
         // Start the timer
-        carController.timer.start();
-        carController.frame.drawPanel.syncCars(carController.cars);
+        timer.start();
 
     }
 
@@ -62,14 +50,8 @@ public class CarController {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-
-                //int x = (int) Math.round(car.getCar().getPos().getX());
-                //int y = (int) Math.round(car.getCar().getPos().getY());
-
-                //frame.drawPanel.moveit;
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
-            }
+            model.update();
+            view.repaint();
         }
     }
 

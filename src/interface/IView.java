@@ -4,6 +4,8 @@ interface IView {
 
     int getGasAmount();
 
+    void repaint();
+
     void setGasAction(ActionListener e);
 
     void setBrakeAction(ActionListener e);

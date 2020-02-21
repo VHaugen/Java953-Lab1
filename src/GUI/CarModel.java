@@ -22,7 +22,7 @@ public class CarModel implements ICarModel {
         for (IDriveable car : cars) {
 
             //Screen width and height with offset included. 100x60 px vehicles.
-            if (checkMinMaxCollision(modelWith, modelHeight, car)) { // TODO fix hardcoded values
+            if (checkMinMaxCollision(modelWith, modelHeight, car)) {
                 startStopSetNewPos(modelWith, modelHeight, car);
             } else {
                 car.move();

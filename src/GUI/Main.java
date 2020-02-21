@@ -29,9 +29,7 @@ public class Main {
         DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset);
         IView view = new CarView(name, drawPanel, screenWidth, screenHeight);
 
-        CarController carController = new CarController();
-
-
+        IController carController = new CarController(view, carModel);
     }
 }
 /*

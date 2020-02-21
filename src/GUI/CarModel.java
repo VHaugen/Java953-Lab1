@@ -6,8 +6,8 @@ public class CarModel implements ICarModel {
     private List<ITransporter> trucks;
     private List<ITurbo> turboCars;
 
-    private double modelWith;
-    private double modelHeight;
+    private final double modelWith;
+    private final double modelHeight;
 
 
     public CarModel(List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars, double modelWith, double modelHeight) {

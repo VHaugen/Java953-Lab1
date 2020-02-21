@@ -2,12 +2,11 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CarView extends JFrame implements IView {
-    private static int X;
-    private static int Y;
+    private final int screenWidth;
+    private final int screenHeight;
     private int gasAmount = 0;
 
     DrawPanel drawPanel;
@@ -29,10 +28,10 @@ public class CarView extends JFrame implements IView {
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename, DrawPanel drawPanel, int X, int Y) {
+    public CarView(String framename, DrawPanel drawPanel, int screenWidth, int screenHeight) {
         this.drawPanel = drawPanel;
-        CarView.X = X;
-        CarView.Y = Y;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         initComponents(framename);
     }
 
@@ -75,7 +74,7 @@ public class CarView extends JFrame implements IView {
     private void initComponents(String title) {
 
         this.setTitle(title);
-        this.setPreferredSize(new Dimension(X, Y));
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
@@ -107,18 +106,18 @@ public class CarView extends JFrame implements IView {
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((X / 2) + 4, 200));
+        controlPanel.setPreferredSize(new Dimension((screenWidth / 2) + 4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X / 5 - 15, 200));
+        startButton.setPreferredSize(new Dimension(screenWidth / 5 - 15, 200));
         this.add(startButton);
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X / 5 - 15, 200));
+        stopButton.setPreferredSize(new Dimension(screenWidth / 5 - 15, 200));
         this.add(stopButton);
 
         // Make the frame pack all it's components by respecting the sizes if possible.

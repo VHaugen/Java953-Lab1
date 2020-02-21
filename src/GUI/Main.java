@@ -8,7 +8,7 @@ public class Main {
     private static final int buttonOffset = 240;
     private static final int carWidth = 100;
     private static final int carHeight = 60;
-    private static final String name = "CarSim 0.9 Final Alpha RC";
+    private static final String windowTitle = "CarSim 0.9 Final Alpha RC";
 
     public static void main(String[] args) {
         Saab95 saab = new Saab95();
@@ -32,7 +32,7 @@ public class Main {
         ICarModel carModel = new CarModel(cars, trucks, turboCars,
                 (screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
         DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
-        IView view = new CarView(name, drawPanel, screenWidth, screenHeight);
+        IView view = new CarView(windowTitle, drawPanel, screenWidth, screenHeight);
 
         IController carController = new CarController(view, carModel);
 

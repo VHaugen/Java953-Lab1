@@ -14,8 +14,8 @@ public class Main {
         Saab95 saab = new Saab95();
         Volvo240 volvo = new Volvo240();
         Scania scania = new Scania();
-        scania.setPos(new Position(200, 100));
-        saab.setPos(new Position(400, 100));
+        scania.setPos(new Position(200, 0));
+        saab.setPos(new Position(400, 0));
         saab.setTurboOn();
         List<IDriveable> cars = new ArrayList<>();
         List<ITransporter> trucks = new ArrayList<>();
@@ -24,9 +24,14 @@ public class Main {
         trucks.add(scania);
         turboCars.add(saab);
 
+        List<IPositionablePicture> pics = new ArrayList<>();
+        pics.add(new PositionablePicture(volvo.getPos(),"src/pics/Volvo240.jpg"));
+        pics.add(new PositionablePicture(saab.getPos(),"src/pics/Saab95.jpg"));
+        pics.add(new PositionablePicture(scania.getPos(),"src/pics/Scania.jpg"));
+
         ICarModel carModel = new CarModel(cars, trucks, turboCars,
                 (screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
-        DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset);
+        DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
         IView view = new CarView(name, drawPanel, screenWidth, screenHeight);
 
         IController carController = new CarController(view, carModel);

@@ -12,8 +12,8 @@ import java.util.List;
 
 public class CarController implements IController {
 
-    // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
+    // The delay (ms) corresponds to 40 updates a sec (hz)
+    private final int delay = 25;
     // The timer is started with an listener (see below) that executes the statements
     // each step between delays.
     private Timer timer;

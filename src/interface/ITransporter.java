@@ -1,4 +1,4 @@
-public interface ITransporter {
+public interface ITransporter extends IDriveable {
     public void raiseRamp();
 
 

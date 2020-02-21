@@ -1,17 +1,17 @@
 import java.awt.image.BufferedImage;
 
-public interface PosPic {
+public interface IPositionablePicture {
     /**
      * will retrun a image in the style of BufferedImage type
      * @return
      */
-    BufferedImage getPPPick();
+    BufferedImage getImage();
 
     /**
      * Just simply returns the position from i posianable
      * @return
      */
 
-    Position getPPPos();
+    Position getPosition() ;
 
 }

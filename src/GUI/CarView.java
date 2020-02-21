@@ -30,10 +30,10 @@ public class CarView extends JFrame implements IView {
 
     // Constructor
     public CarView(String framename, DrawPanel drawPanel, int X, int Y) {
-        initComponents(framename);
         this.drawPanel = drawPanel;
         CarView.X = X;
         CarView.Y = Y;
+        initComponents(framename);
     }
 
     public int getGasAmount() {
@@ -79,6 +79,7 @@ public class CarView extends JFrame implements IView {
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
+
 
         SpinnerModel spinnerModel =
                 new SpinnerNumberModel(0, //initial value

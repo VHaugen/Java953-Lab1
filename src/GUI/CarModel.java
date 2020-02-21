@@ -1,13 +1,6 @@
 import java.util.List;
 
 public class CarModel implements ICarModel {
-    public CarModel(List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars, double modelWith, double modelHeight) {
-        this.cars = cars;
-        this.trucks = trucks;
-        this.turboCars = turboCars;
-        this.modelWith = modelWith;
-        this.modelHeight = modelHeight;
-    }
 
     private List<IDriveable> cars;
     private List<ITransporter> trucks;
@@ -16,6 +9,17 @@ public class CarModel implements ICarModel {
     private double modelWith;
     private double modelHeight;
 
+
+    public CarModel(List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars, double modelWith, double modelHeight) {
+        this.cars = cars;
+        this.trucks = trucks;
+        this.turboCars = turboCars;
+        this.modelWith = modelWith;
+        this.modelHeight = modelHeight;
+
+        this.cars.addAll(trucks);
+        this.cars.addAll(turboCars);
+    }
 
     @Override
     public void update() {

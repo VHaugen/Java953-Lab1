@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract public class Transporter extends Motorized<Engine> {
+abstract public class Transporter extends Motorized<Engine> implements ITransporter {
     private Ramp ramp;
 
     /**

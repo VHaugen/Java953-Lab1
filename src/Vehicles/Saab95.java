@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Saab95 extends PersonCar<TurboEngine> implements iTurbo {
+public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
 
     /**
      * Creates a custom standard <b>Saab 95</b>.

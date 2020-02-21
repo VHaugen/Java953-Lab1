@@ -10,8 +10,7 @@ import java.util.List;
  * modifying the model state and the updating the view.
  */
 
-public class CarController {
-
+public class CarController implements IController {
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;

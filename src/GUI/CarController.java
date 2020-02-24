@@ -11,25 +11,16 @@ import java.util.List;
  */
 
 public class CarController implements IController {
-
-    // The delay (ms) corresponds to 40 updates a sec (hz)
-    private final int delay = 25;
-    // The timer is started with an listener (see below) that executes the statements
-    // each step between delays.
-    private Timer timer;
-
     // The frame that represents this instance View of the MVC pattern
     private IView view;
     private ICarModel model;
 
     public CarController(IView view, ICarModel model) {
-        timer = new Timer(delay, new TimerListener());
         this.view = view;
         this.model = model;
     }
 
     public void init() {
-
         view.setGasAction(e -> model.gas(view.getGasAmount()));
         view.setBrakeAction(e -> model.brake(view.getGasAmount()));
         view.setTurboOnAction(e -> model.setTurboOn());
@@ -38,22 +29,6 @@ public class CarController implements IController {
         view.lowerRampAction(e -> model.lowerRamp());
         view.stopEngineAction(e -> model.stopEngines());
         view.startEngineAction(e -> model.startEngines());
-
-        // Start the timer
-        timer.start();
-
     }
-
-    /* Each step the TimerListener moves all the cars in the list and tells the
-     * view to update its images. Change this method to your needs.
-     * */
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            model.update();
-            view.repaint();
-        }
-    }
-
-
 }
 

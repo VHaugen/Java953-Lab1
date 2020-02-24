@@ -11,6 +11,8 @@ public class Main {
     private static final String windowTitle = "CarSim 0.9 Final Alpha RC";
 
     public static void main(String[] args) {
+
+        //Actual model
         Saab95 saab = new Saab95();
         Volvo240 volvo = new Volvo240();
         Scania scania = new Scania();
@@ -25,23 +27,25 @@ public class Main {
         turboCars.add(saab);
 
         List<IPositionablePicture> pics = new ArrayList<>();
-        pics.add(new PositionablePicture(volvo.getPos(),"src/pics/Volvo240.jpg"));
-        pics.add(new PositionablePicture(saab.getPos(),"src/pics/Saab95.jpg"));
-        pics.add(new PositionablePicture(scania.getPos(),"src/pics/Scania.jpg"));
+        pics.add(new PositionablePicture(volvo.getPos(), "src/pics/Volvo240.jpg"));
+        pics.add(new PositionablePicture(saab.getPos(), "src/pics/Saab95.jpg"));
+        pics.add(new PositionablePicture(scania.getPos(), "src/pics/Scania.jpg"));
 
         ICarModel carModel = new CarModel(cars, trucks, turboCars,
                 (screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
+        //End Model
+
+        //User interface / Graphics
         DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
         IView view = new CarView(windowTitle, drawPanel, screenWidth, screenHeight);
+        carModel.addObserver(view);
 
+        //Controller
         IController carController = new CarController(view, carModel);
-
         carController.init();
+        //End Controller
+
+        //Start the model.
+        carModel.start();
     }
 }
-/*
-                carController.cars.add(new BoundPictureToCar(new Volvo240(), "src/pics/Volvo240.jpg"));
-                carController.cars.add(new BoundPictureToCar(saab, "src/pics/Saab95.jpg"));
-                carController.cars.add(new BoundPictureToCar(scania, "src/pics/Scania.jpg"));
-
-*/

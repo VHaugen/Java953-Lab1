@@ -1,3 +1,7 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarModel implements ICarModel {
@@ -6,6 +10,10 @@ public class CarModel implements ICarModel {
     private List<ITransporter> trucks;
     private List<ITurbo> turboCars;
 
+    // The delay (ms) corresponds to 40 updates a sec (hz)
+    private final int delay = 25;
+    private Timer timer;
+    List<IView> signalObserver = new ArrayList<>();
     private final double modelWith;
     private final double modelHeight;
 
@@ -19,6 +27,8 @@ public class CarModel implements ICarModel {
 
         this.cars.addAll(trucks);
         this.cars.addAll(turboCars);
+
+        timer = new Timer(delay, new TimerListener(this));
     }
 
     @Override
@@ -32,7 +42,6 @@ public class CarModel implements ICarModel {
                 car.move();
             }
         }
-
     }
 
     private void startStopSetNewPos(double scrnWidth, double scrnHeight, IDriveable vehicle) {
@@ -138,6 +147,41 @@ public class CarModel implements ICarModel {
     public void lowerRamp() {
         for (ITransporter truck : trucks) {
             truck.lowerRamp();
+        }
+    }
+
+    @Override
+    public void start() {
+        timer.start();
+    }
+
+    //Observer pattern.
+
+    @Override
+    public void addObserver(IView observer) {
+        signalObserver.add(observer);
+    }
+
+    @Override
+    public void callObserverUpdate() {
+        for (IView observer : signalObserver) {
+            observer.repaint();
+        }
+    }
+
+    /* Each step the TimerListener moves all the cars in the list and tells the
+     * view to update its images. Change this method to your needs.
+     * */
+    private static class TimerListener implements ActionListener {
+        ICarModel model;
+
+        public TimerListener(ICarModel model) {
+            this.model = model;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            model.update();
+            model.callObserverUpdate();
         }
     }
 }

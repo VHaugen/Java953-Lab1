@@ -44,8 +44,5 @@ public class Main {
         IController carController = new CarController(view, carModel);
         carController.init();
         //End Controller
-
-        //Start the model.
-        carModel.start();
     }
 }

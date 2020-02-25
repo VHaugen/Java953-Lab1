@@ -18,9 +18,5 @@ public interface ICarModel {
 
     void lowerRamp();
 
-    void start();
-
-    void callObserverUpdate();
-
     void addObserver(IView view);
 }

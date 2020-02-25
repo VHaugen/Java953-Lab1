@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarModel implements ICarModel {
+public class CarModel implements ICarModel, ActionListener {
 
     private List<IDriveable> cars;
     private List<ITransporter> trucks;
@@ -28,7 +28,8 @@ public class CarModel implements ICarModel {
         this.cars.addAll(trucks);
         this.cars.addAll(turboCars);
 
-        timer = new Timer(delay, new TimerListener(this));
+        timer = new Timer(delay, this);
+        timer.start();
     }
 
     @Override
@@ -150,11 +151,6 @@ public class CarModel implements ICarModel {
         }
     }
 
-    @Override
-    public void start() {
-        timer.start();
-    }
-
     //Observer pattern.
 
     @Override
@@ -162,26 +158,14 @@ public class CarModel implements ICarModel {
         signalObserver.add(observer);
     }
 
-    @Override
-    public void callObserverUpdate() {
+    private void callObserverUpdate() {
         for (IView observer : signalObserver) {
             observer.repaint();
         }
     }
 
-    /* Each step the TimerListener moves all the cars in the list and tells the
-     * view to update its images. Change this method to your needs.
-     * */
-    private static class TimerListener implements ActionListener {
-        ICarModel model;
-
-        public TimerListener(ICarModel model) {
-            this.model = model;
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            model.update();
-            model.callObserverUpdate();
-        }
+    public void actionPerformed(ActionEvent e) {
+        update();
+        callObserverUpdate();
     }
 }

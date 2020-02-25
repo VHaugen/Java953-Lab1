@@ -118,4 +118,3 @@ public class CarController extends JPanel implements IController {
     }
 
 }
-

@@ -22,8 +22,8 @@ public class CarModel implements ICarModel, ActionListener {
         this.modelWith = modelWith;
         this.modelHeight = modelHeight;
 
-        this.cars.addAll(trucks);
-        this.cars.addAll(turboCars);
+        cars.addAll(trucks);
+        cars.addAll(turboCars);
 
         Timer timer = new Timer(delay, this);
         timer.start();

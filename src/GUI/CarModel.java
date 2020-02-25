@@ -32,8 +32,7 @@ public class CarModel implements ICarModel, ActionListener {
         timer.start();
     }
 
-    @Override
-    public void update() {
+    private void update() {
         for (IDriveable car : cars) {
 
             //Screen width and height with offset included. 100x60 px vehicles.

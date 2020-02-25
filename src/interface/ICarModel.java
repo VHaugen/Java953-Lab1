@@ -1,7 +1,5 @@
 public interface ICarModel {
 
-    void update();
-
     void gas(int amount);
 
     void brake(int amount);

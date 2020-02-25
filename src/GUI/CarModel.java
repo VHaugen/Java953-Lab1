@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class CarModel implements ICarModel, ActionListener {
@@ -12,8 +13,7 @@ public class CarModel implements ICarModel, ActionListener {
 
     // The delay (ms) corresponds to 40 updates a sec (hz)
     private final int delay = 25;
-    private Timer timer;
-    List<ISignalObserver> signalObserver = new ArrayList<>();
+    Collection<ISignalObserver> signalObserver = new ArrayList<>();
     private final double modelWith;
     private final double modelHeight;
 
@@ -28,7 +28,7 @@ public class CarModel implements ICarModel, ActionListener {
         this.cars.addAll(trucks);
         this.cars.addAll(turboCars);
 
-        timer = new Timer(delay, this);
+        Timer timer = new Timer(delay, this);
         timer.start();
     }
 

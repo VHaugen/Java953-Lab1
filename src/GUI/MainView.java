@@ -10,13 +10,16 @@ public class MainView extends JFrame implements ISignalObserver {
     private int gasAmount = 0;
 
     DrawPanel drawPanel;
+    IController controller;
 
     // Constructor
-    public MainView(String framename, DrawPanel drawPanel, int screenWidth, int screenHeight) {
+    public MainView(String framename, DrawPanel drawPanel, IController controller, int screenWidth, int screenHeight) {
         this.drawPanel = drawPanel;
+        this.controller = controller;
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         initComponents(framename);
+
     }
 
     private void initComponents(String title) {
@@ -26,6 +29,7 @@ public class MainView extends JFrame implements ISignalObserver {
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
+        this.add((Component) controller);
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();

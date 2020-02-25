@@ -34,12 +34,14 @@ public class Main {
 
         //User interface / Graphics
         DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
-        ISignalObserver view = new CarView(windowTitle, drawPanel, screenWidth, screenHeight);
+        IController controller = new CarController(carModel, screenWidth, buttonOffset);
+        //ISignalObserver view = new CarView(windowTitle, drawPanel, screenWidth, screenHeight);
+        ISignalObserver view = new MainView(windowTitle, drawPanel, controller, screenWidth, screenHeight);
         carModel.addObserver(view);
 
         //Controller
-        IController carController = new CarController(view, carModel);
-        carController.init();
+/*        IController carController = new CarController(view, carModel, screenWidth, buttonOffset);
+        carController.init();*/
         //End Controller
     }
 }

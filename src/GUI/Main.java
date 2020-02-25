@@ -77,7 +77,5 @@ public class Main {
         // Make sure the frame exits when "x" is pressed
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
     }
 }

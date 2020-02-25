@@ -23,5 +23,5 @@ public interface IController {
 
     public Component getPanel();
 
-    void bindButtons();
+    //void bindButtons();
 }

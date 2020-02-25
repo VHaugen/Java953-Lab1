@@ -5,30 +5,26 @@ import java.awt.event.ActionListener;
 public class ControlPanel extends JPanel {
     private int gasAmount = 0;
 
-    //Buttons and general "controller"
-    JPanel controlPanel = new JPanel();
-
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-
-    JLabel gasLabel = new JLabel("Amount of gas");
-    JButton gasButton = new JButton("Gas");
-    JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
-
-    JButton startButton = new JButton("Start all cars");
-    JButton stopButton = new JButton("Stop all cars");
+    //Button text
+    private JButton gasButton = new JButton("Gas");
+    private JButton brakeButton = new JButton("Brake");
+    private JButton turboOnButton = new JButton("Saab Turbo on");
+    private JButton turboOffButton = new JButton("Saab Turbo off");
+    private JButton liftBedButton = new JButton("Scania Lift Bed");
+    private JButton lowerBedButton = new JButton("Lower Lift Bed");
+    private JButton startButton = new JButton("Start all cars");
+    private JButton stopButton = new JButton("Stop all cars");
+    //End button text
 
     public ControlPanel(int screenWidth, int screenHeight) {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-        //Sets [gasAmount] for braking and gassing.
+        //GasPanel: Sets [gasAmount] for braking and gassing.
+        JPanel gasPanel = new JPanel();
+        JLabel gasLabel = new JLabel("Amount of gas");
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 100, 1);
-        gasSpinner = new JSpinner(spinnerModel);
+        JSpinner gasSpinner = new JSpinner(spinnerModel);
         gasSpinner.addChangeListener(e -> gasAmount = (int) ((JSpinner) e.getSource()).getValue());
 
         gasPanel.setLayout(new BorderLayout());
@@ -38,6 +34,8 @@ public class ControlPanel extends JPanel {
         //END - Gasamount panel
 
         //Rest of the buttons
+        //Buttons and general "controller"
+        JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new GridLayout(2, 4));
 
         controlPanel.add(gasButton, 0);

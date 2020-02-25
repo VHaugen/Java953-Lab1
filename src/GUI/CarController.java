@@ -11,7 +11,7 @@ public class CarController implements IController {
         bindButtons();
     }
 
-    public void bindButtons() {
+    private void bindButtons() {
         panel.setGasAction(e -> model.gas(panel.getGasAmount()));
         panel.setBrakeAction(e -> model.brake(panel.getGasAmount()));
         panel.setTurboOnAction(e -> model.setTurboOn());
@@ -22,7 +22,6 @@ public class CarController implements IController {
         panel.startEngineAction(e -> model.startEngines());
     }
 
-    @Override
     public Component getPanel() {
         return panel;
     }

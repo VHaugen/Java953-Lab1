@@ -160,7 +160,7 @@ public class CarModel implements ICarModel, ActionListener {
 
     private void callObserverUpdate() {
         for (ISignalObserver observer : signalObserver) {
-            observer.repaint();
+            observer.actOnAction();
         }
     }
 

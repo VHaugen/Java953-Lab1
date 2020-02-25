@@ -4,8 +4,6 @@ interface ISignalObserver {
 
     int getGasAmount();
 
-    void repaint();
-
     void setGasAction(ActionListener e);
 
     void setBrakeAction(ActionListener e);
@@ -21,4 +19,6 @@ interface ISignalObserver {
     void startEngineAction(ActionListener e);
 
     void stopEngineAction(ActionListener e);
+
+    void actOnAction();
 }

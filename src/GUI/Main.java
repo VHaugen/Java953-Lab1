@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,30 @@ public class Main {
         IController controller = new CarController(carModel, screenWidth, buttonOffset);
 
         //MainView to put View and Controller into a frame.
-        new MainView(windowTitle, drawPanel, controller, screenWidth, screenHeight);
+        //new MainView(windowTitle, drawPanel, controller, screenWidth, screenHeight);
+        makeFrame(drawPanel.getPanel(), controller.getPanel());
+    }
+
+    private static void makeFrame(Component view, Component controller) {
+        JFrame frame = new JFrame(windowTitle);
+
+        frame.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        frame.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        frame.add(view);
+        frame.add(controller);
+        frame.pack();
+
+        // Get the computer screen resolution
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        // Center the frame
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+        // Make the frame visible
+        frame.setVisible(true);
+        // Make sure the frame exits when "x" is pressed
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
     }
 }

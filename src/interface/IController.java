@@ -1,3 +1,3 @@
 public interface IController {
-    void init();
+    void initButtons();
 }

@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 public class MainView extends JFrame implements ISignalObserver {
     private final int screenWidth;
     private final int screenHeight;
-    private int gasAmount = 0;
-
     DrawPanel drawPanel;
     IController controller;
 

@@ -21,7 +21,6 @@ public class CarController extends JPanel implements IController {
     JSpinner gasSpinner = new JSpinner();
 
     JLabel gasLabel = new JLabel("Amount of gas");
-
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
@@ -36,9 +35,9 @@ public class CarController extends JPanel implements IController {
         this.model = model;
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-        initComponents("aa");
+        initComponents();
+        initButtons();
     }
-
 
     public int getGasAmount() {
         return gasAmount;
@@ -76,30 +75,33 @@ public class CarController extends JPanel implements IController {
         stopButton.addActionListener(e);
     }
 
-    private void initComponents(String title) {
+    public void initButtons() {
+        this.setGasAction(e -> model.gas(gasAmount));
+        this.setBrakeAction(e -> model.brake(gasAmount));
+        this.setTurboOnAction(e -> model.setTurboOn());
+        this.setTurboOffAction(e -> model.setTurboOff());
+        this.raiseRampAction(e -> model.raiseRamp());
+        this.lowerRampAction(e -> model.lowerRamp());
+        this.stopEngineAction(e -> model.stopEngines());
+        this.startEngineAction(e -> model.startEngines());
+    }
 
-        //this.setTitle(title);
+    private void initComponents() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        SpinnerModel spinnerModel =
-                new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1);//step
+        //Sets [gasAmount] for braking and gassing.
+        SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 100,1);
         gasSpinner = new JSpinner(spinnerModel);
-        gasSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                gasAmount = (int) ((JSpinner) e.getSource()).getValue();
-            }
-        });
+        gasSpinner.addChangeListener(e -> gasAmount = (int) ((JSpinner) e.getSource()).getValue());
 
         gasPanel.setLayout(new BorderLayout());
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
         gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
-
         this.add(gasPanel);
+        //END - Gasamount panel
 
+        //Rest of the buttons
         controlPanel.setLayout(new GridLayout(2, 4));
 
         controlPanel.add(gasButton, 0);
@@ -121,24 +123,7 @@ public class CarController extends JPanel implements IController {
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(screenWidth / 5 - 15, 200));
         this.add(stopButton);
-
-
+        //END of buttons
     }
-
-    @Override
-    public void init() {
-
-    }
-
-/*    public void init() {
-        this.setGasAction(e -> model.gas(view.getGasAmount()));
-        this.setBrakeAction(e -> model.brake(view.getGasAmount()));
-        this.setTurboOnAction(e -> model.setTurboOn());
-        this.setTurboOffAction(e -> model.setTurboOff());
-        this.raiseRampAction(e -> model.raiseRamp());
-        this.lowerRampAction(e -> model.lowerRamp());
-        this.stopEngineAction(e -> model.stopEngines());
-        this.startEngineAction(e -> model.startEngines());
-    }*/
 }
 

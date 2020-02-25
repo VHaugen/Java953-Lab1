@@ -13,7 +13,7 @@ public class CarModel implements ICarModel, ActionListener {
     // The delay (ms) corresponds to 40 updates a sec (hz)
     private final int delay = 25;
     private Timer timer;
-    List<IView> signalObserver = new ArrayList<>();
+    List<ISignalObserver> signalObserver = new ArrayList<>();
     private final double modelWith;
     private final double modelHeight;
 
@@ -154,12 +154,12 @@ public class CarModel implements ICarModel, ActionListener {
     //Observer pattern.
 
     @Override
-    public void addObserver(IView observer) {
+    public void addObserver(ISignalObserver observer) {
         signalObserver.add(observer);
     }
 
     private void callObserverUpdate() {
-        for (IView observer : signalObserver) {
+        for (ISignalObserver observer : signalObserver) {
             observer.repaint();
         }
     }

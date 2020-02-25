@@ -37,7 +37,7 @@ public class Main {
 
         //User interface / Graphics
         DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
-        IView view = new CarView(windowTitle, drawPanel, screenWidth, screenHeight);
+        ISignalObserver view = new CarView(windowTitle, drawPanel, screenWidth, screenHeight);
         carModel.addObserver(view);
 
         //Controller

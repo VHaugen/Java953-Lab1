@@ -1,6 +1,6 @@
 import java.awt.event.ActionListener;
 
-interface IView {
+interface ISignalObserver {
 
     int getGasAmount();
 

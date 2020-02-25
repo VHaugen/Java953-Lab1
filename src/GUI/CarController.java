@@ -1,9 +1,9 @@
 public class CarController implements IController {
     // The frame that represents this instance View of the MVC pattern
-    private IView view;
+    private ISignalObserver view;
     private ICarModel model;
 
-    public CarController(IView view, ICarModel model) {
+    public CarController(ISignalObserver view, ICarModel model) {
         this.view = view;
         this.model = model;
     }

@@ -7,9 +7,9 @@ import java.util.List;
 
 public class CarModel implements ICarModel, ActionListener {
 
-    private List<IDriveable> cars;
-    private List<ITransporter> trucks;
-    private List<ITurbo> turboCars;
+    private List<IDriveable> cars = new ArrayList<>();
+    private List<ITransporter> trucks = new ArrayList<>();
+    private List<ITurbo> turboCars = new ArrayList<>();
 
     // The delay (ms) corresponds to 40 updates a sec (hz)
     private final int delay = 25;
@@ -19,9 +19,6 @@ public class CarModel implements ICarModel, ActionListener {
 
 
     public CarModel(double modelWith, double modelHeight) {
-        cars = new ArrayList<>();
-        trucks = new ArrayList<>();
-        turboCars = new ArrayList<>();
         this.modelWith = modelWith;
         this.modelHeight = modelHeight;
 
@@ -48,8 +45,6 @@ public class CarModel implements ICarModel, ActionListener {
 
     private void update() {
         for (IDriveable car : cars) {
-
-            //Screen width and height with offset included. 100x60 px vehicles.
             if (checkMinMaxCollision(modelWith, modelHeight, car)) {
                 startStopSetNewPos(modelWith, modelHeight, car);
             } else {
@@ -67,12 +62,12 @@ public class CarModel implements ICarModel, ActionListener {
         double carPosX = vehicle.getPosX();
         double carPosY = vehicle.getPosY();
         double x, y;
-        if (checkMaxCollision(scrnWidth, scrnHeight, vehicle)) {
-            x = Math.min(scrnWidth, carPosX);
-            y = Math.min(scrnHeight, carPosY);
-        } else { //checkMinCollision(vehicle);
+        if (checkMinCollision(vehicle)) {
             x = Math.max(0, carPosX);
             y = Math.max(0, carPosY);
+        } else {
+            x = Math.min(scrnWidth, carPosX);
+            y = Math.min(scrnHeight, carPosY);
         }
         Position pos = new Position(x, y);
         vehicle.setPos(pos);
@@ -164,8 +159,7 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
-    //Observer pattern.
-
+    //Observer pattern
     @Override
     public void addObserver(ISignalObserver observer) {
         signalObserver.add(observer);
@@ -177,6 +171,7 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
+    //Timer update
     public void actionPerformed(ActionEvent e) {
         update();
         callObserverUpdate();

@@ -1,18 +1,11 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class CarController extends JPanel implements IController {
-    // The frame that represents this instance View of the MVC pattern
+    //Model to control
     private ICarModel model;
-
-    private final int screenWidth;
-    private final int screenHeight;
     private int gasAmount = 0;
-
-    //DrawPanel drawPanel;
 
     //Buttons and general "controller"
     JPanel controlPanel = new JPanel();
@@ -33,72 +26,34 @@ public class CarController extends JPanel implements IController {
 
     public CarController(ICarModel model, int screenWidth, int screenHeight) {
         this.model = model;
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
-        initComponents();
-        initButtons();
+        initComponents(screenWidth, screenHeight);
+        bindButtons();
     }
 
-    public int getGasAmount() {
-        return gasAmount;
+    public void bindButtons() {
+        setGasAction(e -> model.gas(gasAmount));
+        setBrakeAction(e -> model.brake(gasAmount));
+        setTurboOnAction(e -> model.setTurboOn());
+        setTurboOffAction(e -> model.setTurboOff());
+        raiseRampAction(e -> model.raiseRamp());
+        lowerRampAction(e -> model.lowerRamp());
+        stopEngineAction(e -> model.stopEngines());
+        startEngineAction(e -> model.startEngines());
     }
 
-    public void setGasAction(ActionListener e) {
-        gasButton.addActionListener(e);
-    }
-
-    public void setBrakeAction(ActionListener e) {
-        brakeButton.addActionListener(e);
-    }
-
-    public void setTurboOnAction(ActionListener e) {
-        turboOnButton.addActionListener(e);
-    }
-
-    public void setTurboOffAction(ActionListener e) {
-        turboOffButton.addActionListener(e);
-    }
-
-    public void raiseRampAction(ActionListener e) {
-        lowerBedButton.addActionListener(e);
-    }
-
-    public void lowerRampAction(ActionListener e) {
-        liftBedButton.addActionListener(e);
-    }
-
-    public void startEngineAction(ActionListener e) {
-        startButton.addActionListener(e);
-    }
-
-    public void stopEngineAction(ActionListener e) {
-        stopButton.addActionListener(e);
-    }
-
-    public void initButtons() {
-        this.setGasAction(e -> model.gas(gasAmount));
-        this.setBrakeAction(e -> model.brake(gasAmount));
-        this.setTurboOnAction(e -> model.setTurboOn());
-        this.setTurboOffAction(e -> model.setTurboOff());
-        this.raiseRampAction(e -> model.raiseRamp());
-        this.lowerRampAction(e -> model.lowerRamp());
-        this.stopEngineAction(e -> model.stopEngines());
-        this.startEngineAction(e -> model.startEngines());
-    }
-
-    private void initComponents() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+    private void initComponents(int screenWidth, int screenHeight) {
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         //Sets [gasAmount] for braking and gassing.
-        SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 100,1);
+        SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 100, 1);
         gasSpinner = new JSpinner(spinnerModel);
         gasSpinner.addChangeListener(e -> gasAmount = (int) ((JSpinner) e.getSource()).getValue());
 
         gasPanel.setLayout(new BorderLayout());
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
         gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
-        this.add(gasPanel);
+        add(gasPanel);
         //END - Gasamount panel
 
         //Rest of the buttons
@@ -111,19 +66,56 @@ public class CarController extends JPanel implements IController {
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
         controlPanel.setPreferredSize(new Dimension((screenWidth / 2) + 4, 200));
-        this.add(controlPanel);
-        controlPanel.setBackground(Color.CYAN);
+        controlPanel.setBackground(Color.cyan);
+        add(controlPanel);
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
         startButton.setPreferredSize(new Dimension(screenWidth / 5 - 15, 200));
-        this.add(startButton);
+        add(startButton);
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(screenWidth / 5 - 15, 200));
-        this.add(stopButton);
+        add(stopButton);
         //END of buttons
     }
+
+    public Component getPanel() {
+        return this;
+    }
+
+    private void setGasAction(ActionListener e) {
+        gasButton.addActionListener(e);
+    }
+
+    private void setBrakeAction(ActionListener e) {
+        brakeButton.addActionListener(e);
+    }
+
+    private void setTurboOnAction(ActionListener e) {
+        turboOnButton.addActionListener(e);
+    }
+
+    private void setTurboOffAction(ActionListener e) {
+        turboOffButton.addActionListener(e);
+    }
+
+    private void raiseRampAction(ActionListener e) {
+        lowerBedButton.addActionListener(e);
+    }
+
+    private void lowerRampAction(ActionListener e) {
+        liftBedButton.addActionListener(e);
+    }
+
+    private void startEngineAction(ActionListener e) {
+        startButton.addActionListener(e);
+    }
+
+    private void stopEngineAction(ActionListener e) {
+        stopButton.addActionListener(e);
+    }
+
 }
 

@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,15 +32,9 @@ public class Main {
         //End Model
 
         //User interface / Graphics
-        DrawPanel drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
+        ISignalObserver drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
         IController controller = new CarController(carModel, screenWidth, buttonOffset);
-        //ISignalObserver view = new CarView(windowTitle, drawPanel, screenWidth, screenHeight);
-        ISignalObserver view = new MainView(windowTitle, drawPanel, controller, screenWidth, screenHeight);
-        carModel.addObserver(view);
-
-        //Controller
-/*        IController carController = new CarController(view, carModel, screenWidth, buttonOffset);
-        carController.init();*/
-        //End Controller
+        new MainView(windowTitle, drawPanel, controller, screenWidth, screenHeight);
+        carModel.addObserver(drawPanel);
     }
 }

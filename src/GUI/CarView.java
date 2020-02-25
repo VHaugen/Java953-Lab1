@@ -4,7 +4,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class CarView extends JFrame implements ISignalObserver {
+public class CarView extends JFrame {
     private final int screenWidth;
     private final int screenHeight;
     private int gasAmount = 0;
@@ -74,7 +74,6 @@ public class CarView extends JFrame implements ISignalObserver {
         stopButton.addActionListener(e);
     }
 
-    @Override
     public void actOnAction() {
         this.repaint();
     }

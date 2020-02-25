@@ -17,4 +17,10 @@ public interface ICarModel {
     void lowerRamp();
 
     void addObserver(ISignalObserver view);
+
+    void addCar(IDriveable car);
+
+    void addCar(ITransporter car);
+
+    void addCar(ITurbo car);
 }

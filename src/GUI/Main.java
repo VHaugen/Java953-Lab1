@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,20 +20,16 @@ public class Main {
         scania.setPos(new Position(200, 0));
         saab.setPos(new Position(400, 0));
         saab.setTurboOn();
-        List<IDriveable> cars = new ArrayList<>();
-        List<ITransporter> trucks = new ArrayList<>();
-        List<ITurbo> turboCars = new ArrayList<>();
-        cars.add(volvo);
-        trucks.add(scania);
-        turboCars.add(saab);
 
         List<IPositionablePicture> pics = new ArrayList<>();
         pics.add(new PositionablePicture(volvo.getPos(), "src/pics/Volvo240.jpg"));
         pics.add(new PositionablePicture(saab.getPos(), "src/pics/Saab95.jpg"));
         pics.add(new PositionablePicture(scania.getPos(), "src/pics/Scania.jpg"));
 
-        ICarModel carModel = new CarModel(cars, trucks, turboCars,
-                (screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
+        ICarModel carModel = new CarModel((screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
+        carModel.addCar(volvo);
+        carModel.addCar(scania);
+        carModel.addCar(saab);
         //End Model
 
         //User interface / Graphics

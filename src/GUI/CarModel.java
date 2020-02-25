@@ -18,10 +18,10 @@ public class CarModel implements ICarModel, ActionListener {
     private final double modelHeight;
 
 
-    public CarModel(List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars, double modelWith, double modelHeight) {
-        this.cars = cars;
-        this.trucks = trucks;
-        this.turboCars = turboCars;
+    public CarModel(double modelWith, double modelHeight) {
+        cars = new ArrayList<>();
+        trucks = new ArrayList<>();
+        turboCars = new ArrayList<>();
         this.modelWith = modelWith;
         this.modelHeight = modelHeight;
 
@@ -30,6 +30,20 @@ public class CarModel implements ICarModel, ActionListener {
 
         Timer timer = new Timer(delay, this);
         timer.start();
+    }
+
+    public void addCar(IDriveable car) {
+        cars.add(car);
+    }
+
+    public void addCar(ITransporter car) {
+        cars.add(car);
+        trucks.add(car);
+    }
+
+    public void addCar(ITurbo car) {
+        cars.add(car);
+        turboCars.add(car);
     }
 
     private void update() {

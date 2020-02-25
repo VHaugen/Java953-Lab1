@@ -11,7 +11,10 @@ public class CarView extends JFrame implements ISignalObserver {
 
     DrawPanel drawPanel;
 
+
+    // TODO move
     JPanel controlPanel = new JPanel();
+
     JPanel gasPanel = new JPanel();
     JSpinner gasSpinner = new JSpinner();
 
@@ -73,7 +76,7 @@ public class CarView extends JFrame implements ISignalObserver {
 
     @Override
     public void actOnAction() {
-
+        this.repaint();
     }
 
     private void initComponents(String title) {

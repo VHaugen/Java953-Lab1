@@ -5,27 +5,24 @@ import java.util.List;
 
 public class Main {
 
-    private static final int screenWidth = 800;
-    private static final int screenHeight = 800;
+    private static final int mainWidth = 800;
+    private static final int mainHeight = 800;
     private static final int buttonOffset = 240;
     private static final int carWidth = 100;
     private static final int carHeight = 60;
     private static final String windowTitle = "CarSim 0.9 Final Alpha RC";
-    private static ICarModel carModel;
-    private static List<IPositionablePicture> pics = new ArrayList<>();
-
 
     public static void main(String[] args) {
-        initModel();
-        createVehiclesAdd();
-        initGUI();
+        ICarModel model = initModel(mainWidth, mainHeight);
+        List<IPositionablePicture> pics = createVehiclesAdd(model);
+        initGUI(windowTitle, model, pics, mainWidth, mainHeight);
     }
 
-    private static void initModel() {
-        carModel = new CarModel((screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
+    private static ICarModel initModel(int screenWidth, int screenHeight) {
+        return new CarModel((screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
     }
 
-    private static void createVehiclesAdd() {
+    private static List<IPositionablePicture> createVehiclesAdd(ICarModel model) {
         //Create vehicles
         Saab95 saab = new Saab95();
         Volvo240 volvo = new Volvo240();
@@ -35,37 +32,44 @@ public class Main {
         saab.setTurboOn();
 
         //Add vehicles to model
-        carModel.addCar(volvo);
-        carModel.addCar(scania);
-        carModel.addCar(saab);
+        model.addCar(volvo);
+        model.addCar(scania);
+        model.addCar(saab);
 
         //Bind pictures to vehicles
+        List<IPositionablePicture> pics = new ArrayList<>();
         pics.add(new PositionablePicture(volvo.getPos(), "src/pics/Volvo240.jpg"));
         pics.add(new PositionablePicture(saab.getPos(), "src/pics/Saab95.jpg"));
         pics.add(new PositionablePicture(scania.getPos(), "src/pics/Scania.jpg"));
+
+        return pics;
     }
 
-    private static void initGUI() {
+    private static void initGUI(String title, ICarModel model, List<IPositionablePicture> pics, int screenWidth, int screenHeight) {
+        List<Component> mainView = new ArrayList<>();
         //Graphics/View
         ISignalObserver drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
-        carModel.addObserver(drawPanel);
+        model.addObserver(drawPanel);
+        mainView.add(drawPanel.getPanel());
 
         //Controller
-        IController controller = new CarController(carModel, screenWidth, buttonOffset);
+        IController controller = new CarController(model, screenWidth, buttonOffset);
+        mainView.add(controller.getPanel());
 
         //MainView to put View and Controller into a frame.
         //new MainView(windowTitle, drawPanel, controller, screenWidth, screenHeight);
-        makeFrame(drawPanel.getPanel(), controller.getPanel());
+        makeFrame(title, mainView, screenWidth, screenHeight);
     }
 
-    private static void makeFrame(Component view, Component controller) {
-        JFrame frame = new JFrame(windowTitle);
+    private static void makeFrame(String title, List<Component> objToDraw, int screenWidth, int screenHeight) {
+        JFrame frame = new JFrame(title);
 
         frame.setPreferredSize(new Dimension(screenWidth, screenHeight));
         frame.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        frame.add(view);
-        frame.add(controller);
+        for(Component c : objToDraw) {
+            frame.add(c);
+        }
         frame.pack();
 
         // Get the computer screen resolution
@@ -76,6 +80,5 @@ public class Main {
         frame.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 }

@@ -168,4 +168,7 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
         motion.turn(-90);
     }
 
+    public String getModelName() {
+        return modelName;
+    }
 }

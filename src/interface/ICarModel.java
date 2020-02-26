@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface ICarModel {
 
     void gas(int amount);
@@ -15,6 +17,8 @@ public interface ICarModel {
     void raiseRamp();
 
     void lowerRamp();
+
+    public List<CarModel.StringIntTuple> getCarNameSpeed();
 
     void addObserver(ISignalObserver view);
 

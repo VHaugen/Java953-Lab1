@@ -159,6 +159,14 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
+    public List<StringIntTuple> getCarNameSpeed() {
+        List<StringIntTuple> list = new ArrayList<>();
+        for (IDriveable car : cars) {
+            list.add(new StringIntTuple(car.getModelName(), (int) Math.round(car.getCurrentSpeed()*10)));
+        }
+        return list;
+    }
+
     //Observer pattern
     @Override
     public void addObserver(ISignalObserver observer) {
@@ -176,4 +184,23 @@ public class CarModel implements ICarModel, ActionListener {
         update();
         callObserverUpdate();
     }
+
+    public class StringIntTuple {
+        String str;
+        int anInt;
+
+        public StringIntTuple(String str, int anInt) {
+            this.str = str;
+            this.anInt = anInt;
+        }
+
+        public int getAnInt() {
+            return anInt;
+        }
+
+        public String getStr() {
+            return str;
+        }
+    }
+
 }

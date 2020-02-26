@@ -9,4 +9,6 @@ public interface IDriveable extends IMovable {
     void startEngine();
 
     double getCurrentSpeed();
+
+    String getModelName();
 }

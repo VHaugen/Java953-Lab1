@@ -57,11 +57,17 @@ public class Main {
         mainView.add(controller.getPanel());
 
         //MainView to put View and Controller into a frame.
-        //new MainView(windowTitle, drawPanel, controller, screenWidth, screenHeight);
-        makeFrame(title, mainView, screenWidth, screenHeight);
+        new MainView(title, mainView, screenWidth, screenHeight);
+
+        //SpeedPanel
+        ISignalObserver sp = new SpeedPanel(200,600,model);
+        model.addObserver(sp);
+        List<Component> spList = new ArrayList<>();
+        spList.add(sp.getPanel());
+        new MainView("SpeedPanel", spList, 200, 400);
     }
 
-    private static void makeFrame(String title, List<Component> objToDraw, int screenWidth, int screenHeight) {
+/*    private static void makeFrame(String title, List<Component> objToDraw, int screenWidth, int screenHeight) {
         JFrame frame = new JFrame(title);
 
         frame.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -80,5 +86,5 @@ public class Main {
         frame.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+    }*/
 }

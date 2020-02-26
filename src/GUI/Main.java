@@ -66,8 +66,8 @@ public class Main {
         viewList.add(speedPanel.getPanel());
 
         //Controller
-        ControlPanel controlPanel = new ControlPanel(MAIN_WIDTH, MAIN_HEIGHT);
-        IController controller = new CarController(model, controlPanel, MAIN_WIDTH, BUTTON_OFFSET);
+        ControlPanel controlPanel = new ControlPanel(MAIN_WIDTH, BUTTON_OFFSET);
+        IController controller = new CarController(model, controlPanel);
         viewList.add(controller.getPanel());
 
         //MainView to put View and Controller into a frame.

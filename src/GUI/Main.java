@@ -23,13 +23,9 @@ public class Main {
     private static final String windowTitle = "CarSim 0.9 Final Alpha RC";
 
     public static void main(String[] args) {
-        ICarModel model = initModel();
+        ICarModel model = new CarModel(MODEL_WIDTH, MODEL_HEIGHT, delay);
         List<IPositionablePicture> pics = createVehiclesAdd(model);
         initGUI(model, pics);
-    }
-
-    private static ICarModel initModel() {
-        return new CarModel(MODEL_WIDTH, MODEL_HEIGHT, delay);
     }
 
     private static List<IPositionablePicture> createVehiclesAdd(ICarModel model) {

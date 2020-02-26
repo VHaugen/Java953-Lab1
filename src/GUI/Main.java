@@ -8,6 +8,7 @@ public class Main {
     private static final int mainWidth = 800;
     private static final int mainHeight = 800;
     private static final int buttonOffset = 240;
+    private static final int frameHeight = mainHeight - buttonOffset;
     private static final int carWidth = 100;
     private static final int carHeight = 60;
     private static final String windowTitle = "CarSim 0.9 Final Alpha RC";
@@ -46,25 +47,32 @@ public class Main {
     }
 
     private static void initGUI(String title, ICarModel model, List<IPositionablePicture> pics, int screenWidth, int screenHeight) {
-        List<Component> mainView = new ArrayList<>();
+        List<Component> viewList = new ArrayList<>();
         //Graphics/View
         ISignalObserver drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
         model.addObserver(drawPanel);
-        mainView.add(drawPanel.getPanel());
+        viewList.add(drawPanel.getPanel());
 
-        //Controller
-        IController controller = new CarController(model, screenWidth, buttonOffset);
-        mainView.add(controller.getPanel());
 
-        //MainView to put View and Controller into a frame.
-        new MainView(title, mainView, screenWidth, screenHeight);
 
-        //SpeedPanel
-        ISignalObserver sp = new SpeedPanel(200,600,model);
+        // SpeedPanel
+        ISignalObserver sp = new SpeedPanel(150,100,model);
         model.addObserver(sp);
+        /*
         List<Component> spList = new ArrayList<>();
         spList.add(sp.getPanel());
-        new MainView("SpeedPanel", spList, 200, 400);
+        //new MainView("SpeedPanel", spList, 200, 400);
+         */
+
+        viewList.add(sp.getPanel());
+
+
+        //Controller
+
+        IController controller = new CarController(model, screenWidth, buttonOffset);
+        viewList.add(controller.getPanel());
+        //MainView to put View and Controller into a frame.
+        new MainView(title, viewList, screenWidth+200, screenHeight);
     }
 
 /*    private static void makeFrame(String title, List<Component> objToDraw, int screenWidth, int screenHeight) {

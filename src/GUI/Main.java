@@ -1,26 +1,35 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    private static final int mainWidth = 800;
-    private static final int mainHeight = 800;
-    private static final int buttonOffset = 240;
-    private static final int frameHeight = mainHeight - buttonOffset;
-    private static final int carWidth = 100;
-    private static final int carHeight = 60;
+    private static final int MAIN_WIDTH = 800;
+    private static final int MAIN_HEIGHT = 800;
+    private static final int BUTTON_OFFSET = 240;
+    private static final int FRAME_HEIGHT = MAIN_HEIGHT - BUTTON_OFFSET;
+    private static final int CAR_WIDTH = 100;
+    private static final int CAR_HEIGHT = 60;
+    //Constants(WITDH,HEIGHT) for model, otherwise vehicles goes "outside" window.
+    private static final int MODEL_WIDTH = MAIN_WIDTH - CAR_WIDTH;
+    private static final int MODEL_HEIGHT = MAIN_HEIGHT - BUTTON_OFFSET - CAR_HEIGHT;
+
+    //Constants for [Speed panel] and [MainView]
+    private static final int SPEEDPANEL_OFFSET = 200;
+    private static final int SCREEN_WIDTH = MAIN_WIDTH + SPEEDPANEL_OFFSET;
+
+    // The delay (ms) corresponds to 40 updates a sec (hz)
+    private static final int delay = 25;
     private static final String windowTitle = "CarSim 0.9 Final Alpha RC";
 
     public static void main(String[] args) {
-        ICarModel model = initModel(mainWidth, mainHeight);
+        ICarModel model = initModel();
         List<IPositionablePicture> pics = createVehiclesAdd(model);
-        initGUI(windowTitle, model, pics, mainWidth, mainHeight);
+        initGUI(model, pics);
     }
 
-    private static ICarModel initModel(int screenWidth, int screenHeight) {
-        return new CarModel((screenWidth - carWidth), (screenHeight - buttonOffset - carHeight));
+    private static ICarModel initModel() {
+        return new CarModel(MODEL_WIDTH, MODEL_HEIGHT, delay);
     }
 
     private static List<IPositionablePicture> createVehiclesAdd(ICarModel model) {
@@ -46,53 +55,26 @@ public class Main {
         return pics;
     }
 
-    private static void initGUI(String title, ICarModel model, List<IPositionablePicture> pics, int screenWidth, int screenHeight) {
+    private static void initGUI(ICarModel model, List<IPositionablePicture> pics) {
+        //List for what to draw.
         List<Component> viewList = new ArrayList<>();
+
         //Graphics/View
-        ISignalObserver drawPanel = new DrawPanel(screenWidth, screenHeight - buttonOffset, pics);
+        ISignalObserver drawPanel = new CarView(MAIN_WIDTH, FRAME_HEIGHT, pics);
         model.addObserver(drawPanel);
         viewList.add(drawPanel.getPanel());
 
-
-
         // SpeedPanel
-        ISignalObserver sp = new SpeedPanel(150,100,model);
-        model.addObserver(sp);
-        /*
-        List<Component> spList = new ArrayList<>();
-        spList.add(sp.getPanel());
-        //new MainView("SpeedPanel", spList, 200, 400);
-         */
-
-        viewList.add(sp.getPanel());
-
+        ISignalObserver speedPanel = new SpeedPanel(SPEEDPANEL_OFFSET, FRAME_HEIGHT, model);
+        model.addObserver(speedPanel);
+        viewList.add(speedPanel.getPanel());
 
         //Controller
-
-        IController controller = new CarController(model, screenWidth, buttonOffset);
+        ControlPanel controlPanel = new ControlPanel(MAIN_WIDTH, MAIN_HEIGHT);
+        IController controller = new CarController(model, controlPanel, MAIN_WIDTH, BUTTON_OFFSET);
         viewList.add(controller.getPanel());
+
         //MainView to put View and Controller into a frame.
-        new MainView(title, viewList, screenWidth+200, screenHeight);
+        new MainView(windowTitle, viewList, SCREEN_WIDTH, MAIN_HEIGHT);
     }
-
-/*    private static void makeFrame(String title, List<Component> objToDraw, int screenWidth, int screenHeight) {
-        JFrame frame = new JFrame(title);
-
-        frame.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        frame.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-
-        for(Component c : objToDraw) {
-            frame.add(c);
-        }
-        frame.pack();
-
-        // Get the computer screen resolution
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        // Center the frame
-        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
-        // Make the frame visible
-        frame.setVisible(true);
-        // Make sure the frame exits when "x" is pressed
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }*/
 }

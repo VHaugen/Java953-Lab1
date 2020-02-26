@@ -11,14 +11,11 @@ public class CarModel implements ICarModel, ActionListener {
     private List<ITransporter> trucks = new ArrayList<>();
     private List<ITurbo> turboCars = new ArrayList<>();
 
-    // The delay (ms) corresponds to 40 updates a sec (hz)
-    private final int delay = 25;
     Collection<ISignalObserver> signalObserver = new ArrayList<>();
     private final double modelWith;
     private final double modelHeight;
 
-
-    public CarModel(double modelWith, double modelHeight) {
+    public CarModel(double modelWith, double modelHeight, int delay) {
         this.modelWith = modelWith;
         this.modelHeight = modelHeight;
 
@@ -162,7 +159,7 @@ public class CarModel implements ICarModel, ActionListener {
     public List<StringIntTuple> getCarNameSpeed() {
         List<StringIntTuple> list = new ArrayList<>();
         for (IDriveable car : cars) {
-            list.add(new StringIntTuple(car.getModelName(), (int) Math.round(car.getCurrentSpeed()*10)));
+            list.add(new StringIntTuple(car.getModelName(), (int) Math.round(car.getCurrentSpeed() * 10)));
         }
         return list;
     }
@@ -185,7 +182,7 @@ public class CarModel implements ICarModel, ActionListener {
         callObserverUpdate();
     }
 
-    public class StringIntTuple {
+    public static class StringIntTuple {
         String str;
         int anInt;
 
@@ -202,5 +199,4 @@ public class CarModel implements ICarModel, ActionListener {
             return str;
         }
     }
-
 }

@@ -5,9 +5,9 @@ public class CarController implements IController {
     private ICarModel model;
     private ControlPanel panel;
 
-    public CarController(ICarModel model, int screenWidth, int screenHeight) {
+    public CarController(ICarModel model, ControlPanel panel, int screenWidth, int screenHeight) {
         this.model = model;
-        this.panel = new ControlPanel(screenWidth, screenHeight);
+        this.panel = panel;
         bindButtons();
     }
 

@@ -70,6 +70,9 @@ public class Main {
         IController controller = new CarController(model, controlPanel);
         viewList.add(controller.getPanel());
 
+        IController addRemoveButtons = new AddRemoveButtons(model, MAIN_WIDTH, MAIN_HEIGHT);
+        viewList.add(addRemoveButtons.getPanel());
+
         //MainView to put View and Controller into a frame.
         new MainView(windowTitle, viewList, SCREEN_WIDTH, MAIN_HEIGHT);
     }

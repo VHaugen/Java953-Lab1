@@ -13,12 +13,12 @@ public class CarModel implements ICarModel, ActionListener {
     private List<ITurbo> turboCars = new ArrayList<>();
 
     Collection<ISignalObserver> signalObserver = new ArrayList<>();
-    private final double modelWith;
+    private final double modelWidth;
     private final double modelHeight;
     private final double maxCars;
 
-    public CarModel(double modelWith, double modelHeight, int delay, int maxCars) {
-        this.modelWith = modelWith;
+    public CarModel(double modelWidth, double modelHeight, int delay, int maxCars) {
+        this.modelWidth = modelWidth;
         this.modelHeight = modelHeight;
         this.maxCars = maxCars;
 
@@ -73,8 +73,8 @@ public class CarModel implements ICarModel, ActionListener {
 
     private void update() {
         for (IDriveable car : cars) {
-            if (checkMinMaxCollision(modelWith, modelHeight, car)) {
-                startStopSetNewPos(modelWith, modelHeight, car);
+            if (checkMinMaxCollision(modelWidth, modelHeight, car)) {
+                startStopSetNewPos(modelWidth, modelHeight, car);
             } else {
                 car.move();
             }
@@ -126,6 +126,13 @@ public class CarModel implements ICarModel, ActionListener {
         boolean maxX = scrnWidth < vehicle.getPosX();
         boolean maxY = scrnHeight < vehicle.getPosY();
         return maxX || maxY;
+    }
+
+    private Position newRandomPosition() {
+        Random rand = new Random();
+        int x = rand.nextInt((int) modelWidth);
+        int y = rand.nextInt((int) modelHeight);
+        return new Position(x,y);
     }
 
     // Calls the gas method for each car once

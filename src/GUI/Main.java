@@ -25,39 +25,29 @@ public class Main {
 
     public static void main(String[] args) {
         ICarModel model = new CarModel(MODEL_WIDTH, MODEL_HEIGHT, delay, MAX_NUMBER_CARS);
-        List<IPositionablePicture> pics = createVehiclesAdd(model);
-        initGUI(model, pics);
+        createVehiclesAdd(model);
+        initGUI(model);
     }
 
-    private static List<IPositionablePicture> createVehiclesAdd(ICarModel model) {
+    private static void createVehiclesAdd(ICarModel model) {
         //Create vehicles
         ITurbo saab = VehicleFactory.createSaab();
         IDriveable volvo = VehicleFactory.createVolvo();
         ITransporter scania = VehicleFactory.createScania();
-        scania.setPos(new Position(200, 0));
-        saab.setPos(new Position(400, 0));
-        saab.setTurboOn();
 
         //Add vehicles to model
         model.addCar(volvo);
         model.addCar(scania);
         model.addCar(saab);
 
-        //Bind pictures to vehicles
-        List<IPositionablePicture> pics = new ArrayList<>();
-        pics.add(new PositionablePicture(volvo.getPos(), "src/pics/Volvo240.jpg"));
-        pics.add(new PositionablePicture(saab.getPos(), "src/pics/Saab95.jpg"));
-        pics.add(new PositionablePicture(scania.getPos(), "src/pics/Scania.jpg"));
-
-        return pics;
     }
 
-    private static void initGUI(ICarModel model, List<IPositionablePicture> pics) {
+    private static void initGUI(ICarModel model) {
         //List for what to draw.
         List<Component> viewList = new ArrayList<>();
 
         //Graphics/View
-        ISignalObserver drawPanel = new CarView(MAIN_WIDTH, FRAME_HEIGHT, model, "src/pics/Volvo240.jpg", "src/pics/Saab95.jpg", "src/pics/Scania.jpg");
+        ISignalObserver drawPanel = new CarView(MAIN_WIDTH, FRAME_HEIGHT, model, "src/pics/Volvo240.jpg", "src/pics/Scania.jpg", "src/pics/Saab95.jpg");
         model.addObserver(drawPanel);
         viewList.add(drawPanel.getPanel());
 

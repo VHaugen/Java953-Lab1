@@ -27,18 +27,25 @@ public class CarModel implements ICarModel, ActionListener {
     }
 
     public void addCar(IDriveable car) {
-        cars.add(car);
+        IDriveable newCar =  VehicleFactory.createVolvo();
+        newCar.setPos(newRandomPosition());
+        cars.add(newCar);
     }
-
     public void addCar(ITransporter car) {
-        cars.add(car);
-        trucks.add(car);
+        ITransporter newTransporter = VehicleFactory.createScania();
+        newTransporter.setPos(newRandomPosition());
+        cars.add(newTransporter);
+        trucks.add(newTransporter);
     }
 
     public void addCar(ITurbo car) {
-        cars.add(car);
-        turboCars.add(car);
+        ITurbo newTurbo = VehicleFactory.createSaab();
+        newTurbo.setPos(newRandomPosition());
+        newTurbo.setTurboOn();
+        cars.add(newTurbo);
+        turboCars.add(newTurbo);
     }
+
 
     @Override
     public void removeRandomCar() {

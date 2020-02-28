@@ -7,8 +7,8 @@ public class AddRemoveButtons extends JPanel implements IController {
     private int screenWidth;
     private int screenHeight;
 
-    private JButton addButton = new JButton("Add rnd car");
-    private JButton removeButton = new JButton("Remove rnd car");
+    private JButton addButton = new JButton("Add car");
+    private JButton removeButton = new JButton("Remove car");
 
     public AddRemoveButtons(ICarModel model, int screenWidth, int screenHeight) {
         this.model = model;
@@ -19,12 +19,13 @@ public class AddRemoveButtons extends JPanel implements IController {
         bindButtons();
     }
 
-    private void createControlPanel(){
+    private void createControlPanel() {
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new GridLayout(2, 1));
         controlPanel.add(addButton, 0);
         controlPanel.add(removeButton, 1);
-        controlPanel.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        controlPanel.setPreferredSize(new Dimension(screenWidth, screenHeight - 40));
         controlPanel.setBackground(Color.cyan);
         add(controlPanel);
     }

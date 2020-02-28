@@ -27,4 +27,8 @@ public interface ICarModel {
     void addCar(ITransporter car);
 
     void addCar(ITurbo car);
+
+    void removeRandomCar();
+
+    void addRandomCar();
 }

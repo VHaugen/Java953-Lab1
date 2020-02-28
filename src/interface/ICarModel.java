@@ -18,7 +18,7 @@ public interface ICarModel {
 
     void lowerRamp();
 
-    public List<CarModel.StringIntTuple> getCarNameSpeed();
+    public List<CarModel.Tuple<String,Integer>> getCarNameSpeed();
 
     void addObserver(ISignalObserver view);
 

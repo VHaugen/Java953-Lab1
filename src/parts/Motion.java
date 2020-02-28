@@ -58,7 +58,7 @@ public class Motion {
      * @return The current <code>Position</code>.
      */
     public Position getPos() {
-        return pos;
+        return new Position(pos.getX(), pos.getY());
     }
 
     /**

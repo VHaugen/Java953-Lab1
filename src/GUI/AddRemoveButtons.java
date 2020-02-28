@@ -12,8 +12,8 @@ public class AddRemoveButtons extends JPanel implements IController {
 
     public AddRemoveButtons(ICarModel model, int screenWidth, int screenHeight) {
         this.model = model;
-        this.screenWidth = (screenWidth / 6) + 4;
-        this.screenHeight = 200;//screenHeight;
+        this.screenWidth = (screenWidth / 6);
+        this.screenHeight = screenHeight;
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         createControlPanel();
         bindButtons();

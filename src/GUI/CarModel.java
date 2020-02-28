@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 public class CarModel implements ICarModel, ActionListener {
 
@@ -14,10 +15,12 @@ public class CarModel implements ICarModel, ActionListener {
     Collection<ISignalObserver> signalObserver = new ArrayList<>();
     private final double modelWith;
     private final double modelHeight;
+    private final double maxCars;
 
-    public CarModel(double modelWith, double modelHeight, int delay) {
+    public CarModel(double modelWith, double modelHeight, int delay, int maxCars) {
         this.modelWith = modelWith;
         this.modelHeight = modelHeight;
+        this.maxCars = maxCars;
 
         Timer timer = new Timer(delay, this);
         timer.start();
@@ -35,6 +38,37 @@ public class CarModel implements ICarModel, ActionListener {
     public void addCar(ITurbo car) {
         cars.add(car);
         turboCars.add(car);
+    }
+
+    @Override
+    public void removeRandomCar() {
+        if (cars.size() > 0) {
+            IDriveable car = getRandomCar();
+            cars.remove(car);
+            trucks.remove(car);
+            turboCars.remove(car);
+        }
+    }
+
+    @Override
+    public void addRandomCar() {
+        if (cars.size() < maxCars) {
+            Random rand = new Random();
+            int randomValue = rand.nextInt(3);
+            if (randomValue == 0) {
+                addCar(VehicleFactory.createSaab());
+            } else if (randomValue == 1) {
+                addCar(VehicleFactory.createScania());
+            } else {
+                addCar(VehicleFactory.createVolvo());
+            }
+        }
+    }
+
+    private IDriveable getRandomCar() {
+        Random rand = new Random();
+        int randomValue = rand.nextInt(cars.size());
+        return cars.get(randomValue);
     }
 
     private void update() {

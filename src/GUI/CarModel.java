@@ -65,6 +65,15 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
+    @Override
+    public List<Tuple<String,Position>> getCarNamePosition() {
+        List<Tuple<String,Position>> namePosList = new ArrayList<>();
+        for (IDriveable car : cars) {
+            namePosList.add(new Tuple<>(car.getModelName(),car.getPos()));
+        }
+        return namePosList;
+    }
+
     private IDriveable getRandomCar() {
         Random rand = new Random();
         int randomValue = rand.nextInt(cars.size());

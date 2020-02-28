@@ -31,4 +31,6 @@ public interface ICarModel {
     void removeRandomCar();
 
     void addRandomCar();
+
+    List<CarModel.Tuple<String,Position>> getCarNamePosition();
 }

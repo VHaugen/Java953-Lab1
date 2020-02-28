@@ -57,7 +57,7 @@ public class Main {
         List<Component> viewList = new ArrayList<>();
 
         //Graphics/View
-        ISignalObserver drawPanel = new CarView(MAIN_WIDTH, FRAME_HEIGHT, pics);
+        ISignalObserver drawPanel = new CarView(MAIN_WIDTH, FRAME_HEIGHT, model, "src/pics/Volvo240.jpg", "src/pics/Saab95.jpg", "src/pics/Scania.jpg");
         model.addObserver(drawPanel);
         viewList.add(drawPanel.getPanel());
 

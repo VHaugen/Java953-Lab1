@@ -187,10 +187,10 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
-    public List<StringIntTuple> getCarNameSpeed() {
-        List<StringIntTuple> list = new ArrayList<>();
+    public List<Tuple<String,Integer>> getCarNameSpeed() {
+        List<Tuple<String,Integer>> list = new ArrayList<>();
         for (IDriveable car : cars) {
-            list.add(new StringIntTuple(car.getModelName(), (int) Math.round(car.getCurrentSpeed() * 10)));
+            list.add(new Tuple<>(car.getModelName(), (int) Math.round(car.getCurrentSpeed() * 10)));
         }
         return list;
     }
@@ -213,21 +213,21 @@ public class CarModel implements ICarModel, ActionListener {
         callObserverUpdate();
     }
 
-    public static class StringIntTuple {
-        String str;
-        int anInt;
+    public static class Tuple<A,B> {
+        A first;
+        B second;
 
-        public StringIntTuple(String str, int anInt) {
-            this.str = str;
-            this.anInt = anInt;
+        public Tuple(A first, B second) {
+            this.first = first;
+            this.second = second;
         }
 
-        public int getAnInt() {
-            return anInt;
+        public A getFirst() {
+            return first;
         }
 
-        public String getStr() {
-            return str;
+        public B getSecond() {
+            return second;
         }
     }
 }

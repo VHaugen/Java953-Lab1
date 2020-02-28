@@ -23,8 +23,8 @@ public class SpeedPanel extends JPanel implements ISignalObserver {
     private void updateSpeed() {
         removeAll();
         getCarsOnField();
-        for (CarModel.StringIntTuple car : model.getCarNameSpeed()) {
-            JLabel carModel = new JLabel(car.getStr() + ": " + car.getAnInt() + "mm/h");
+        for (CarModel.Tuple<String,Integer> car : model.getCarNameSpeed()) {
+            JLabel carModel = new JLabel(car.getFirst() + ": " + car.getSecond() + "mm/h");
             carModel.setPreferredSize(new Dimension(panelwidth, 20));
             add(carModel);
         }

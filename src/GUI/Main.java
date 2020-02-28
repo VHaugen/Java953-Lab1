@@ -13,6 +13,7 @@ public class Main {
     //Constants(WITDH,HEIGHT) for model, otherwise vehicles goes "outside" window.
     private static final int MODEL_WIDTH = MAIN_WIDTH - CAR_WIDTH;
     private static final int MODEL_HEIGHT = MAIN_HEIGHT - BUTTON_OFFSET - CAR_HEIGHT;
+    private static final int MAX_NUMBER_CARS = 10;
 
     //Constants for [Speed panel] and [MainView]
     private static final int SPEEDPANEL_OFFSET = 200;
@@ -61,7 +62,7 @@ public class Main {
         viewList.add(drawPanel.getPanel());
 
         // SpeedPanel
-        ISignalObserver speedPanel = new SpeedPanel(SPEEDPANEL_OFFSET, FRAME_HEIGHT, model);
+        ISignalObserver speedPanel = new SpeedPanel(SPEEDPANEL_OFFSET, FRAME_HEIGHT, model, MAX_NUMBER_CARS);
         model.addObserver(speedPanel);
         viewList.add(speedPanel.getPanel());
 

@@ -4,10 +4,12 @@ import java.awt.*;
 public class SpeedPanel extends JPanel implements ISignalObserver {
     private ICarModel model;
     private final int panelwidth;
+    private final int maxNumberCars;
 
-    public SpeedPanel(int width, int height, ICarModel model) {
+    public SpeedPanel(int width, int height, ICarModel model, int maxNumberCars) {
         this.model = model;
         this.panelwidth = width - 20; //(-20) to keep all panels within window constrains
+        this.maxNumberCars = maxNumberCars;
         setPreferredSize(new Dimension(panelwidth, height));
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     }
@@ -20,11 +22,20 @@ public class SpeedPanel extends JPanel implements ISignalObserver {
     //Update works by removing all panels and repaint them each tickrate.
     private void updateSpeed() {
         removeAll();
+        getCarsOnField();
         for (CarModel.StringIntTuple car : model.getCarNameSpeed()) {
             JLabel carModel = new JLabel(car.getStr() + ": " + car.getAnInt() + "mm/h");
             carModel.setPreferredSize(new Dimension(panelwidth, 20));
             add(carModel);
         }
+    }
+
+    private void getCarsOnField () {
+        JLabel numberOfCars = new JLabel("Current cars: " + model.getCarNameSpeed().size() + "/" + maxNumberCars);
+        add(numberOfCars);
+        JLabel spacer = new JLabel(" ");
+        spacer.setPreferredSize(new Dimension(panelwidth, 20));
+        add(spacer);
     }
 
     @Override

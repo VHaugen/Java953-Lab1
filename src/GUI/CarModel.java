@@ -16,26 +16,31 @@ public class CarModel implements ICarModel, ActionListener {
     private final double modelWidth;
     private final double modelHeight;
     private final double maxCars;
+    ILoadState state;
 
     public CarModel(double modelWidth, double modelHeight, int delay, int maxCars) {
         this.modelWidth = modelWidth;
         this.modelHeight = modelHeight;
         this.maxCars = maxCars;
+        this.state = new LoadStateEmpty(this);
 
         Timer timer = new Timer(delay, this);
         timer.start();
     }
 
     public void addCar(IDriveable car) {
-        IDriveable newCar =  VehicleFactory.createVolvo();
+        IDriveable newCar = VehicleFactory.createVolvo();
         newCar.setPos(newRandomPosition());
         cars.add(newCar);
+        getLoadState();
     }
+
     public void addCar(ITransporter car) {
         ITransporter newTransporter = VehicleFactory.createScania();
         newTransporter.setPos(newRandomPosition());
         cars.add(newTransporter);
         trucks.add(newTransporter);
+        getLoadState();
     }
 
     public void addCar(ITurbo car) {
@@ -44,47 +49,46 @@ public class CarModel implements ICarModel, ActionListener {
         newTurbo.setTurboOn();
         cars.add(newTurbo);
         turboCars.add(newTurbo);
+        getLoadState();
     }
-
 
     @Override
     public void removeRandomCar() {
-        if (cars.size() > 0) {
-            IDriveable car = getRandomCar();
-            cars.remove(car);
-            trucks.remove(car);
-            turboCars.remove(car);
-        }
+        state.removeCar(cars, trucks, turboCars, getRandomCar());
+        getLoadState();
     }
 
     @Override
     public void addRandomCar() {
-        if (cars.size() < maxCars) {
-            Random rand = new Random();
-            int randomValue = rand.nextInt(3);
-            if (randomValue == 0) {
-                addCar(VehicleFactory.createSaab());
-            } else if (randomValue == 1) {
-                addCar(VehicleFactory.createScania());
-            } else {
-                addCar(VehicleFactory.createVolvo());
-            }
+        state.addNewCar(cars);
+    }
+
+    private void getLoadState () {
+        if (cars.size() == maxCars) {
+            state = new LoadStateFull(this);
+        } else if (cars.size() == 0) {
+            state = new LoadStateEmpty(this);
+        } else {
+            state = new LoadStateLoadable(this);
         }
     }
 
     @Override
-    public List<Tuple<String,Position>> getCarNamePosition() {
-        List<Tuple<String,Position>> namePosList = new ArrayList<>();
+    public List<Tuple<String, Position>> getCarNamePosition() {
+        List<Tuple<String, Position>> namePosList = new ArrayList<>();
         for (IDriveable car : cars) {
-            namePosList.add(new Tuple<>(car.getModelName(),car.getPos()));
+            namePosList.add(new Tuple<>(car.getModelName(), car.getPos()));
         }
         return namePosList;
     }
 
     private IDriveable getRandomCar() {
-        Random rand = new Random();
-        int randomValue = rand.nextInt(cars.size());
-        return cars.get(randomValue);
+        if (cars.size() != 0) {
+            Random rand = new Random();
+            int randomValue = rand.nextInt(cars.size());
+            return cars.get(randomValue);
+        }
+        return null;
     }
 
     private void update() {
@@ -148,7 +152,7 @@ public class CarModel implements ICarModel, ActionListener {
         Random rand = new Random();
         int x = rand.nextInt((int) modelWidth);
         int y = rand.nextInt((int) modelHeight);
-        return new Position(x,y);
+        return new Position(x, y);
     }
 
     // Calls the gas method for each car once
@@ -210,8 +214,8 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
-    public List<Tuple<String,Integer>> getCarNameSpeed() {
-        List<Tuple<String,Integer>> list = new ArrayList<>();
+    public List<Tuple<String, Integer>> getCarNameSpeed() {
+        List<Tuple<String, Integer>> list = new ArrayList<>();
         for (IDriveable car : cars) {
             list.add(new Tuple<>(car.getModelName(), (int) Math.round(car.getCurrentSpeed() * 10)));
         }
@@ -236,7 +240,7 @@ public class CarModel implements ICarModel, ActionListener {
         callObserverUpdate();
     }
 
-    public static class Tuple<A,B> {
+    public static class Tuple<A, B> {
         A first;
         B second;
 

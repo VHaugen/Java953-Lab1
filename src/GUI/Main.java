@@ -31,9 +31,9 @@ public class Main {
 
     private static List<IPositionablePicture> createVehiclesAdd(ICarModel model) {
         //Create vehicles
-        Saab95 saab = new Saab95();
-        Volvo240 volvo = new Volvo240();
-        Scania scania = new Scania();
+        ITurbo saab = VehicleFactory.createSaab();
+        IDriveable volvo = VehicleFactory.createVolvo();
+        ITransporter scania = VehicleFactory.createScania();
         scania.setPos(new Position(200, 0));
         saab.setPos(new Position(400, 0));
         saab.setTurboOn();

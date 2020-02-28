@@ -1,11 +1,11 @@
 public class VehicleFactory {
-    public static IDriveable createSaab() {
+    public static ITurbo createSaab() {
         return new Saab95();
     }
     public static IDriveable createVolvo() {
         return new Volvo240();
     }
-    public static IDriveable createScania() {
+    public static ITransporter createScania() {
         return new Scania();
     }
 }

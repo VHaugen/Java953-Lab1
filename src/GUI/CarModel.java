@@ -174,17 +174,20 @@ public class CarModel implements ICarModel, ActionListener {
 
     @Override
     public void removeRandomCar() {
-        state.removeCar(cars, trucks, turboCars, getRandomCar());
+        try {
+            state.removeCar(cars, trucks, turboCars, getRandomCar());
+        } catch (Exception ignored) {
+        }
         getLoadState();
     }
 
-    private IDriveable getRandomCar() {
+    private IDriveable getRandomCar() throws Exception {
         if (cars.size() != 0) {
             Random rand = new Random();
             int randomValue = rand.nextInt(cars.size());
             return cars.get(randomValue);
         }
-        return null; //Returns null to indicate that NO data is returned.
+        throw new Exception("Carlist is empty!");
     }
 
     @Override

@@ -65,11 +65,11 @@ public abstract class LoadAbstractState implements ILoadState {
     //Gets the currentload and sets its state accordingly.
     private void getLoadState(ICarModel model, List<IDriveable> cars) {
         if (cars.size() == model.getMaxCars()) {
-            model.setState(new LoadStateFull());
+            model.setState(LoadStateFull.getInstance());
         } else if (cars.size() == 0) {
-            model.setState(new LoadStateEmpty());
+            model.setState(LoadStateEmpty.getInstance());
         } else {
-            model.setState(new LoadStateLoadable());
+            model.setState(LoadStateLoadable.getInstance());
         }
     }
 

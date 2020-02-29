@@ -10,7 +10,7 @@ public class CarModel implements ICarModel, ActionListener {
     private List<IDriveable> cars = new ArrayList<>();
     private List<ITransporter> trucks = new ArrayList<>();
     private List<ITurbo> turboCars = new ArrayList<>();
-    private ILoadState state = new LoadStateEmpty();
+    private ILoadState state = LoadStateEmpty.getInstance();
 
     Collection<ISignalObserver> signalObserver = new ArrayList<>();
     private final int modelWidth;

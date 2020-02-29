@@ -1,10 +1,13 @@
 public class LoadStateLoadable extends LoadAbstractState {
-    private static LoadStateLoadable instance = new LoadStateLoadable();
+    private static LoadStateLoadable instance;
 
     private LoadStateLoadable() {
     }
 
-    public static LoadStateLoadable getInstance() {
+    public static ILoadState getInstance() {
+        if (instance == null) {
+            instance = new LoadStateLoadable();
+        }
         return instance;
     }
 }

@@ -28,6 +28,21 @@ public class CarModel implements ICarModel, ActionListener {
         timer.start();
     }
 
+    /*
+    Methods sorted in a "MVC"-pattern structure.
+
+    Index of THIS Java-file:
+
+    Model methods
+    View methods
+    Controller methods
+
+    Helper methods/Observer Pattern/Classes
+     */
+
+    //#################################
+    //################################# Model Methods
+    //Add car logic, overloads which car should be in which list.
     public void addCar(IDriveable car) {
         IDriveable newCar = VehicleFactory.createVolvo();
         newCar.setPos(newRandomPosition());
@@ -52,18 +67,8 @@ public class CarModel implements ICarModel, ActionListener {
         getLoadState();
     }
 
-    @Override
-    public void removeRandomCar() {
-        state.removeCar(cars, trucks, turboCars, getRandomCar());
-        getLoadState();
-    }
-
-    @Override
-    public void addRandomCar() {
-        state.addNewCar(cars);
-    }
-
-    private void getLoadState () {
+    //Sets model state depending on its load.
+    private void getLoadState() {
         if (cars.size() == maxCars) {
             state = new LoadStateFull(this);
         } else if (cars.size() == 0) {
@@ -73,24 +78,16 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
-    @Override
-    public List<Tuple<String, Position>> getCarNamePosition() {
-        List<Tuple<String, Position>> namePosList = new ArrayList<>();
-        for (IDriveable car : cars) {
-            namePosList.add(new Tuple<>(car.getModelName(), car.getPos()));
-        }
-        return namePosList;
+    //Helper method for adding cars. Randomizes start position for new cars.
+    private Position newRandomPosition() {
+        Random rand = new Random();
+        int x = rand.nextInt((int) modelWidth);
+        int y = rand.nextInt((int) modelHeight);
+        return new Position(x, y);
     }
 
-    private IDriveable getRandomCar() {
-        if (cars.size() != 0) {
-            Random rand = new Random();
-            int randomValue = rand.nextInt(cars.size());
-            return cars.get(randomValue);
-        }
-        return null;
-    }
-
+    //Moving logic. Updates model and checks for collision.
+    //If a collision is occured it turns the vehicle 180degrees and places it within bounds where it left the grid.
     private void update() {
         for (IDriveable car : cars) {
             if (checkMinMaxCollision(modelWidth, modelHeight, car)) {
@@ -117,8 +114,7 @@ public class CarModel implements ICarModel, ActionListener {
             x = Math.min(scrnWidth, carPosX);
             y = Math.min(scrnHeight, carPosY);
         }
-        Position pos = new Position(x, y);
-        vehicle.setPos(pos);
+        vehicle.setPos(new Position(x, y));
     }
 
     private void stopTurnStartVehicle(IDriveable vehicle) {
@@ -148,14 +144,49 @@ public class CarModel implements ICarModel, ActionListener {
         return maxX || maxY;
     }
 
-    private Position newRandomPosition() {
-        Random rand = new Random();
-        int x = rand.nextInt((int) modelWidth);
-        int y = rand.nextInt((int) modelHeight);
-        return new Position(x, y);
+    //#################################
+    //################################# View Methods
+    //Methods for a "View"/Widget to get limited information of the model. Only whats necessary.
+    @Override
+    public List<Tuple<String, Position>> getCarNamePosition() {
+        List<Tuple<String, Position>> namePosList = new ArrayList<>();
+        for (IDriveable car : cars) {
+            namePosList.add(new Tuple<>(car.getModelName(), new Position(car.getPos())));
+        }
+        return namePosList;
     }
 
-    // Calls the gas method for each car once
+    public List<Tuple<String, Integer>> getCarNameSpeed() {
+        List<Tuple<String, Integer>> list = new ArrayList<>();
+        for (IDriveable car : cars) {
+            list.add(new Tuple<>(car.getModelName(), (int) Math.round(car.getCurrentSpeed() * 10)));
+        }
+        return list;
+    }
+
+    //#################################
+    //################################# Controller Methods
+    //Methods for a controller to control selected parts of the model.
+    @Override
+    public void addRandomCar() {
+        state.addNewCar(cars);
+    }
+
+    @Override
+    public void removeRandomCar() {
+        state.removeCar(cars, trucks, turboCars, getRandomCar());
+        getLoadState();
+    }
+
+    private IDriveable getRandomCar() {
+        if (cars.size() != 0) {
+            Random rand = new Random();
+            int randomValue = rand.nextInt(cars.size());
+            return cars.get(randomValue);
+        }
+        return null; //Returns null to indicate that NO data is returned.
+    }
+
     @Override
     public void gas(int amount) {
         double gas = ((double) amount) / 100;
@@ -214,15 +245,15 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
-    public List<Tuple<String, Integer>> getCarNameSpeed() {
-        List<Tuple<String, Integer>> list = new ArrayList<>();
-        for (IDriveable car : cars) {
-            list.add(new Tuple<>(car.getModelName(), (int) Math.round(car.getCurrentSpeed() * 10)));
-        }
-        return list;
+    //#################################
+    //################################# Helper Methods / Observer Pattern / Classes
+    //To make the timer update the model
+    public void actionPerformed(ActionEvent e) {
+        update();
+        callObserverUpdate();
     }
 
-    //Observer pattern
+    //Observer pattern methods
     @Override
     public void addObserver(ISignalObserver observer) {
         signalObserver.add(observer);
@@ -234,12 +265,7 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
-    //Timer update
-    public void actionPerformed(ActionEvent e) {
-        update();
-        callObserverUpdate();
-    }
-
+    //Tuple class to reduce mutability.
     public static class Tuple<A, B> {
         A first;
         B second;

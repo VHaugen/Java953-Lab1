@@ -10,7 +10,7 @@ public class CarModel implements ICarModel, ActionListener {
     private List<IDriveable> cars = new ArrayList<>();
     private List<ITransporter> trucks = new ArrayList<>();
     private List<ITurbo> turboCars = new ArrayList<>();
-    private ILoadState state = new LoadStateEmpty(this);
+    private ILoadState state = new LoadStateEmpty();
 
     Collection<ISignalObserver> signalObserver = new ArrayList<>();
     private final int modelWidth;
@@ -44,18 +44,18 @@ public class CarModel implements ICarModel, ActionListener {
     //Add car logic, overloads which car should be in which list.
     @Override
     public void addCar(IDriveable car) {
-        state.addCar(VehicleFactory.createVolvo(), cars);
+        state.addCar(this, VehicleFactory.createVolvo(), cars);
     }
 
     @Override
     public void addCar(ITransporter car) {
-        state.addCar(VehicleFactory.createScania(), cars, trucks);
+        state.addCar(this, VehicleFactory.createScania(), cars, trucks);
 
     }
 
     @Override
     public void addCar(ITurbo car) {
-        state.addCar(VehicleFactory.createSaab(), cars, turboCars);
+        state.addCar(this, VehicleFactory.createSaab(), cars, turboCars);
     }
 
     //Sets model state depending on its load.
@@ -146,12 +146,12 @@ public class CarModel implements ICarModel, ActionListener {
     //Methods for a controller to control selected parts of the model.
     @Override
     public void addRandomCar() {
-        state.addNewRandomCar(cars, trucks, turboCars);
+        state.addNewRandomCar(this, cars, trucks, turboCars);
     }
 
     @Override
     public void removeRandomCar() throws Exception {
-        state.removeRandomCar(cars, trucks, turboCars);
+        state.removeRandomCar(this, cars, trucks, turboCars);
     }
 
     @Override

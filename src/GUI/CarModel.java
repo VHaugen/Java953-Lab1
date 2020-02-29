@@ -150,7 +150,7 @@ public class CarModel implements ICarModel, ActionListener {
     }
 
     @Override
-    public void removeRandomCar() throws Exception {
+    public void removeRandomCar() {
         state.removeRandomCar(this, cars, trucks, turboCars);
     }
 

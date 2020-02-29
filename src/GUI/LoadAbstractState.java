@@ -6,22 +6,21 @@ public abstract class LoadAbstractState implements ILoadState {
     }
 
     //Method to get a random car from 0 to n-position in the list.
-    private IDriveable getRandomCar(List<IDriveable> cars) throws Exception {
-        if (cars.size() != 0) {
-            Random rand = new Random();
-            int randomValue = rand.nextInt(cars.size());
-            return cars.get(randomValue);
-        }
-        throw new Exception("Carlist is empty!");
+    private IDriveable getRandomCar(List<IDriveable> cars) {
+        Random rand = new Random();
+        int randomValue = rand.nextInt(cars.size());
+        return cars.get(randomValue);
     }
 
     //Removes car and gets current state.
-    public void removeRandomCar(ICarModel model, List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars) throws Exception {
-        IDriveable car = getRandomCar(cars);
-        cars.remove(car);
-        trucks.remove(car);
-        turboCars.remove(car);
-        getLoadState(model, cars);
+    public void removeRandomCar(ICarModel model, List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars) {
+        if (cars.size() > 0) {
+            IDriveable car = getRandomCar(cars);
+            cars.remove(car);
+            trucks.remove(car);
+            turboCars.remove(car);
+            getLoadState(model, cars);
+        }
     }
 
     @Override
@@ -41,12 +40,14 @@ public abstract class LoadAbstractState implements ILoadState {
     public void addCar(ICarModel model, IDriveable car, List<IDriveable> cars) {
         addToListBool(model, VehicleFactory.createVolvo(), cars);
     }
+
     public void addCar(ICarModel model, ITransporter car, List<IDriveable> cars, List<ITransporter> trucks) {
         ITransporter truck = VehicleFactory.createScania();
         if (addToListBool(model, truck, cars)) {
             trucks.add(truck);
         }
     }
+
     public void addCar(ICarModel model, ITurbo car, List<IDriveable> cars, List<ITurbo> turboCars) {
         ITurbo saab = VehicleFactory.createSaab();
         if (addToListBool(model, saab, cars)) {

@@ -18,7 +18,7 @@ public interface ICarModel {
 
     void lowerRamp();
 
-    void removeRandomCar() throws Exception;
+    void removeRandomCar();
 
     void addRandomCar();
 

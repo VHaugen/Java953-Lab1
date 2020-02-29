@@ -1,7 +1,7 @@
 import java.util.List;
 
 public interface ILoadState {
-    void removeRandomCar(ICarModel model, List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars) throws Exception;
+    void removeRandomCar(ICarModel model, List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars);
 
     void addCar(ICarModel model, IDriveable car, List<IDriveable> cars);
 

@@ -2,8 +2,6 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class LoadAbstractState implements ILoadState {
-    public LoadAbstractState() {
-    }
 
     //Method to get a random car from 0 to n-position in the list.
     private IDriveable getRandomCar(List<IDriveable> cars) {
@@ -82,4 +80,3 @@ public abstract class LoadAbstractState implements ILoadState {
         int y = rand.nextInt(model.getModelHeight());
         return new Position(x, y);
     }
-}

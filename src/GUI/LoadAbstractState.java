@@ -80,3 +80,4 @@ public abstract class LoadAbstractState implements ILoadState {
         int y = rand.nextInt(model.getModelHeight());
         return new Position(x, y);
     }
+}

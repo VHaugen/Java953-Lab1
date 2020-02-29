@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 public class CarModel implements ICarModel, ActionListener {
 

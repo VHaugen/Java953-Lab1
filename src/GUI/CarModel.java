@@ -11,18 +11,18 @@ public class CarModel implements ICarModel, ActionListener {
     private List<IDriveable> cars = new ArrayList<>();
     private List<ITransporter> trucks = new ArrayList<>();
     private List<ITurbo> turboCars = new ArrayList<>();
+    private ILoadState state = new LoadStateEmpty(this);
 
     Collection<ISignalObserver> signalObserver = new ArrayList<>();
-    private final double modelWidth;
-    private final double modelHeight;
-    private final double maxCars;
-    ILoadState state;
+    private final int modelWidth;
+    private final int modelHeight;
+    private final int maxCars;
 
-    public CarModel(double modelWidth, double modelHeight, int delay, int maxCars) {
+
+    public CarModel(int modelWidth, int modelHeight, int delay, int maxCars) {
         this.modelWidth = modelWidth;
         this.modelHeight = modelHeight;
         this.maxCars = maxCars;
-        this.state = new LoadStateEmpty(this);
 
         Timer timer = new Timer(delay, this);
         timer.start();
@@ -43,47 +43,25 @@ public class CarModel implements ICarModel, ActionListener {
     //#################################
     //################################# Model Methods
     //Add car logic, overloads which car should be in which list.
+    @Override
     public void addCar(IDriveable car) {
-        IDriveable newCar = VehicleFactory.createVolvo();
-        newCar.setPos(newRandomPosition());
-        cars.add(newCar);
-        getLoadState();
+        state.addCar(VehicleFactory.createVolvo(), cars);
     }
 
+    @Override
     public void addCar(ITransporter car) {
-        ITransporter newTransporter = VehicleFactory.createScania();
-        newTransporter.setPos(newRandomPosition());
-        cars.add(newTransporter);
-        trucks.add(newTransporter);
-        getLoadState();
+        state.addCar(VehicleFactory.createScania(), cars, trucks);
+
     }
 
+    @Override
     public void addCar(ITurbo car) {
-        ITurbo newTurbo = VehicleFactory.createSaab();
-        newTurbo.setPos(newRandomPosition());
-        newTurbo.setTurboOn();
-        cars.add(newTurbo);
-        turboCars.add(newTurbo);
-        getLoadState();
+        state.addCar(VehicleFactory.createSaab(), cars, turboCars);
     }
 
     //Sets model state depending on its load.
-    private void getLoadState() {
-        if (cars.size() == maxCars) {
-            state = new LoadStateFull(this);
-        } else if (cars.size() == 0) {
-            state = new LoadStateEmpty(this);
-        } else {
-            state = new LoadStateLoadable(this);
-        }
-    }
-
-    //Helper method for adding cars. Randomizes start position for new cars.
-    private Position newRandomPosition() {
-        Random rand = new Random();
-        int x = rand.nextInt((int) modelWidth);
-        int y = rand.nextInt((int) modelHeight);
-        return new Position(x, y);
+    public void setState(ILoadState state) {
+        this.state = state;
     }
 
     //Moving logic. Updates model and checks for collision.
@@ -169,25 +147,12 @@ public class CarModel implements ICarModel, ActionListener {
     //Methods for a controller to control selected parts of the model.
     @Override
     public void addRandomCar() {
-        state.addNewCar(cars);
+        state.addNewRandomCar(cars, trucks, turboCars);
     }
 
     @Override
-    public void removeRandomCar() {
-        try {
-            state.removeCar(cars, trucks, turboCars, getRandomCar());
-        } catch (Exception ignored) {
-        }
-        getLoadState();
-    }
-
-    private IDriveable getRandomCar() throws Exception {
-        if (cars.size() != 0) {
-            Random rand = new Random();
-            int randomValue = rand.nextInt(cars.size());
-            return cars.get(randomValue);
-        }
-        throw new Exception("Carlist is empty!");
+    public void removeRandomCar() throws Exception {
+        state.removeRandomCar(cars, trucks, turboCars);
     }
 
     @Override
@@ -250,6 +215,18 @@ public class CarModel implements ICarModel, ActionListener {
 
     //#################################
     //################################# Helper Methods / Observer Pattern / Classes
+    public int getModelWidth() {
+        return modelWidth;
+    }
+
+    public int getModelHeight() {
+        return modelHeight;
+    }
+
+    public int getMaxCars() {
+        return maxCars;
+    }
+
     //To make the timer update the model
     public void actionPerformed(ActionEvent e) {
         update();

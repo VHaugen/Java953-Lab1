@@ -18,7 +18,11 @@ public interface ICarModel {
 
     void lowerRamp();
 
-    public List<CarModel.Tuple<String,Integer>> getCarNameSpeed();
+    void removeRandomCar() throws Exception;
+
+    void addRandomCar();
+
+    List<CarModel.Tuple<String,Integer>> getCarNameSpeed();
 
     void addObserver(ISignalObserver view);
 
@@ -28,9 +32,13 @@ public interface ICarModel {
 
     void addCar(ITurbo car);
 
-    void removeRandomCar();
+    int getMaxCars();
 
-    void addRandomCar();
+    int getModelWidth();
+
+    int getModelHeight();
+
+    void setState(ILoadState state);
 
     List<CarModel.Tuple<String,Position>> getCarNamePosition();
 }

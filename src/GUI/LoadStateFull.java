@@ -6,7 +6,7 @@ public class LoadStateFull extends LoadAbstractState {
     }
 
     @Override
-    public void addNewCar(List<IDriveable> list) {
-
+    protected boolean addToListBool(IDriveable car, List<IDriveable> list) {
+        return false;
     }
 }

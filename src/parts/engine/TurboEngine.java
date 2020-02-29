@@ -3,7 +3,7 @@ public class TurboEngine extends Engine {
 
     public TurboEngine(int enginePower) {
         super(enginePower);
-        turboOn = false;
+        turboOn = true;
     }
 
     /**

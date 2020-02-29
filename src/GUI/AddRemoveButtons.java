@@ -32,7 +32,12 @@ public class AddRemoveButtons extends JPanel implements IController {
 
     private void bindButtons() {
         addRandomCar(e -> model.addRandomCar());
-        removeRandomCar(e -> model.removeRandomCar());
+        removeRandomCar(e -> {
+            try {
+                model.removeRandomCar();
+            } catch (Exception ignore) {
+            }
+        });
     }
 
     public void addRandomCar(ActionListener e) {

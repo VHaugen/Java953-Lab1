@@ -37,6 +37,15 @@ public class Motion {
 
     }
 
+    public Motion(Motion mot) {
+        this.pos = new Position(mot.getPosX(), mot.getVelY());
+        this.velX = mot.velX;
+        this.velY = mot.velY;
+        this.theta = mot.theta;
+        this.speed = mot.speed;
+
+    }
+
     /**
      * Gets the amount of velocity in the x-direction.
      *
@@ -141,12 +150,24 @@ public class Motion {
      *
      * @param degrees The amount of turning in degrees.
      */
-    public void turn(double degrees) {
+    public Motion turn(double degrees) {
         theta += degrees;
         theta %= 360;
 
         velX = round(-sin(toRadians(theta)));
         velY = round(cos(toRadians(theta)));
+        return new Motion(this);
+    }
+
+    public Motion turnLeft() {
+        return new Motion(this.turn(90));
+    }
+
+    /**
+     * Changes the current direction 90° to the right.
+     */
+    public Motion turnRight() {
+        return new Motion(this.turn(-90));
     }
 
     private double round(double value) {

@@ -162,16 +162,16 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
     /**
      * Changes the current direction 90° to the left.
      */
-    public void turnLeft() {
-        motion.turn(90);
+/*    public Motion turnLeft() {
+        return new Motion(motion.turn(90));
     }
 
-    /**
+    *//**
      * Changes the current direction 90° to the right.
-     */
-    public void turnRight() {
-        motion.turn(-90);
-    }
+     *//*
+    public Motion turnRight() {
+        return new Motion(motion.turn(-90));
+    }*/
 
     public String getModelName() {
         return modelName;

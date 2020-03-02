@@ -69,7 +69,7 @@ public class CarModel implements ICarModel, ActionListener {
         List<IDriveable> newList = new ArrayList<>();
         for (IDriveable car : cars) {
             if (checkMinMaxCollision(modelWidth, modelHeight, car)) {
-                startStopSetNewPos(modelWidth, modelHeight, car);
+                newList.add(startStopSetNewPos(modelWidth, modelHeight, car));
             } else {
                 newList.add(car.move());
             }
@@ -96,11 +96,9 @@ public class CarModel implements ICarModel, ActionListener {
         vehicle.setPos(new Position(x, y));
     }
 
-    private void stopTurnStartVehicle(IDriveable vehicle) {
-        vehicle.stopEngine();
-        vehicle.turnLeft();
-        vehicle.turnLeft();
-        vehicle.startEngine();
+    private IDriveable stopTurnStartVehicle(IDriveable vehicle) {
+        //vehicle.stopEngine();
+        return vehicle.turnLeft().turnLeft();
     }
 
     /*

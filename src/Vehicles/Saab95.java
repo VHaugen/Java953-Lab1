@@ -42,6 +42,14 @@ public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
                 Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
+    public Saab95 turnLeft() {
+        return new Saab95(getMotion().turnLeft());
+    }
+
+    public Saab95 turnRight() {
+        return new Saab95(getMotion().turnRight());
+    }
+
     public Saab95 move() {
         return new Saab95(getMotion().move());
     }

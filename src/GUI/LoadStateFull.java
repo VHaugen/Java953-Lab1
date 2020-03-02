@@ -6,6 +6,7 @@ public class LoadStateFull extends LoadAbstractState {
     private LoadStateFull() {
     }
 
+    @Override
     protected boolean addToListBool(ICarModel model, IDriveable car, List<IDriveable> list) {
         return false;
     }

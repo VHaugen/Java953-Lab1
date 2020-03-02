@@ -9,6 +9,10 @@ public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
         super(2, new TurboEngine(200), Color.red, "Saab95");
     }
 
+    public Saab95(Motion motion) {
+        super(2, new TurboEngine(200), Color.red, "Saab95", motion);
+    }
+
     /**
      * Increases total speed depending on value entered.
      *
@@ -36,5 +40,9 @@ public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
     protected void decrementSpeed(double amount) {
         getMotion().setSpeed(
                 Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
+    }
+
+    public Saab95 move() {
+        return new Saab95(getMotion().move());
     }
 }

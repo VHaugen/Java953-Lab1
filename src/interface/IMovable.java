@@ -2,7 +2,8 @@
  * An <code>Interface</code> for objects that can move.
  */
 public interface IMovable extends IPositionable {
-    void move();
+
+    IDriveable move();
 
     void turnLeft();
 

@@ -39,4 +39,8 @@ public class Volvo240 extends PersonCar<TrimEngine> {
         getMotion().setSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
+    @Override
+    public IDriveable move() {
+        return this;
+    }
 }

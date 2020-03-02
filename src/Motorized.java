@@ -25,6 +25,14 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
         stopEngine();
     }
 
+    Motorized(E engine, Color _color, String _modelName, Motion motion) {
+        this.engine = engine;
+        color = _color;
+        modelName = _modelName;
+        this.motion = motion;
+        //stopEngine();
+    }
+
     @Override
     public double getPosX() {
         return motion.getPosX();
@@ -150,9 +158,6 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
     /**
      * Moves this <code>Motorized</code> in the current direction according to the current speed.
      */
-    public void move() {
-        motion.move();
-    }
 
     /**
      * Changes the current direction 90° to the left.

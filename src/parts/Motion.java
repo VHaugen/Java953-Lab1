@@ -28,6 +28,15 @@ public class Motion {
         this.speed = speed;
     }
 
+    public Motion(Motion mot, Position pos) {
+        this.pos = pos;
+        this.velX = mot.velX;
+        this.velY = mot.velY;
+        this.theta = mot.theta;
+        this.speed = mot.speed;
+
+    }
+
     /**
      * Gets the amount of velocity in the x-direction.
      *
@@ -121,9 +130,10 @@ public class Motion {
     /**
      * Updates the <code>Position</code> according to the current speed and velocity.
      */
-    public void move() {
-        setPosX(getPosX() + velX * speed);
-        setPosY(getPosY() + velY * speed);
+    public Motion move() {
+        double x = (getPosX() + velX * speed);
+        double y = (getPosY() + velY * speed);
+        return new Motion(this, new Position(x,y));
     }
 
     /**

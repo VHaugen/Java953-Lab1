@@ -40,10 +40,12 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
     /**
      * Moves this <code>CargoTransporter</code> in the current direction according to the current speed.
      * If ramp is down, it won't move.
+     * @return
      */
     @Override
-    public void move() {
-        if (ramp.getAngle() == 0) super.move();
+    public IDriveable move() {
+        if (ramp.getAngle() == 0) getMotion().move();
+        return this;
     }
 
 

@@ -66,13 +66,15 @@ public class CarModel implements ICarModel, ActionListener {
     //Moving logic. Updates model and checks for collision.
     //If a collision is occured it turns the vehicle 180degrees and places it within bounds where it left the grid.
     private void update() {
+        List<IDriveable> newList = new ArrayList<>();
         for (IDriveable car : cars) {
             if (checkMinMaxCollision(modelWidth, modelHeight, car)) {
                 startStopSetNewPos(modelWidth, modelHeight, car);
             } else {
-                car.move();
+                newList.add(car.move());
             }
         }
+        cars = newList;
     }
 
     private void startStopSetNewPos(double scrnWidth, double scrnHeight, IDriveable vehicle) {

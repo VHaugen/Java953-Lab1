@@ -1,3 +1,4 @@
+import javax.naming.directory.InitialDirContext;
 import java.awt.*;
 
 abstract class CargoTransporter<T extends IPositionable> extends Transporter {
@@ -20,11 +21,13 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
     /**
      * Moves this <code>CargoTransporter</code> in the current direction according to the current speed.
      * And also uppdates the <code>Position</code> of the <code>Cargo</code>
+     * @return
      */
     @Override
-    public void move() {
-        super.move();
+    public IDriveable move() {
+        //super.move();
         cargo.updatePositions(getPos());
+        return this;
     }
 
     /**

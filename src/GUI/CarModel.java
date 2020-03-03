@@ -81,12 +81,13 @@ public class CarModel implements ICarModel, ActionListener {
             x = Math.min(scrnWidth, carPosX);
             y = Math.min(scrnHeight, carPosY);
         }
+        Motion mott = new Motion(vehicle.getMotion(), new Position(x,y));
         return vehicle.createVehicle(new Motion(vehicle.getMotion(), new Position(x, y)));
     }
 
     private IDriveable stopTurnStartVehicle(IDriveable vehicle) {
-        IDriveable s = (IDriveable) vehicle.stopEngine().turnLeft().turnLeft();
-        return s.startEngine();
+        IDriveable s = (IDriveable) vehicle.startEngine().turnLeft();
+        return (IDriveable) s.startEngine().turnLeft();
     }
 
     /*

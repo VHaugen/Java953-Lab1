@@ -45,7 +45,7 @@ public class Motion {
     }
 
     public Motion(Motion mot) {
-        this.pos = new Position(mot.getPosX(), mot.getVelY());
+        this.pos = new Position(mot.getPosX(), mot.getPosY());
         this.velX = mot.velX;
         this.velY = mot.velY;
         this.theta = mot.theta;

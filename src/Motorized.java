@@ -52,11 +52,11 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
 
 
     public IDriveable turnLeft() {
-        return createVehicle(getMotion().turnLeft());
+        return createVehicle(motion.turnLeft());
     }
 
     public IDriveable turnRight() {
-        return createVehicle(getMotion().turnRight());
+        return createVehicle(motion.turnRight());
     }
 
     public IDriveable move() {
@@ -68,34 +68,34 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
      * @return driveable
      */
     public IDriveable startEngine() {
-        return createVehicle(new Motion(this.getMotion(), 0.1));
+        return createVehicle(new Motion(motion, 0.1));
     }
     /**
      * Sets the current speed to 0.
      * @return drivable
      */
     public IDriveable stopEngine() {
-        return createVehicle(new Motion(this.getMotion(), 0));
+        return createVehicle(new Motion(motion, 0));
     }
 
     /**
      * @param amount Accepts values between 0-1 for gassing.
      */
     public IDriveable gas(double amount) {
-        Motion motion = this.getMotion();
+        Motion newM = motion;
         if (acceptableValue(amount))
-            motion = incrementSpeed(amount);
-        return createVehicle(motion);
+            newM = incrementSpeed(amount);
+        return createVehicle(newM);
     }
 
     /**
      * @param amount Accepts values between 0-1 for gassing.
      */
     public IDriveable brake(double amount) {
-        Motion motion = this.getMotion();
+        Motion newM = motion;
         if (acceptableValue(amount))
-            motion = decrementSpeed(amount);
-        return createVehicle(motion);
+            newM = decrementSpeed(amount);
+        return createVehicle(newM);
     }
 
     /**
@@ -104,7 +104,7 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
      * @param amount How much the speed will be incremented.
      */
     protected Motion incrementSpeed(double amount) {
-        return new Motion(this.getMotion(), Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
+        return new Motion(motion, Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
     }
 
     /**
@@ -113,7 +113,7 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
      * @param amount How much the speed will be Decremented.
      */
     protected Motion decrementSpeed(double amount) {
-        return new Motion(this.getMotion(), (Math.max(getCurrentSpeed() - speedFactor() * amount, 0)));
+        return new Motion(motion, (Math.max(getCurrentSpeed() - speedFactor() * amount, 0)));
     }
 
     /**

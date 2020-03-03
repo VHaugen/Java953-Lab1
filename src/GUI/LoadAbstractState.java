@@ -34,8 +34,9 @@ public abstract class LoadAbstractState implements ILoadState {
 
     //Helper method to addCar. Adds new car and gets new state.
     public void addCar(ICarModel model, IDriveable car, List<IDriveable> list) {
-        car.createVehicle(newRandomPosition(model));
-        list.add(car);
+        Motion nmotion = newRandomPosition(model);
+        IDriveable newCar = car.createVehicle(nmotion);
+        list.add(newCar);
         getLoadState(model, list);
     }
 

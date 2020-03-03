@@ -158,14 +158,14 @@ public class Motion {
     }
 
     public Motion turnLeft() {
-        return new Motion(this.turn(90));
+        return new Motion(turn(90));
     }
 
     /**
      * Changes the current direction 90° to the right.
      */
     public Motion turnRight() {
-        return new Motion(this.turn(-90));
+        return new Motion(turn(-90));
     }
 
     private double round(double value) {

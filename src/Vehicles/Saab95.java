@@ -37,7 +37,7 @@ public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
     }*/
 
 
-    public Saab95 createVehicle(Motion m) {
-        return new Saab95(m, engine.getEngine());
+    public Saab95 createVehicle(Motion mot) {
+        return new Saab95(mot, engine.getEngine());
     }
 }

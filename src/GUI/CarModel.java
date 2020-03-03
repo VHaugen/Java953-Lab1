@@ -85,7 +85,8 @@ public class CarModel implements ICarModel, ActionListener {
     }
 
     private IDriveable stopTurnStartVehicle(IDriveable vehicle) {
-        return (IDriveable) vehicle.turnLeft().turnLeft();
+        IDriveable s = (IDriveable) vehicle.stopEngine().turnLeft().turnLeft();
+        return s.startEngine();
     }
 
     /*

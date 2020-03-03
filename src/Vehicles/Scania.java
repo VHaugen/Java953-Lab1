@@ -17,4 +17,8 @@ public class Scania extends Truck {
     public Scania createVehicle(Motion m) {
         return new Scania(new Engine((int) getEnginePower()), new Ramp(getRamp()), m);
     }
+
+    public Scania createVehicle(Motion m, Ramp ramp) {
+        return new Scania(new Engine((int) getEnginePower()), ramp, m);
+    }
 }

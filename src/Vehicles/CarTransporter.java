@@ -18,4 +18,9 @@ public class CarTransporter extends CargoTransporter {
     public CarTransporter createVehicle(Motion m) {
         return new CarTransporter(Color.ORANGE, "Trans");
     }
+
+    @Override
+    public IDriveable createVehicle(Motion m, Ramp r) {
+        return new CarTransporter(Color.ORANGE, "MM");
+    }
 }

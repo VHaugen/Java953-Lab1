@@ -140,10 +140,10 @@ public class Bilprovningen {
         assertSame(testCar.getColor(), Color.CYAN);
     }*/
 
-    @Test
+/*    @Test
     public void testGetAndSetnrDoors() {
         assertSame(testCar.nrDoors, testCar.getNrDoors());
-    }
+    }*/
 
     @Test
     public void testGetEnginePower()

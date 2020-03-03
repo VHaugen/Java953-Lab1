@@ -23,16 +23,18 @@ public class Ramp {
      * Raises the ramp one degree.
      */
     public Ramp raise() {
-        if (0 < angle) angle--;
-        return new Ramp(maxAngle, angle);
+        int newAngle = angle;
+        if (0 < angle) newAngle--;
+        return new Ramp(maxAngle, newAngle);
     }
 
     /**
      * Lowers the ramp one degree.
      */
     public Ramp lower() {
-        if (maxAngle > angle) angle++;
-        return new Ramp(maxAngle, angle);
+        int newAngle = angle;
+        if (maxAngle > angle) newAngle++;
+        return new Ramp(maxAngle, newAngle);
     }
 
     /**
@@ -48,12 +50,4 @@ public class Ramp {
     public int getMaxAngle() {
         return maxAngle;
     }
-
-    /**
-     * @param angle Sets the angle of the ramp to chosen value.
-     */
-    protected void setAngle(int angle) {
-        if (angle >= 0 && angle <= maxAngle) this.angle = angle;
-    }
-
 }

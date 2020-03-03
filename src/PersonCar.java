@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public abstract class PersonCar<E extends Engine> extends Motorized<E> implements ITruckCargo {
-    protected int nrDoors; // Number of doors on the car
+    private int nrDoors; // Number of doors on the car
 
     /**
      * This constructor is generic and is made to take standard arguments

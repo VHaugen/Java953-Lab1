@@ -36,8 +36,8 @@ public class Main {
         ITransporter scania = VehicleFactory.createScania();
 
         //Add vehicles to model
-        //model.addCar(volvo);
-        //model.addCar(scania);
+        model.addCar(volvo);
+        model.addCar(scania);
         model.addCar(saab);
 
     }

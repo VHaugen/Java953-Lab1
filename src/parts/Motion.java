@@ -99,39 +99,12 @@ public class Motion {
     }
 
     /**
-     * Sets the x-coordinate to a given value.
-     *
-     * @param posX The new x-coordinate
-     */
-    public void setPosX(double posX) {
-        pos.setX(posX);
-    }
-
-    /**
      * Gets The current y-coordinate of the <code>Position</code>.
      *
      * @return The current y-coordinate of the <code>Position</code>.
      */
     public double getPosY() {
         return pos.getY();
-    }
-
-    /**
-     * Sets the y-coordinate to a given value.
-     *
-     * @param posY The new y-coordinate
-     */
-    public void setPosY(double posY) {
-        pos.setY(posY);
-    }
-
-    /**
-     * Sets the speed to a new given value.
-     *
-     * @param speed The new speed
-     */
-    public Motion setSpeed(double speed) {
-        return new Motion(this, speed);
     }
 
     /**

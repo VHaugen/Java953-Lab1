@@ -1,9 +1,9 @@
 public interface ITransporter extends IDriveable {
-    public IDriveable raiseRamp();
+    IDriveable raiseRamp();
 
-
+    IDriveable createVehicle(Motion m, Ramp r);
     /**
      * Lowers ramp
      */
-    public IDriveable lowerRamp();
+    IDriveable lowerRamp();
 }

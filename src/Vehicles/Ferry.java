@@ -22,4 +22,9 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
     public Ferry createVehicle(Motion m) {
         return new Ferry(new Engine(20), Color.ORANGE, "Ferr", this.getMotion());
     }
+
+    @Override
+    public IDriveable createVehicle(Motion m, Ramp r) {
+        return new Ferry(new Engine(20), Color.ORANGE, "Ferr", this.getMotion());
+    }
 }

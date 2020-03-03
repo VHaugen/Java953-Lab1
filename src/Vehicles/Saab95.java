@@ -16,10 +16,6 @@ public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
     private Saab95(Motion motion, TurboEngine engine) {
         super(2, engine, Color.red, "Saab95", motion);
     }
-/*    @Override
-    protected void incrementSpeed(double amount) {
-        getMotion().setSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
-    }*/
 
     public Saab95 setTurboOn() {
         return new Saab95(this.getMotion(), engine.setTurboOn());
@@ -28,13 +24,6 @@ public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
     public Saab95 setTurboOff() {
         return new Saab95(this.getMotion(), engine.setTurboOff());
     }
-
-/*
-    protected Motion decrementSpeed(double amount) {
-        getMotion().setSpeed(
-                Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
-        return null;
-    }*/
 
 
     public Saab95 createVehicle(Motion mot) {

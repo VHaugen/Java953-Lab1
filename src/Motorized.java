@@ -30,6 +30,11 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
         modelName = _modelName;
         this.motion = motion;
     }
+    public abstract IDriveable createVehicle(Motion m);
+
+    public String getModelName() {
+        return modelName;
+    }
 
     @Override
     public double getPosX() {
@@ -103,7 +108,7 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
      *
      * @param amount How much the speed will be incremented.
      */
-    protected Motion incrementSpeed(double amount) {
+    private Motion incrementSpeed(double amount) {
         return new Motion(motion, Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
     }
 
@@ -112,7 +117,7 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
      *
      * @param amount How much the speed will be Decremented.
      */
-    protected Motion decrementSpeed(double amount) {
+    private Motion decrementSpeed(double amount) {
         return new Motion(motion, (Math.max(getCurrentSpeed() - speedFactor() * amount, 0)));
     }
 
@@ -127,16 +132,6 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
             return true;
         throw new IllegalArgumentException("Only values between 0 and 1!");
     }
-
-    public String getModelName() {
-        return modelName;
-    }
-
-
-
-
-
-
 
     /**
      * Gets the engine power

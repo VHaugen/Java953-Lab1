@@ -54,7 +54,7 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
         if (ramp.getAngle() == 0) {
             return super.move();
         } else {
-            return this;
+            return createVehicle(getMotion());
         }
     }
 
@@ -63,20 +63,22 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
      * Raises ramp
      */
     public IDriveable raiseRamp() {
+        IDriveable vehicle = createVehicle(getMotion());
         if (getCurrentSpeed() == 0) {
-            ramp.raise();
+            vehicle = createVehicle(getMotion(), ramp.raise());
         }
-        return createVehicle(getMotion());
+        return vehicle;
     }
 
     /**
      * Lowers ramp
      */
     public IDriveable lowerRamp() {
+        IDriveable vehicle = createVehicle(getMotion());
         if (getCurrentSpeed() == 0) {
-            ramp.lower();
+            vehicle = createVehicle(getMotion(), ramp.lower());
         }
-        return createVehicle(getMotion());
+        return vehicle;
     }
 }
 

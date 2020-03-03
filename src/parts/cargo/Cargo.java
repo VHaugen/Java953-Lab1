@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class Cargo<C extends IPositionable> {
+public class Cargo<C extends IDriveable> {
     protected Stack<C> list;
 
     //Specify max number of objects in the list.
@@ -46,7 +46,7 @@ public class Cargo<C extends IPositionable> {
         if (list.size() > 0) {
             C item = list.pop();
             checkLoad();
-            return item;
+            return (C) item.createVehicle(item.getMotion());
         }
         return null;
     }
@@ -57,9 +57,11 @@ public class Cargo<C extends IPositionable> {
      *            It will give every object in the cargo the positional objects coordinates.
      */
     protected void updatePositions(Position pos) {
+        Stack<C> newList = new Stack<>();
         for (C item : list) {
-            item.setPos(pos);
+            newList.add((C) item.createVehicle(new Motion(item.getMotion(), new Position(pos))));
         }
+        list = newList;
     }
 
     //Helper method to load/unload. Returns bool and sets 'isFull' to a bool-value.

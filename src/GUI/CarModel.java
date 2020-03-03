@@ -8,8 +8,6 @@ import java.util.List;
 public class CarModel implements ICarModel, ActionListener {
 
     private List<IDriveable> cars = new ArrayList<>();
-    private List<ITransporter> trucks = new ArrayList<>();
-    private List<ITurbo> turboCars = new ArrayList<>();
     private ILoadState state = LoadStateEmpty.getInstance();
 
     Collection<ISignalObserver> signalObserver = new ArrayList<>();
@@ -44,18 +42,7 @@ public class CarModel implements ICarModel, ActionListener {
     //Add car logic, overloads which car should be in which list.
     @Override
     public void addCar(IDriveable car) {
-        state.addCar(this, VehicleFactory.createVolvo(), cars);
-    }
-
-    @Override
-    public void addCar(ITransporter car) {
-        state.addCar(this, VehicleFactory.createScania(), cars, trucks);
-
-    }
-
-    @Override
-    public void addCar(ITurbo car) {
-        state.addCar(this, VehicleFactory.createSaab(), cars, turboCars);
+        state.addCar(this, car, cars);
     }
 
     //Sets model state depending on its load.
@@ -66,25 +53,24 @@ public class CarModel implements ICarModel, ActionListener {
     //Moving logic. Updates model and checks for collision.
     //If a collision is occured it turns the vehicle 180degrees and places it within bounds where it left the grid.
     private void update() {
-        List<IDriveable> newList = new ArrayList<>();
+        List<IDriveable> newCars = new ArrayList<>();
         for (IDriveable car : cars) {
             if (checkMinMaxCollision(modelWidth, modelHeight, car)) {
-                newList.add(startStopSetNewPos(modelWidth, modelHeight, car));
+                newCars.add(startStopSetNewPos(modelWidth, modelHeight, car));
             } else {
                 IDriveable scar = (IDriveable) car.move();
-                newList.add(scar);
-                }
+                newCars.add(scar);
             }
         }
-        cars = newList;
+        cars = newCars;
     }
 
-    private void startStopSetNewPos(double scrnWidth, double scrnHeight, IDriveable vehicle) {
-        stopTurnStartVehicle(vehicle);
-        setCarInBounds(scrnWidth, scrnHeight, vehicle);
+    private IDriveable startStopSetNewPos(double scrnWidth, double scrnHeight, IDriveable vehicle) {
+        IDriveable turnedVehicle = stopTurnStartVehicle(vehicle);
+        return setCarInBounds(scrnWidth, scrnHeight, turnedVehicle);
     }
 
-    private void setCarInBounds(double scrnWidth, double scrnHeight, IDriveable vehicle) {
+    private IDriveable setCarInBounds(double scrnWidth, double scrnHeight, IDriveable vehicle) {
         double carPosX = vehicle.getPosX();
         double carPosY = vehicle.getPosY();
         double x, y;
@@ -95,12 +81,11 @@ public class CarModel implements ICarModel, ActionListener {
             x = Math.min(scrnWidth, carPosX);
             y = Math.min(scrnHeight, carPosY);
         }
-        vehicle.setPos(new Position(x, y));
+        return vehicle.createVehicle(new Motion(vehicle.getMotion(), new Position(x, y)));
     }
 
     private IDriveable stopTurnStartVehicle(IDriveable vehicle) {
-        //vehicle.stopEngine();
-        return vehicle.turnLeft().turnLeft();
+        return (IDriveable) vehicle.turnLeft().turnLeft();
     }
 
     /*
@@ -148,12 +133,12 @@ public class CarModel implements ICarModel, ActionListener {
     //Methods for a controller to control selected parts of the model.
     @Override
     public void addRandomCar() {
-        state.addNewRandomCar(this, cars, trucks, turboCars);
+        state.addNewRandomCar(this, cars);
     }
 
     @Override
     public void removeRandomCar() {
-        state.removeRandomCar(this, cars, trucks, turboCars);
+        state.removeRandomCar(this, cars);
     }
 
     @Override
@@ -163,58 +148,92 @@ public class CarModel implements ICarModel, ActionListener {
         for (IDriveable car : cars) {
             newCarList.add(car.gas(gas));
         }
-
         cars = newCarList;
     }
 
     @Override
     public void brake(int amount) {
+        List<IDriveable> newCarList = new ArrayList<>();
         double brake = ((double) amount) / 100;
         for (IDriveable car : cars) {
-            car.brake(brake);
+            newCarList.add(car.brake(brake));
         }
+        cars = newCarList;
     }
 
     @Override
     public void stopEngines() {
+        List<IDriveable> newCarList = new ArrayList<>();
         for (IDriveable car : cars) {
-            car.stopEngine();
+            newCarList.add(car.stopEngine());
         }
+        cars = newCarList;
+
     }
 
     @Override
     public void startEngines() {
+        List<IDriveable> newCarList = new ArrayList<>();
         for (IDriveable car : cars) {
-            car.startEngine();
+            newCarList.add(car.startEngine());
         }
+        cars = newCarList;
     }
 
     @Override
     public void setTurboOn() {
-        for (ITurbo turboCar : turboCars) {
-            turboCar.setTurboOn();
+        List<IDriveable> newCarList = new ArrayList<>();
+        for (IDriveable car : cars) {
+            if (car instanceof ITurbo) {
+                ITurbo turboCar = (ITurbo) car;
+                newCarList.add(turboCar.setTurboOn());
+            } else {
+                newCarList.add(car.createVehicle(car.getMotion()));
+            }
         }
+        cars = newCarList;
     }
 
     @Override
     public void setTurboOff() {
-        for (ITurbo turboCar : turboCars) {
-            turboCar.setTurboOff();
+        List<IDriveable> newCarList = new ArrayList<>();
+        for (IDriveable car : cars) {
+            if (car instanceof ITurbo) {
+                ITurbo turboCar = (ITurbo) car;
+                newCarList.add(turboCar.setTurboOff());
+            } else {
+                newCarList.add(car.createVehicle(car.getMotion()));
+            }
         }
+        cars = newCarList;
     }
 
     @Override
     public void raiseRamp() {
-        for (ITransporter truck : trucks) {
-            truck.raiseRamp();
+        List<IDriveable> newCarList = new ArrayList<>();
+        for (IDriveable car : cars) {
+            if (car instanceof ITransporter) {
+                ITransporter transporter = (ITransporter) car;
+                newCarList.add(transporter.raiseRamp());
+            } else {
+                newCarList.add(car.createVehicle(car.getMotion()));
+            }
         }
+        cars = newCarList;
     }
 
     @Override
     public void lowerRamp() {
-        for (ITransporter truck : trucks) {
-            truck.lowerRamp();
+        List<IDriveable> newCarList = new ArrayList<>();
+        for (IDriveable car : cars) {
+            if (car instanceof ITransporter) {
+                ITransporter transporter = (ITransporter) car;
+                newCarList.add(transporter.lowerRamp());
+            } else {
+                newCarList.add(car.createVehicle(car.getMotion()));
+            }
         }
+        cars = newCarList;
     }
 
     //#################################
@@ -246,26 +265,6 @@ public class CarModel implements ICarModel, ActionListener {
     private void callObserverUpdate() {
         for (ISignalObserver observer : signalObserver) {
             observer.actOnAction();
-        }
-    }
-
-}
-    //Tuple class to reduce mutability.
-    public static class Tuple<A, B> {
-        A first;
-        B second;
-
-        public Tuple(A first, B second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        public A getFirst() {
-            return first;
-        }
-
-        public B getSecond() {
-            return second;
         }
     }
 }

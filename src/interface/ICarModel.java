@@ -22,15 +22,11 @@ public interface ICarModel {
 
     void addRandomCar();
 
-    List<CarModel.Tuple<String,Integer>> getCarNameSpeed();
+    List<Tuple<String,Integer>> getCarNameSpeed();
 
     void addObserver(ISignalObserver view);
 
     void addCar(IDriveable car);
-
-    void addCar(ITransporter car);
-
-    void addCar(ITurbo car);
 
     int getMaxCars();
 
@@ -40,5 +36,5 @@ public interface ICarModel {
 
     void setState(ILoadState state);
 
-    List<CarModel.Tuple<String,Position>> getCarNamePosition();
+    List<Tuple<String,Position>> getCarNamePosition();
 }

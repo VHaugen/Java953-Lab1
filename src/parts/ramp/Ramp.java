@@ -9,18 +9,30 @@ public class Ramp {
         this.maxAngle = maxAngle;
     }
 
+    public Ramp(int maxAngle, int angle) {
+        this.maxAngle = maxAngle;
+        this.angle = angle;
+    }
+
+    public Ramp(Ramp ramp) {
+        this.maxAngle = ramp.maxAngle;
+        this.angle = ramp.angle;
+    }
+
     /**
      * Raises the ramp one degree.
      */
-    public void raise() {
+    public Ramp raise() {
         if (0 < angle) angle--;
+        return new Ramp(maxAngle, angle);
     }
 
     /**
      * Lowers the ramp one degree.
      */
-    public void lower() {
+    public Ramp lower() {
         if (maxAngle > angle) angle++;
+        return new Ramp(maxAngle, angle);
     }
 
     /**

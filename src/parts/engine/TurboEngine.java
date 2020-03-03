@@ -6,18 +6,29 @@ public class TurboEngine extends Engine {
         turboOn = true;
     }
 
+    public TurboEngine(TurboEngine engine) {
+        super(engine.getEnginePower());
+        turboOn = engine.turboOn;
+    }
+
+    public TurboEngine getEngine() {
+        return new TurboEngine(this);
+    }
+
     /**
      * Turbo turns on.
      */
-    public void setTurboOn() {
+    public TurboEngine setTurboOn() {
         turboOn = true;
+        return new TurboEngine(this);
     }
 
     /**
      * Turbo turns off.
      */
-    public void setTurboOff() {
+    public TurboEngine setTurboOff() {
         turboOn = false;
+        return new TurboEngine(this);
     }
 
     /**
@@ -29,4 +40,5 @@ public class TurboEngine extends Engine {
         if (turboOn) turbo = 1.3;
         return getEnginePower() * 0.01 * turbo;
     }
+
 }

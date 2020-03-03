@@ -1,9 +1,9 @@
 public interface ITransporter extends IDriveable {
-    public void raiseRamp();
+    public IDriveable raiseRamp();
 
 
     /**
      * Lowers ramp
      */
-    public void lowerRamp();
+    public IDriveable lowerRamp();
 }

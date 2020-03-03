@@ -8,6 +8,10 @@ public interface IDriveable extends IMovable {
 
     IDriveable startEngine();
 
+    IDriveable createVehicle(Motion m);
+
+    Motion getMotion();
+
     double getCurrentSpeed();
 
     String getModelName();

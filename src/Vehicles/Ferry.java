@@ -11,6 +11,15 @@ public class Ferry extends CargoTransporter<IFerryCargo> {
      * @param modelName     The model name of this <code>Ferry</code>
      */
     public Ferry(Engine engine, Color color, String modelName) {
-        super(engine, color, modelName, new RampBool(), new CargoFirstOut<>(5));
+        super(engine, color, modelName, new RampBool(), new CargoFirstOut<>(5), new Motion(0,0,0));
+    }
+
+    public Ferry(Engine engine, Color color, String modelName, Motion m) {
+        super(engine, color, modelName, new RampBool(), new CargoFirstOut<>(5), m);
+    }
+
+    @Override
+    public Ferry createVehicle(Motion m) {
+        return new Ferry(new Engine(20), Color.ORANGE, "Ferr", this.getMotion());
     }
 }

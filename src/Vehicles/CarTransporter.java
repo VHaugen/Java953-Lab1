@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class CarTransporter extends CargoTransporter<ITruckCargo> {
+public class CarTransporter extends CargoTransporter {
 
     int nrDoors;
 
@@ -10,7 +10,12 @@ public class CarTransporter extends CargoTransporter<ITruckCargo> {
      * @param modelName The modelname of the CarTransporter.
      */
     public CarTransporter(Color color, String modelName) {
-        super(new Engine(600), color, modelName, new RampBool(), new Cargo<>(10));
+        super(new Engine(600), color, modelName, new RampBool(), new Cargo (10), new Motion(0,0,0));
         nrDoors = 2;
+    }
+
+    @Override
+    public CarTransporter createVehicle(Motion m) {
+        return new CarTransporter(Color.ORANGE, "Trans");
     }
 }

@@ -15,32 +15,25 @@ public class Volvo240 extends PersonCar<TrimEngine> {
     }
 
     public Volvo240() {
-        super(4, new TrimEngine(135,1.35), Color.BLACK, "Volvo240");
+        super(4, new TrimEngine(135, 1.35), Color.BLACK, "Volvo240");
     }
 
+    private Volvo240(Motion m) {
+        super(4, new TrimEngine(135, 1.35), Color.BLACK, "Volvo240", m);
+    }
 
-
-    /**
-     * Increases total speed depending on value entered.
-     *
-     * @param amount Increases current speed.
-     */
-    @Override
-    protected void incrementSpeed(double amount) {
-       getMotion().setSpeed( Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower())); }
-
-    /**
-     * Decreases total speed depending on value entered.
-     *
-     * @param amount Decreases current speed.
-     */
-    @Override
-    protected void decrementSpeed(double amount) {
-        getMotion().setSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
+/*
+    protected Volvo240 incrementSpeed(double amount) {
+        return createVehicle(new Motion(getMotion(), Math.min(getCurrentSpeed() + speedFactor() * amount, engine.getEnginePower())));
     }
 
     @Override
-    public IDriveable move() {
-        return this;
+    protected Volvo240 decrementSpeed(double amount) {
+        return createVehicle(new Motion(getMotion(), Math.max(getCurrentSpeed() - speedFactor() * amount, 0)));
+    }*/
+
+    @Override
+    public Volvo240 createVehicle(Motion m) {
+        return new Volvo240(m);
     }
 }

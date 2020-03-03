@@ -32,8 +32,8 @@ public class CarView extends JPanel implements ISignalObserver {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        List<CarModel.Tuple<String,Position>> carList = model.getCarNamePosition();
-        for (CarModel.Tuple<String,Position> car : carList) {
+        List<Tuple<String,Position>> carList = model.getCarNamePosition();
+        for (Tuple<String,Position> car : carList) {
 
             BufferedImage image;
 

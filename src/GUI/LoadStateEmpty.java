@@ -7,7 +7,7 @@ public class LoadStateEmpty extends LoadAbstractState {
     }
 
     @Override
-    public void removeRandomCar(ICarModel model, List<IDriveable> cars, List<ITransporter> trucks, List<ITurbo> turboCars) {
+    public void removeRandomCar(ICarModel model, List<IDriveable> cars) {
     }
 
     public static ILoadState getInstance() {

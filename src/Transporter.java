@@ -13,8 +13,13 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
      * @param modelName   The model name of this <code>Car</code>
      * @param ramp         The ramp object.
      */
+    public Transporter(Engine engine, Color color, String modelName, Ramp ramp, Motion motion) {
+        super(engine, color, modelName, motion);
+        this.ramp = ramp;
+    }
+
     public Transporter(Engine engine, Color color, String modelName, Ramp ramp) {
-        super(engine, color, modelName);
+        super(engine, color, modelName, new Motion(0,0,0));
         this.ramp = ramp;
     }
 
@@ -23,10 +28,11 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
      * @param amount Accepts values between 0-1 for gassing.
      */
     @Override
-    public void gas(double amount) {
+    public IDriveable gas(double amount) {
         if (ramp.getAngle() == 0) {
             super.gas(amount);
         }
+        return createVehicle(getMotion());
     }
 
     /**
@@ -40,7 +46,7 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
     /**
      * Moves this <code>CargoTransporter</code> in the current direction according to the current speed.
      * If ramp is down, it won't move.
-     * @return
+     * @return s
      */
     @Override
     public IDriveable move() {
@@ -52,19 +58,21 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
     /**
      * Raises ramp
      */
-    public void raiseRamp() {
+    public IDriveable raiseRamp() {
         if (getCurrentSpeed() == 0) {
             ramp.raise();
         }
+        return createVehicle(getMotion());
     }
 
     /**
      * Lowers ramp
      */
-    public void lowerRamp() {
+    public IDriveable lowerRamp() {
         if (getCurrentSpeed() == 0) {
             ramp.lower();
         }
+        return createVehicle(getMotion());
     }
 }
 

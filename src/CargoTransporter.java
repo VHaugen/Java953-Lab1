@@ -1,7 +1,7 @@
 import javax.naming.directory.InitialDirContext;
 import java.awt.*;
 
-abstract class CargoTransporter<T extends IPositionable> extends Transporter {
+abstract class CargoTransporter<T extends IDriveable> extends Transporter {
 
     private Cargo<T> cargo;
 
@@ -13,8 +13,8 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
      * @param ramp What kind of ramp it should have.
      * @param cargo Cargo and which type it should be able to load.
      */
-    public CargoTransporter(Engine engine, Color color, String modelName, Ramp ramp, Cargo<T> cargo) {
-        super(engine, color, modelName, ramp);
+    public CargoTransporter(Engine engine, Color color, String modelName, Ramp ramp, Cargo<T> cargo, Motion motion) {
+        super(engine, color, modelName, ramp, motion);
         this.cargo = cargo;
     }
 
@@ -54,8 +54,7 @@ abstract class CargoTransporter<T extends IPositionable> extends Transporter {
         if (isSafeToLoad()) {
             T movable = cargo.unload();
             if (movable != null) {
-                movable.setPos(getPos().add(unLoadPosition())); // TODO unLoad behind of in front
-                return movable;
+                return (T) movable.createVehicle(new Motion(movable.getMotion(), unLoadPosition()));
             }
         }
         return null;

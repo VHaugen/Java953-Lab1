@@ -29,12 +29,19 @@ public class Motion {
     }
 
     public Motion(Motion mot, Position pos) {
-        this.pos = pos;
+        this.pos = new Position(pos);
         this.velX = mot.velX;
         this.velY = mot.velY;
         this.theta = mot.theta;
         this.speed = mot.speed;
+    }
 
+    public Motion(Motion mot, double speed) {
+        this.pos = new Position(mot.pos);
+        this.velX = mot.velX;
+        this.velY = mot.velY;
+        this.theta = mot.theta;
+        this.speed = speed;
     }
 
     public Motion(Motion mot) {
@@ -83,15 +90,6 @@ public class Motion {
     }
 
     /**
-     * Sets <code>Position</code>.
-     *
-     * @param newPos The new <code>Position</code>.
-     */
-    public void setPos(Position newPos) {
-        pos.setPos(new Position(newPos));
-    }
-
-    /**
      * Gets The current x-coordinate of the <code>Position</code>.
      *
      * @return The current x-coordinate of the <code>Position</code>.
@@ -132,8 +130,8 @@ public class Motion {
      *
      * @param speed The new speed
      */
-    public void setSpeed(double speed) {
-        this.speed = speed;
+    public Motion setSpeed(double speed) {
+        return new Motion(this, speed);
     }
 
     /**

@@ -30,9 +30,10 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
     @Override
     public IDriveable gas(double amount) {
         if (ramp.getAngle() == 0) {
-            super.gas(amount);
+            return super.gas(amount);
+        } else {
+            return this;
         }
-        return createVehicle(getMotion());
     }
 
     /**
@@ -50,8 +51,11 @@ abstract public class Transporter extends Motorized<Engine> implements ITranspor
      */
     @Override
     public IDriveable move() {
-        if (ramp.getAngle() == 0) getMotion().move();
-        return this;
+        if (ramp.getAngle() == 0) {
+            return super.move();
+        } else {
+            return this;
+        }
     }
 
 

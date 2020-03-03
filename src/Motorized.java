@@ -60,7 +60,7 @@ abstract public class Motorized<E extends Engine> implements IDriveable {
     }
 
     public IDriveable move() {
-        return createVehicle(getMotion().move());
+        return createVehicle(motion.move());
     }
 
     /**

@@ -9,7 +9,7 @@ public class Saab95 extends PersonCar<TurboEngine> implements ITurbo {
         super(2, new TurboEngine(200), Color.red, "Saab95");
     }
 
-    private Saab95(Motion motion) {
+    public Saab95(Motion motion) {
         super(2, new TurboEngine(200), Color.red, "Saab95", motion);
     }
 

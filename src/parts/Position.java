@@ -17,8 +17,8 @@ public class Position {
     }
 
     public Position(Position pos) {
-        this.x = pos.getX();
-        this.y = pos.getY();
+        this.x = pos.x;
+        this.y = pos.y;
     }
 
     /**

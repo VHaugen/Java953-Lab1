@@ -71,7 +71,9 @@ public class CarModel implements ICarModel, ActionListener {
             if (checkMinMaxCollision(modelWidth, modelHeight, car)) {
                 newList.add(startStopSetNewPos(modelWidth, modelHeight, car));
             } else {
-                newList.add(car.move());
+                IDriveable scar = (IDriveable) car.move();
+                newList.add(scar);
+                }
             }
         }
         cars = newList;
@@ -157,9 +159,12 @@ public class CarModel implements ICarModel, ActionListener {
     @Override
     public void gas(int amount) {
         double gas = ((double) amount) / 100;
+        List<IDriveable> newCarList = new ArrayList<>();
         for (IDriveable car : cars) {
-            car.gas(gas);
+            newCarList.add(car.gas(gas));
         }
+
+        cars = newCarList;
     }
 
     @Override
@@ -244,6 +249,7 @@ public class CarModel implements ICarModel, ActionListener {
         }
     }
 
+}
     //Tuple class to reduce mutability.
     public static class Tuple<A, B> {
         A first;

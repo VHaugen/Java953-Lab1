@@ -3,10 +3,10 @@
  */
 public interface IMovable extends IPositionable {
 
-    IDriveable move();
+    IMovable move();
 
-    IDriveable turnLeft();
+    IMovable turnLeft();
 
-    IDriveable turnRight();
+    IMovable turnRight();
 
 }

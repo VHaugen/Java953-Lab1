@@ -1,12 +1,12 @@
 public interface IDriveable extends IMovable {
 
-    void gas(double amount);
+    IDriveable gas(double amount);
 
-    void brake(double amount);
+    IDriveable brake(double amount);
 
-    void stopEngine();
+    IDriveable stopEngine();
 
-    void startEngine();
+    IDriveable startEngine();
 
     double getCurrentSpeed();
 

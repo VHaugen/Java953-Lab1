@@ -16,6 +16,11 @@ public class Position {
         this.y = y;
     }
 
+    public Position(Position pos) {
+        this.x = pos.x;
+        this.y = pos.y;
+    }
+
     /**
      *  Calculates the Euclidean distance between the <code>Instance</code> and the given <code>Position</code>.
      *
@@ -36,40 +41,12 @@ public class Position {
     }
 
     /**
-     *  Sets the x-coordinate of this <code>Position</code> to a given value.
-     *
-     * @param x The new x-coordinate
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /**
      *  Gets The current y-coordinate of this <code>Position</code>.
      *
      * @return The current y-coordinate of this <code>Position</code>.
      */
     public double getY() {
         return y;
-    }
-
-    /**
-     *  Sets the y-coordinate of this <code>Position</code> to a given value.
-     *
-     * @param y The new y-coordinate
-     */
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    /**
-     *  Sets the x and y coordinate of this <code>Position</code> to the values of a given <code>Position</code>.
-     *
-     * @param pos The <code>Position</code> with the new x and y coordinates.
-     */
-    public void setPos(Position pos) {
-        x = pos.getX();
-        y = pos.getY();
     }
 
     /**

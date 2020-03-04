@@ -2,10 +2,11 @@
  * An <code>Interface</code> for objects that can move.
  */
 public interface IMovable extends IPositionable {
-    void move();
 
-    void turnLeft();
+    IMovable move();
 
-    void turnRight();
+    IMovable turnLeft();
+
+    IMovable turnRight();
 
 }

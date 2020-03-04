@@ -17,4 +17,9 @@ abstract public class Truck extends Transporter implements IFerryCargo {
         super(engine, color, modelName, ramp);
         this.nrDoors = nrDoors;
     }
+
+    public Truck(int nrDoors, Engine engine, Color color, String modelName, Ramp ramp, Motion m) {
+        super(engine, color, modelName, ramp, m);
+        this.nrDoors = nrDoors;
+    }
 }

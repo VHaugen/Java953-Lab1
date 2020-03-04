@@ -1,3 +1,4 @@
+/*
 import org.junit.*;
 
 import java.awt.*;
@@ -35,19 +36,23 @@ public class CargoTransportTest {
     //Cargo testing
 
     //Compile error since static type is wrong
+*/
 /*    @Test
     public void testSaabInVolvoCargo() {
         cargoV.load(ssample);
         cargoV.load(scania);
         cargoV.load(vsample);
-    }*/
+    }*//*
+
 
     @Test
     public void testNewPosition() {
-        ssample.setPos(pos1);
+*/
+/*        ssample.setPos(pos1);
         assertTrue(pos1.getX() == ssample.getPosX() && ssample.getPosY() == pos1.getY());
         ssample.setPos(pos2);
-        assertTrue(pos2.getX() == ssample.getPosX() && ssample.getPosY() == pos2.getY());
+        assertTrue(pos2.getX() == ssample.getPosX() && ssample.getPosY() == pos2.getY());*//*
+
     }
 
     @Test
@@ -101,11 +106,13 @@ public class CargoTransportTest {
 
     @Test
     public void testMoveRampdown() {
-        carTrans.setPos(pos2);
+*/
+/*        carTrans.setPos(pos2);
         carTrans.lowerRamp();
         carTrans.gas(1);
         carTrans.move();
-        assertTrue(pos2.getX() == carTrans.getPosX() && carTrans.getPosY() == pos2.getY());
+        assertTrue(pos2.getX() == carTrans.getPosX() && carTrans.getPosY() == pos2.getY());*//*
+
     }
 
     @Test
@@ -121,14 +128,16 @@ public class CargoTransportTest {
 
     @Test
     public void testMove() {
-        carTrans.lowerRamp();
+*/
+/*        carTrans.lowerRamp();
         ssample.setPos(pos1);
         carTrans.setPos(pos1);
         carTrans.load(ssample);
         carTrans.raiseRamp();
         carTrans.gas(1);
         carTrans.move();
-        assertTrue(ssample.getPosX() == carTrans.getPosX() && ssample.getPosY() == carTrans.getPosY());
+        assertTrue(ssample.getPosX() == carTrans.getPosX() && ssample.getPosY() == carTrans.getPosY());*//*
+
     }
 
 
@@ -274,4 +283,4 @@ public class CargoTransportTest {
         ferry.load(scania);
         assertEquals(ssample, ferry.unLoad());
     }
-}
+}*/

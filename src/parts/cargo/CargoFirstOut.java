@@ -1,4 +1,4 @@
-public class CargoFirstOut<C extends IPositionable> extends Cargo<C> {
+public class CargoFirstOut<C extends IPositionable> extends Cargo {
     /**
      * Creates a container with IPositionable objects.
      *
@@ -13,11 +13,11 @@ public class CargoFirstOut<C extends IPositionable> extends Cargo<C> {
      * otherwise <b>null</b>.
      */
     @Override
-    protected C unload() {
+    protected IDriveable unload() {
         if (list.size() > 0) {
-            C item = list.remove(0);
+            C item = (C) list.remove(0);
             checkLoad();
-            return item;
+            return (IDriveable) item;
         }
         return null;
     }

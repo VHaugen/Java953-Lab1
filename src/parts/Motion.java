@@ -13,8 +13,8 @@ public class Motion {
     private int theta;
 
     /**
-     *  A Motion in a two dimensional plane. Consists of a Position a velocity and a speed.
-     *  starts with the velocity (x=0,y=1).
+     * A Motion in a two dimensional plane. Consists of a Position a velocity and a speed.
+     * starts with the velocity (x=0,y=1).
      *
      * @param posX  The initial x-coordinate of the <code>Position</code>.
      * @param posY  The initial y-coordinate of the <code>Position</code>.
@@ -28,8 +28,34 @@ public class Motion {
         this.speed = speed;
     }
 
+    public Motion(Motion mot, Position pos) {
+        this.pos = new Position(pos);
+        this.velX = mot.velX;
+        this.velY = mot.velY;
+        this.theta = mot.theta;
+        this.speed = mot.speed;
+    }
+
+    public Motion(Motion mot, double speed) {
+        this.pos = new Position(mot.pos);
+        this.velX = mot.velX;
+        this.velY = mot.velY;
+        this.theta = mot.theta;
+        this.speed = speed;
+    }
+
+    public Motion(Motion mot) {
+        this.pos = new Position(mot.getPosX(), mot.getPosY());
+        this.velX = mot.velX;
+        this.velY = mot.velY;
+        this.theta = mot.theta;
+        this.speed = mot.speed;
+
+    }
+
     /**
      * Gets the amount of velocity in the x-direction.
+     *
      * @return The amount of velocity in the x-direction.
      */
     public double getVelX() {
@@ -38,6 +64,7 @@ public class Motion {
 
     /**
      * Gets the amount of velocity in the y-direction.
+     *
      * @return The amount of velocity in the y-direction.
      */
     public double getVelY() {
@@ -45,7 +72,8 @@ public class Motion {
     }
 
     /**
-     *  Gets the current speed.
+     * Gets the current speed.
+     *
      * @return The current speed.
      */
     public double getSpeed() {
@@ -53,25 +81,16 @@ public class Motion {
     }
 
     /**
-     *  Gets <code>Position</code>.
+     * Gets <code>Position</code>.
      *
      * @return The current <code>Position</code>.
      */
     public Position getPos() {
-        return pos;
+        return new Position(this.pos);
     }
 
     /**
-     *  Sets <code>Position</code>.
-     *
-     * @param newPos The new <code>Position</code>.
-     */
-    public void setPos(Position newPos) {
-        pos.setPos(newPos);
-    }
-
-    /**
-     *  Gets The current x-coordinate of the <code>Position</code>.
+     * Gets The current x-coordinate of the <code>Position</code>.
      *
      * @return The current x-coordinate of the <code>Position</code>.
      */
@@ -80,16 +99,7 @@ public class Motion {
     }
 
     /**
-     *  Sets the x-coordinate to a given value.
-     *
-     * @param posX The new x-coordinate
-     */
-    public void setPosX(double posX) {
-        pos.setX(posX);
-    }
-
-    /**
-     *  Gets The current y-coordinate of the <code>Position</code>.
+     * Gets The current y-coordinate of the <code>Position</code>.
      *
      * @return The current y-coordinate of the <code>Position</code>.
      */
@@ -98,42 +108,37 @@ public class Motion {
     }
 
     /**
-     *  Sets the y-coordinate to a given value.
+     * Updates the <code>Position</code> according to the current speed and velocity.
+     */
+    public Motion move() {
+        double x = (getPosX() + velX * speed);
+        double y = (getPosY() + velY * speed);
+        return new Motion(this, new Position(x,y));
+    }
+
+    /**
+     * Turns the velocity anti clockwise according to the given degree.
      *
-     * @param posY The new y-coordinate
-     */
-    public void setPosY(double posY) {
-        pos.setY(posY);
-    }
-
-    /**
-     *  Sets the speed to a new given value.
-     * @param speed The new speed
-     */
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    /**
-     *  Updates the <code>Position</code> according to the current speed and velocity.
-     */
-    public void move() {
-        setPosX(getPosX() + velX * speed);
-        setPosY(getPosY() + velY * speed);
-    }
-
-    /**
-     *  Turns the velocity anti clockwise according to the given degree.
      * @param degrees The amount of turning in degrees.
      */
-    public void turn(double degrees) {
+    public Motion turn(double degrees) {
         theta += degrees;
         theta %= 360;
 
-
-
         velX = round(-sin(toRadians(theta)));
         velY = round(cos(toRadians(theta)));
+        return new Motion(this);
+    }
+
+    public Motion turnLeft() {
+        return new Motion(turn(90));
+    }
+
+    /**
+     * Changes the current direction 90° to the right.
+     */
+    public Motion turnRight() {
+        return new Motion(turn(-90));
     }
 
     private double round(double value) {

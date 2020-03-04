@@ -9,5 +9,4 @@ public interface IPositionable {
 
     Position getPos();
 
-    void setPos(Position pos);
 }

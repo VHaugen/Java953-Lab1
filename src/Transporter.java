@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract public class Transporter extends Motorized<Engine> {
+abstract public class Transporter extends Motorized<Engine> implements ITransporter {
     private Ramp ramp;
 
     /**
@@ -13,8 +13,13 @@ abstract public class Transporter extends Motorized<Engine> {
      * @param modelName   The model name of this <code>Car</code>
      * @param ramp         The ramp object.
      */
+    public Transporter(Engine engine, Color color, String modelName, Ramp ramp, Motion motion) {
+        super(engine, color, modelName, motion);
+        this.ramp = ramp;
+    }
+
     public Transporter(Engine engine, Color color, String modelName, Ramp ramp) {
-        super(engine, color, modelName);
+        super(engine, color, modelName, new Motion(0,0,0));
         this.ramp = ramp;
     }
 
@@ -23,9 +28,11 @@ abstract public class Transporter extends Motorized<Engine> {
      * @param amount Accepts values between 0-1 for gassing.
      */
     @Override
-    public void gas(double amount) {
+    public IDriveable gas(double amount) {
         if (ramp.getAngle() == 0) {
-            super.gas(amount);
+            return super.gas(amount);
+        } else {
+            return this;
         }
     }
 
@@ -40,29 +47,38 @@ abstract public class Transporter extends Motorized<Engine> {
     /**
      * Moves this <code>CargoTransporter</code> in the current direction according to the current speed.
      * If ramp is down, it won't move.
+     * @return s
      */
     @Override
-    public void move() {
-        if (ramp.getAngle() == 0) super.move();
+    public IDriveable move() {
+        if (ramp.getAngle() == 0) {
+            return super.move();
+        } else {
+            return createVehicle(getMotion());
+        }
     }
 
 
     /**
      * Raises ramp
      */
-    public void raiseRamp() {
+    public IDriveable raiseRamp() {
+        IDriveable vehicle = createVehicle(getMotion());
         if (getCurrentSpeed() == 0) {
-            ramp.raise();
+            vehicle = createVehicle(getMotion(), ramp.raise());
         }
+        return vehicle;
     }
 
     /**
      * Lowers ramp
      */
-    public void lowerRamp() {
+    public IDriveable lowerRamp() {
+        IDriveable vehicle = createVehicle(getMotion());
         if (getCurrentSpeed() == 0) {
-            ramp.lower();
+            vehicle = createVehicle(getMotion(), ramp.lower());
         }
+        return vehicle;
     }
 }
 

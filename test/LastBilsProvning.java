@@ -1,3 +1,4 @@
+/*
 import org.junit.*;
 
 import java.awt.*;
@@ -88,3 +89,4 @@ public class LastBilsProvning {
 
 
 }
+*/

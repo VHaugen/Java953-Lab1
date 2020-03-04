@@ -22,8 +22,8 @@ public class Motion {
      */
     public Motion(double posX, double posY, double speed) {
         pos = new Position(posX, posY);
-        velX = 0;
-        velY = 1;
+        velX = 1;
+        velY = 0;
         theta = 0;
         this.speed = speed;
     }
@@ -125,8 +125,8 @@ public class Motion {
         theta += degrees;
         theta %= 360;
 
-        velX = round(-sin(toRadians(theta)));
-        velY = round(cos(toRadians(theta)));
+        velX = round(cos(toRadians(theta)));
+        velY = round(sin(toRadians(theta)));
         return new Motion(this);
     }
 

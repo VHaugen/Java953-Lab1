@@ -10,7 +10,7 @@ public class Motion {
     private double velX;
     private double velY;
     private double speed;
-    private int theta;
+    private double theta;
 
     /**
      * A Motion in a two dimensional plane. Consists of a Position a velocity and a speed.
@@ -22,8 +22,8 @@ public class Motion {
      */
     public Motion(double posX, double posY, double speed) {
         pos = new Position(posX, posY);
-        velX = 0;
-        velY = 1;
+        velX = 1;
+        velY = 0;
         theta = 0;
         this.speed = speed;
     }
@@ -50,7 +50,14 @@ public class Motion {
         this.velY = mot.velY;
         this.theta = mot.theta;
         this.speed = mot.speed;
+    }
 
+    public Motion(Motion mot, double velX, double velY, double theta) {
+        this.pos = new Position(mot.getPosX(), mot.getPosY());
+        this.velX = velX;
+        this.velY = velY;
+        this.theta = theta;
+        this.speed = mot.speed;
     }
 
     /**
@@ -122,12 +129,12 @@ public class Motion {
      * @param degrees The amount of turning in degrees.
      */
     public Motion turn(double degrees) {
-        theta += degrees;
-        theta %= 360;
+        double newTheta = theta + degrees;
+        newTheta %= 360;
 
-        velX = round(-sin(toRadians(theta)));
-        velY = round(cos(toRadians(theta)));
-        return new Motion(this);
+        double newvelX = round(cos(toRadians(newTheta)));
+        double newvelY = round(sin(toRadians(newTheta)));
+        return new Motion(this, newvelX, newvelY, newTheta);
     }
 
     public Motion turnLeft() {
